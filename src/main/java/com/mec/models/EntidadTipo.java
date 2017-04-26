@@ -1,0 +1,112 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mec.models;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+/**
+ *
+ * @author MarianoLopez
+ */
+@Entity
+@Table(name = "EntidadTipo")
+@NamedQueries({
+    @NamedQuery(name = "EntidadTipo.findAll", query = "SELECT e FROM EntidadTipo e")})
+public class EntidadTipo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id",columnDefinition = "TINYINT")
+    private Integer id;
+    @Size(max = 40)
+    @Column(name = "Descr")
+    private String descr;
+    @Column(name = "TipoEntidadId",columnDefinition = "TINYINT")
+    private Integer tipoEntidadId;
+    @JsonIgnore
+    @OneToMany(mappedBy = "idEntidadTipo", fetch = FetchType.LAZY)
+    private List<LuTrab> luTrabList;
+
+    public EntidadTipo() {
+    }
+
+    public EntidadTipo(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDescr() {
+        return descr;
+    }
+
+    public void setDescr(String descr) {
+        this.descr = descr;
+    }
+
+    public Integer getTipoEntidadId() {
+        return tipoEntidadId;
+    }
+
+    public void setTipoEntidadId(Integer tipoEntidadId) {
+        this.tipoEntidadId = tipoEntidadId;
+    }
+
+    public List<LuTrab> getLuTrabList() {
+        return luTrabList;
+    }
+
+    public void setLuTrabList(List<LuTrab> luTrabList) {
+        this.luTrabList = luTrabList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof EntidadTipo)) {
+            return false;
+        }
+        EntidadTipo other = (EntidadTipo) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.mec.models.EntidadTipo[ id=" + id + " ]";
+    }
+    
+}

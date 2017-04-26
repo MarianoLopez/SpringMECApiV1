@@ -5,10 +5,12 @@
  */
 package com.mec.Controllers;
 
-import com.mec.Services.UserService;
-import com.mec.models.User;
+import com.mec.Services.LuTrabService;
+import com.mec.models.LuTrab;
+import com.mec.models.LuTrabNoRelationship;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,15 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class ApiController {
     @Autowired
-    private UserService userService;
+    private LuTrabService luTrabService;
     
     @RequestMapping()
-    public List<User> users(){
-        return userService.getAll();
+    public List<LuTrabNoRelationship> lugaresTrabajo(){
+        return luTrabService.getAll();
     }
-    @RequestMapping("/{id}")
-    public User get(@PathVariable(value="id") Long id){
-        return userService.getById(id);
+    @RequestMapping("/{Cue}/{Anexo}")
+    public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,@PathVariable(value="Anexo") int Anexo){
+        return luTrabService.getByCueAnexo(Cue,Anexo);
     }
     @RequestMapping("hello")
     public String home(){
