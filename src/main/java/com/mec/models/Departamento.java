@@ -29,29 +29,35 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Departamento.findAll", query = "SELECT d FROM Departamento d")})
 public class Departamento implements Serializable {
+    /*@Column(name = "DepartamentoId",columnDefinition = "TINYINT")
+    private Integer departamentoId;*/
+    
+    @OneToMany(mappedBy = "departamento", fetch = FetchType.LAZY)
+    private List<Localidad> localidadList;
 
     private static final long serialVersionUID = 1L;
+    @JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id",columnDefinition = "TINYINT")
     private Integer id;
+    
     @Size(max = 20)
     @Column(name = "Descr")
-    private String descr;
+    private String descripcion;
     @Size(max = 5)
     @Column(name = "Mnemo")
     private String mnemo;
     @Size(max = 6)
     @Column(name = "CodDepto",columnDefinition="NCHAR")
     private String codDepto;
-    @Column(name = "NextLutrab")
-    private Integer nextLutrab;
-    @Column(name = "DepartamentoId",columnDefinition = "TINYINT")
-    private Integer departamentoId;
-    @JsonIgnore
+    
+    /*@Column(name = "NextLutrab")
+    private Integer nextLutrab;*/
+    /*@JsonIgnore
     @OneToMany(mappedBy = "idDepartamento", fetch = FetchType.LAZY)
-    private List<LuTrab> luTrabList;
+    private List<LuTrab> luTrabList;*/
 
     public Departamento() {
     }
@@ -68,12 +74,12 @@ public class Departamento implements Serializable {
         this.id = id;
     }
 
-    public String getDescr() {
-        return descr;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescr(String descr) {
-        this.descr = descr;
+    public void setDescripcion(String descr) {
+        this.descripcion = descr;
     }
 
     public String getMnemo() {
@@ -92,29 +98,22 @@ public class Departamento implements Serializable {
         this.codDepto = codDepto;
     }
 
-    public Integer getNextLutrab() {
+    /*public Integer getNextLutrab() {
         return nextLutrab;
     }
 
     public void setNextLutrab(Integer nextLutrab) {
         this.nextLutrab = nextLutrab;
-    }
+    }*/
 
-    public Integer getDepartamentoId() {
-        return departamentoId;
-    }
 
-    public void setDepartamentoId(Integer departamentoId) {
-        this.departamentoId = departamentoId;
-    }
-
-    public List<LuTrab> getLuTrabList() {
+    /*public List<LuTrab> getLuTrabList() {
         return luTrabList;
     }
 
     public void setLuTrabList(List<LuTrab> luTrabList) {
         this.luTrabList = luTrabList;
-    }
+    }*/
 
     @Override
     public int hashCode() {
@@ -139,6 +138,22 @@ public class Departamento implements Serializable {
     @Override
     public String toString() {
         return "com.mec.models.Departamento[ id=" + id + " ]";
+    }
+
+    /*public Integer getDepartamentoId() {
+        return departamentoId;
+    }
+
+    public void setDepartamentoId(Integer departamentoId) {
+        this.departamentoId = departamentoId;
+    }*/
+
+    public List<Localidad> getLocalidadList() {
+        return localidadList;
+    }
+
+    public void setLocalidadList(List<Localidad> localidadList) {
+        this.localidadList = localidadList;
     }
     
 }

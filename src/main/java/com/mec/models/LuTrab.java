@@ -5,6 +5,8 @@
  */
 package com.mec.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -13,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -34,13 +35,15 @@ import javax.validation.constraints.Size;
 public class LuTrab implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
     private Integer id;
+    /*
     @Column(name = "LuTrab")
-    private Integer luTrab;
+    private Integer luTrab;*/
     @Column(name = "Anexo",columnDefinition = "TINYINT")
     private Integer anexo;
     @Column(name = "Numero",columnDefinition = "SMALLINT")
@@ -53,94 +56,153 @@ public class LuTrab implements Serializable {
     private String nombreEspecial;
     @Column(name = "CUE")
     private Integer cue;
-    @Column(name = "JA")
-    private Character ja;
+    
+    /*@Column(name = "JA")
+    private Character ja;*/
+    
+    /* Preguntar -> (** No Asignado**,Primera,Segunda,Tercera,Cuarta)
     @Column(name = "idLutrabCategoria",columnDefinition = "TINYINT")
-    private Integer idLutrabCategoria;
+    private Integer idLutrabCategoria;*/
+    /* EJ: RI-2112/95
     @Size(max = 20)
     @Column(name = "NLCategEstab")
-    private String nLCategEstab;
-    @Column(name = "idTurno",columnDefinition = "TINYINT")
-    private Integer idTurno;
+    private String nLCategEstab;*/
+    /*@Column(name = "idTurno",columnDefinition = "TINYINT")
+    private Integer idTurno;*/
+    
+    @JoinColumn(name = "idTurno", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Turno turno;
+    
+    /* nivel de?
     @Column(name = "Nivel")
     private Character nivel;
-    @Size(max = 2)
+    */
+    /*@Size(max = 2)
     @Column(name = "Modali",columnDefinition = "CHAR")
-    private String modali;
+    private Integer modali;*/
+    
+    @JoinColumn(name = "Modali", referencedColumnName = "id",columnDefinition = "CHAR")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Modali modali;
+    
+    
+    
+    
+    /*(No Relevante,No Numerosa,Numerosa,Muy Numerosa)
     @Column(name = "idLuTrabNumerosidad",columnDefinition = "TINYINT")
     private Integer idLuTrabNumerosidad;
     @Size(max = 20)
     @Column(name = "NLNumerosidad")
-    private String nLNumerosidad;
+    private String nLNumerosidad;*/
+    /* ej: R -  54/63
     @Size(max = 20)
     @Column(name = "NLZona")
-    private String nLZona;
-    @Column(name = "idLuTrabRegimen",columnDefinition = "TINYINT")
-    private Integer idLuTrabRegimen;
+    private String nLZona;*/
+    
+    //No Relevante,Publico,Privado Subvencionado,Privado No Subvencionado
+    /*@Column(name = "idLuTrabRegimen",columnDefinition = "TINYINT")
+    private Integer idLuTrabRegimen;*/
+    
+    @JoinColumn(name = "idLuTrabRegimen", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private LuTrabRegimen regimen;
+    
+    @JsonIgnore
+    //@JsonFormat(pattern="dd-MM-yyyy")
     @Column(name = "FechaCreacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
+    /* ej: RL-4874/34
     @Size(max = 20)
     @Column(name = "NLCreacion")
-    private String nLCreacion;
+    private String nLCreacion;*/
+    @JsonIgnore
     @Column(name = "FechaClausura")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaClausura;
+    /*
     @Size(max = 20)
     @Column(name = "NLClausura")
-    private String nLClausura;
+    private String nLClausura;*/
+    
+    /* ver por nivelJur
     @Column(name = "idJurisdiccion",columnDefinition = "TINYINT")
-    private Integer idJurisdiccion;
+    private Integer idJurisdiccion;*/
+    /* Preguntar
     @Column(name = "idOrg")
-    private Integer idOrg;
+    private Integer idOrg;*/
+    @JsonFormat(pattern="dd-MM-yyyy")
     @Column(name = "Desde")
     @Temporal(TemporalType.TIMESTAMP)
     private Date desde;
+    
+    @JsonIgnore
     @Column(name = "Hasta")
     @Temporal(TemporalType.TIMESTAMP)
     private Date hasta;
+    /*descripción del último movimiento
     @Column(name = "idLuTrabMovimiento",columnDefinition = "TINYINT")
-    private Integer idLuTrabMovimiento;
+    private Integer idLuTrabMovimiento;*/
+    
+    /* ej -> RI-2112/95
     @Size(max = 20)
     @Column(name = "NormaLegal")
-    private String normaLegal;
-    @Column(name = "idLocalidad")
-    private Integer idLocalidad;
+    private String normaLegal;*/
+    /*@Column(name = "idLocalidad")
+    private Integer idLocalidad;*/
+    
+    /*Min. de Educ. de la Prov. de Corrientes,Universidad Tecnologica Nacional,Universidad Nacional de Nordeste
     @Column(name = "idLuTrabGrupo")
-    private Integer idLuTrabGrupo;
-    @Column(name = "EmiteTituloRegistrable")
+    private Integer idLuTrabGrupo;*/
+    
+    /*@Column(name = "EmiteTituloRegistrable")
     private Boolean emiteTituloRegistrable;
     @Column(name = "Importado")
     private Boolean importado;
     @Size(max = 2147483647)
     @Column(name = "Obs")
-    private String obs;
+    private String obs;*/
+    
+    /* AUDITORIA
     @Basic(optional = false)
     @NotNull
     @Column(name = "Fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     @Column(name = "idUsuario")
-    private Integer idUsuario;
+    private Integer idUsuario;*/
+    
     /*@Basic(optional = false)
     @NotNull
     @Lob
     @Column(name = "timestamp",columnDefinition = "BINARY")
     private byte[] timestamp;*/
+    
+    /* qué tabla usar?
     @Column(name = "EstablecimientoDetalleId")
-    private Integer establecimientoDetalleId;
+    private Integer establecimientoDetalleId;*/
+    
+    /* obtener desde Localidad
     @JoinColumn(name = "idDepartamento", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Departamento idDepartamento;
+    */
     @JoinColumn(name = "idEntidadTipo", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private EntidadTipo idEntidadTipo;
+    private EntidadTipo entidadTipo;
+    /*
     @JoinColumn(name = "idLuTrabZona", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private LuTrabZona idLuTrabZona;
+    */
     @JoinColumn(name = "idNivelJur", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private NivelJur idNivelJur;
+    private NivelJur nivelJurisdiccional;
+    
+    @JoinColumn(name = "idLocalidad", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Localidad localidad;
 
     public LuTrab() {
     }
@@ -148,12 +210,7 @@ public class LuTrab implements Serializable {
     public LuTrab(Integer id) {
         this.id = id;
     }
-    //, byte[] timestamp
-    public LuTrab(Integer id, Date fecha) {
-        this.id = id;
-        this.fecha = fecha;
-        //this.timestamp = timestamp;
-    }
+    
 
     public Integer getId() {
         return id;
@@ -163,13 +220,13 @@ public class LuTrab implements Serializable {
         this.id = id;
     }
 
-    public Integer getLuTrab() {
+    /*public Integer getLuTrab() {
         return luTrab;
     }
 
     public void setLuTrab(Integer luTrab) {
         this.luTrab = luTrab;
-    }
+    }*/
 
     public int getAnexo() {
         return anexo;
@@ -211,7 +268,7 @@ public class LuTrab implements Serializable {
         this.cue = cue;
     }
 
-    public Character getJa() {
+    /*public Character getJa() {
         return ja;
     }
 
@@ -233,33 +290,33 @@ public class LuTrab implements Serializable {
 
     public void setNLCategEstab(String nLCategEstab) {
         this.nLCategEstab = nLCategEstab;
+    }*/
+
+    public Turno getTurno() {
+        return turno;
     }
 
-    public Integer getIdTurno() {
-        return idTurno;
+    public void setTurno(Turno idTurno) {
+        this.turno = idTurno;
     }
 
-    public void setIdTurno(Integer idTurno) {
-        this.idTurno = idTurno;
-    }
-
-    public Character getNivel() {
+   /* public Character getNivel() {
         return nivel;
     }
 
     public void setNivel(Character nivel) {
         this.nivel = nivel;
-    }
+    }*/
 
-    public String getModali() {
+    public Modali getModali() {
         return modali;
     }
 
-    public void setModali(String modali) {
+    public void setModali(Modali modali) {
         this.modali = modali;
     }
 
-    public Integer getIdLuTrabNumerosidad() {
+   /* public Integer getIdLuTrabNumerosidad() {
         return idLuTrabNumerosidad;
     }
 
@@ -281,14 +338,14 @@ public class LuTrab implements Serializable {
 
     public void setNLZona(String nLZona) {
         this.nLZona = nLZona;
+    }*/
+
+    public LuTrabRegimen getRegimen() {
+        return regimen;
     }
 
-    public Integer getIdLuTrabRegimen() {
-        return idLuTrabRegimen;
-    }
-
-    public void setIdLuTrabRegimen(Integer idLuTrabRegimen) {
-        this.idLuTrabRegimen = idLuTrabRegimen;
+    public void setRegimen(LuTrabRegimen idLuTrabRegimen) {
+        this.regimen = idLuTrabRegimen;
     }
 
     public Date getFechaCreacion() {
@@ -299,13 +356,13 @@ public class LuTrab implements Serializable {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public String getNLCreacion() {
+    /*public String getNLCreacion() {
         return nLCreacion;
     }
 
     public void setNLCreacion(String nLCreacion) {
         this.nLCreacion = nLCreacion;
-    }
+    }*/
 
     public Date getFechaClausura() {
         return fechaClausura;
@@ -315,7 +372,7 @@ public class LuTrab implements Serializable {
         this.fechaClausura = fechaClausura;
     }
 
-    public String getNLClausura() {
+    /*public String getNLClausura() {
         return nLClausura;
     }
 
@@ -337,7 +394,7 @@ public class LuTrab implements Serializable {
 
     public void setIdOrg(Integer idOrg) {
         this.idOrg = idOrg;
-    }
+    }*/
 
     public Date getDesde() {
         return desde;
@@ -355,7 +412,7 @@ public class LuTrab implements Serializable {
         this.hasta = hasta;
     }
 
-    public Integer getIdLuTrabMovimiento() {
+    /*public Integer getIdLuTrabMovimiento() {
         return idLuTrabMovimiento;
     }
 
@@ -369,9 +426,9 @@ public class LuTrab implements Serializable {
 
     public void setNormaLegal(String normaLegal) {
         this.normaLegal = normaLegal;
-    }
+    }*/
 
-    public Integer getIdLocalidad() {
+    /*public Integer getIdLocalidad() {
         return idLocalidad;
     }
 
@@ -425,7 +482,7 @@ public class LuTrab implements Serializable {
 
     public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
-    }
+    }*/
 
     /*public byte[] getTimestamp() {
         return timestamp;
@@ -433,7 +490,7 @@ public class LuTrab implements Serializable {
 
     public void setTimestamp(byte[] timestamp) {
         this.timestamp = timestamp;
-    }*/
+    }
 
     public Integer getEstablecimientoDetalleId() {
         return establecimientoDetalleId;
@@ -441,40 +498,46 @@ public class LuTrab implements Serializable {
 
     public void setEstablecimientoDetalleId(Integer establecimientoDetalleId) {
         this.establecimientoDetalleId = establecimientoDetalleId;
-    }
+    }*/
 
-    public Departamento getIdDepartamento() {
+    /*public Departamento getIdDepartamento() {
         return idDepartamento;
     }
 
     public void setIdDepartamento(Departamento idDepartamento) {
         this.idDepartamento = idDepartamento;
-    }
+    }*/
 
-    public EntidadTipo getIdEntidadTipo() {
-        return idEntidadTipo;
+    public EntidadTipo getEntidadTipo() {
+        return entidadTipo;
     }
 
     public void setIdEntidadTipo(EntidadTipo idEntidadTipo) {
-        this.idEntidadTipo = idEntidadTipo;
+        this.entidadTipo = idEntidadTipo;
     }
 
-    public LuTrabZona getIdLuTrabZona() {
+   /* public LuTrabZona getIdLuTrabZona() {
         return idLuTrabZona;
     }
 
     public void setIdLuTrabZona(LuTrabZona idLuTrabZona) {
         this.idLuTrabZona = idLuTrabZona;
+    }*/
+
+    public NivelJur getNivelJurisdiccional() {
+        return nivelJurisdiccional;
     }
 
-    public NivelJur getIdNivelJur() {
-        return idNivelJur;
+    public void setNivelJurisdiccional(NivelJur idNivelJur) {
+        this.nivelJurisdiccional = idNivelJur;
+    }
+    public Localidad getLocalidad() {
+        return localidad;
     }
 
-    public void setIdNivelJur(NivelJur idNivelJur) {
-        this.idNivelJur = idNivelJur;
+    public void setLocalidad(Localidad idLocalidad) {
+        this.localidad = idLocalidad;
     }
-
     @Override
     public int hashCode() {
         int hash = 0;

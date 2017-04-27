@@ -5,30 +5,29 @@
  */
 package com.mec.models;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author MarianoLopez
  */
 @Entity
-@Table(name = "EntidadTipo")
+@Table(name = "Modali")
 @NamedQueries({
-    @NamedQuery(name = "EntidadTipo.findAll", query = "SELECT e FROM EntidadTipo e")})
-public class EntidadTipo implements Serializable {
+    @NamedQuery(name = "Modali.findAll", query = "SELECT m FROM Modali m")})
+public class Modali implements Serializable {
     private static final long serialVersionUID = 1L;
     @JsonIgnore
     @Id
@@ -36,21 +35,19 @@ public class EntidadTipo implements Serializable {
     @NotNull
     @Column(name = "id",columnDefinition = "TINYINT")
     private Integer id;
-    @Size(max = 40)
-    @Column(name = "Descr")
+    @Size(max = 20)
+    @Column(name = "Descr",columnDefinition = "CHAR")
     private String descripcion;
     
-    /*@Column(name = "TipoEntidadId",columnDefinition = "TINYINT")
-    private Integer tipoEntidadId;*/
-    /*
-    @JsonIgnore
-    @OneToMany(mappedBy = "entidadTipo", fetch = FetchType.LAZY)
-    private List<LuTrab> luTrabList;
-    */
-    public EntidadTipo() {
+    /*@Column(name = "NivelEns")
+    private Character nivelEns;
+    @Column(name = "Orden",columnDefinition = "TINYINT")
+    private Integer orden;*/
+
+    public Modali() {
     }
 
-    public EntidadTipo(Integer id) {
+    public Modali(Integer id) {
         this.id = id;
     }
 
@@ -63,27 +60,27 @@ public class EntidadTipo implements Serializable {
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return StringUtils.stripEnd(descripcion, " ");
     }
 
     public void setDescripcion(String descr) {
         this.descripcion = descr;
     }
 
-    /*public Integer getTipoEntidadId() {
-        return tipoEntidadId;
+    /*public Character getNivelEns() {
+        return nivelEns;
     }
 
-    public void setTipoEntidadId(Integer tipoEntidadId) {
-        this.tipoEntidadId = tipoEntidadId;
-    }*/
-
-    /*public List<LuTrab> getLuTrabList() {
-        return luTrabList;
+    public void setNivelEns(Character nivelEns) {
+        this.nivelEns = nivelEns;
     }
 
-    public void setLuTrabList(List<LuTrab> luTrabList) {
-        this.luTrabList = luTrabList;
+    public Integer getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Integer orden) {
+        this.orden = orden;
     }*/
 
     @Override
@@ -96,10 +93,10 @@ public class EntidadTipo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EntidadTipo)) {
+        if (!(object instanceof Modali)) {
             return false;
         }
-        EntidadTipo other = (EntidadTipo) object;
+        Modali other = (Modali) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -108,7 +105,7 @@ public class EntidadTipo implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mec.models.EntidadTipo[ id=" + id + " ]";
+        return "com.mec.models.Modali[ id=" + id + " ]";
     }
     
 }

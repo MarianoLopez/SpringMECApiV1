@@ -17,3 +17,7 @@ hibernate.show_sql: false
 hibernate.hbm2ddl.auto: validate
 #ruta a los modelos a mapear automaticamente
 entitymanager.packagesToScan: com.mec.models
+
+#Jackson
+#jsonPrettyPrint
+spring.jackson.serialization.indent_output=true

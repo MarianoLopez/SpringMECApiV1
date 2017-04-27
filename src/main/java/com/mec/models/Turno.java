@@ -7,17 +7,12 @@ package com.mec.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,35 +22,40 @@ import javax.validation.constraints.Size;
  * @author MarianoLopez
  */
 @Entity
-@Table(name = "LuTrabZona")
+@Table(name = "Turno")
 @NamedQueries({
-    @NamedQuery(name = "LuTrabZona.findAll", query = "SELECT l FROM LuTrabZona l")})
-public class LuTrabZona implements Serializable {
-
+    @NamedQuery(name = "Turno.findAll", query = "SELECT t FROM Turno t")})
+public class Turno implements Serializable {
     private static final long serialVersionUID = 1L;
+    @JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id",columnDefinition = "TINYINT")
     private Integer id;
-    @Size(max = 25)
-    @Column(name = "Descr")
-    private String descr;
-    @Size(max = 2)
+    /*@Column(name = "TurnoCge")
+    private Character turnoCge;*/
+    @Size(max = 50)
     @Column(name = "Mnemo")
     private String mnemo;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "Porcentaje")
-    private BigDecimal porcentaje;
-    /*
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLuTrabZona", fetch = FetchType.LAZY)
-    private List<LuTrab> luTrabList;
-    */
-    public LuTrabZona() {
+    @Size(max = 30)
+    @Column(name = "Descr")
+    private String descripcion;
+    @Column(name = "EsSimple")
+    private Boolean esSimple;
+    
+    /*@Column(name = "Plaza")
+    private Boolean plaza;
+    @Column(name = "TurnoSage",columnDefinition = "TINYINT")
+    private Integer turnoSage;
+   
+    @Column(name = "TurnoId",columnDefinition = "TINYINT")
+    private Integer turnoId;*/
+
+    public Turno() {
     }
 
-    public LuTrabZona(Integer id) {
+    public Turno(Integer id) {
         this.id = id;
     }
 
@@ -67,13 +67,13 @@ public class LuTrabZona implements Serializable {
         this.id = id;
     }
 
-    public String getDescr() {
-        return descr;
+    /*public Character getTurnoCge() {
+        return turnoCge;
     }
 
-    public void setDescr(String descr) {
-        this.descr = descr;
-    }
+    public void setTurnoCge(Character turnoCge) {
+        this.turnoCge = turnoCge;
+    }*/
 
     public String getMnemo() {
         return mnemo;
@@ -83,20 +83,44 @@ public class LuTrabZona implements Serializable {
         this.mnemo = mnemo;
     }
 
-    public BigDecimal getPorcentaje() {
-        return porcentaje;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setPorcentaje(BigDecimal porcentaje) {
-        this.porcentaje = porcentaje;
+    public void setDescripcion(String descr) {
+        this.descripcion = descr;
     }
 
-    /*public List<LuTrab> getLuTrabList() {
-        return luTrabList;
+    /*public Boolean getPlaza() {
+        return plaza;
     }
 
-    public void setLuTrabList(List<LuTrab> luTrabList) {
-        this.luTrabList = luTrabList;
+    public void setPlaza(Boolean plaza) {
+        this.plaza = plaza;
+    }
+
+    public Integer getTurnoSage() {
+        return turnoSage;
+    }
+
+    public void setTurnoSage(Integer turnoSage) {
+        this.turnoSage = turnoSage;
+    }*/
+
+    public Boolean getEsSimple() {
+        return esSimple;
+    }
+
+    public void setEsSimple(Boolean esSimple) {
+        this.esSimple = esSimple;
+    }
+
+   /* public Integer getTurnoId() {
+        return turnoId;
+    }
+
+    public void setTurnoId(Integer turnoId) {
+        this.turnoId = turnoId;
     }*/
 
     @Override
@@ -109,10 +133,10 @@ public class LuTrabZona implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LuTrabZona)) {
+        if (!(object instanceof Turno)) {
             return false;
         }
-        LuTrabZona other = (LuTrabZona) object;
+        Turno other = (Turno) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -121,7 +145,7 @@ public class LuTrabZona implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mec.models.LuTrabZona[ id=" + id + " ]";
+        return "com.mec.models.Turno[ id=" + id + " ]";
     }
     
 }

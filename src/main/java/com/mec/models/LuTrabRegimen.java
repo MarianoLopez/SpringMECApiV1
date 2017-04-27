@@ -7,17 +7,12 @@ package com.mec.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,12 +22,13 @@ import javax.validation.constraints.Size;
  * @author MarianoLopez
  */
 @Entity
-@Table(name = "LuTrabZona")
+@Table(name = "LuTrabRegimen")
 @NamedQueries({
-    @NamedQuery(name = "LuTrabZona.findAll", query = "SELECT l FROM LuTrabZona l")})
-public class LuTrabZona implements Serializable {
+    @NamedQuery(name = "LuTrabRegimen.findAll", query = "SELECT l FROM LuTrabRegimen l")})
+public class LuTrabRegimen implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull
@@ -40,22 +36,15 @@ public class LuTrabZona implements Serializable {
     private Integer id;
     @Size(max = 25)
     @Column(name = "Descr")
-    private String descr;
-    @Size(max = 2)
+    private String descripcion;
+    @Size(max = 3)
     @Column(name = "Mnemo")
     private String mnemo;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "Porcentaje")
-    private BigDecimal porcentaje;
-    /*
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLuTrabZona", fetch = FetchType.LAZY)
-    private List<LuTrab> luTrabList;
-    */
-    public LuTrabZona() {
+
+    public LuTrabRegimen() {
     }
 
-    public LuTrabZona(Integer id) {
+    public LuTrabRegimen(Integer id) {
         this.id = id;
     }
 
@@ -67,12 +56,12 @@ public class LuTrabZona implements Serializable {
         this.id = id;
     }
 
-    public String getDescr() {
-        return descr;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescr(String descr) {
-        this.descr = descr;
+    public void setDescripcion(String descr) {
+        this.descripcion = descr;
     }
 
     public String getMnemo() {
@@ -82,22 +71,6 @@ public class LuTrabZona implements Serializable {
     public void setMnemo(String mnemo) {
         this.mnemo = mnemo;
     }
-
-    public BigDecimal getPorcentaje() {
-        return porcentaje;
-    }
-
-    public void setPorcentaje(BigDecimal porcentaje) {
-        this.porcentaje = porcentaje;
-    }
-
-    /*public List<LuTrab> getLuTrabList() {
-        return luTrabList;
-    }
-
-    public void setLuTrabList(List<LuTrab> luTrabList) {
-        this.luTrabList = luTrabList;
-    }*/
 
     @Override
     public int hashCode() {
@@ -109,10 +82,10 @@ public class LuTrabZona implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LuTrabZona)) {
+        if (!(object instanceof LuTrabRegimen)) {
             return false;
         }
-        LuTrabZona other = (LuTrabZona) object;
+        LuTrabRegimen other = (LuTrabRegimen) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -121,7 +94,7 @@ public class LuTrabZona implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mec.models.LuTrabZona[ id=" + id + " ]";
+        return "com.mec.models.LuTrabRegimen[ id=" + id + " ]";
     }
     
 }

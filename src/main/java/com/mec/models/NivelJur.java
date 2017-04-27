@@ -49,10 +49,11 @@ public class NivelJur implements Serializable {
     private String depJur;
     @Column(name = "NivelJurisdiccionalId",columnDefinition = "TINYINT")
     private Integer nivelJurisdiccionalId;
+    /*
     @JsonIgnore
-    @OneToMany(mappedBy = "idNivelJur", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "nivelJurisdiccional", fetch = FetchType.LAZY)
     private List<LuTrab> luTrabList;
-
+    */
     public NivelJur() {
     }
 
@@ -108,13 +109,13 @@ public class NivelJur implements Serializable {
         this.nivelJurisdiccionalId = nivelJurisdiccionalId;
     }
 
-    public List<LuTrab> getLuTrabList() {
+   /* public List<LuTrab> getLuTrabList() {
         return luTrabList;
     }
 
     public void setLuTrabList(List<LuTrab> luTrabList) {
         this.luTrabList = luTrabList;
-    }
+    }*/
 
     @Override
     public int hashCode() {
