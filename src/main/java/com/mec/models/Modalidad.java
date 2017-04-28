@@ -25,9 +25,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Entity
 @Table(name = "Modali")
-@NamedQueries({
-    @NamedQuery(name = "Modali.findAll", query = "SELECT m FROM Modali m")})
-public class Modali implements Serializable {
+public class Modalidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @JsonIgnore
     @Id
@@ -44,10 +42,10 @@ public class Modali implements Serializable {
     @Column(name = "Orden",columnDefinition = "TINYINT")
     private Integer orden;*/
 
-    public Modali() {
+    public Modalidad() {
     }
 
-    public Modali(Integer id) {
+    public Modalidad(Integer id) {
         this.id = id;
     }
 
@@ -93,10 +91,10 @@ public class Modali implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Modali)) {
+        if (!(object instanceof Modalidad)) {
             return false;
         }
-        Modali other = (Modali) object;
+        Modalidad other = (Modalidad) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

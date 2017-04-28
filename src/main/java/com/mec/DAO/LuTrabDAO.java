@@ -46,7 +46,7 @@ public class LuTrabDAO extends HibernateUtil{
         Hibernate.initialize(l.getLocalidad());
         Hibernate.initialize(l.getLocalidad().getDepartamento());
         Hibernate.initialize(l.getRegimen());
-        Hibernate.initialize(l.getModali());
+        Hibernate.initialize(l.getModalidad());
         Hibernate.initialize(l.getTurno());
         return l;
     }

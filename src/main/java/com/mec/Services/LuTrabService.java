@@ -5,8 +5,10 @@
  */
 package com.mec.Services;
 
+import com.mec.DAO.GeoDAO;
 import com.mec.DAO.LuTrabDAO;
 import com.mec.Util.GET;
+import com.mec.models.Geoposicion;
 import com.mec.models.LuTrab;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,14 @@ import org.springframework.stereotype.Service;
 public class LuTrabService implements GET<LuTrab,Integer>{
     @Autowired
     private LuTrabDAO luTrabDAO;
+    @Autowired
+    private GeoDAO geoDAO;
     
     public LuTrab getByCueAnexo(int Cue,int Anexo){
-        return luTrabDAO.getByCueAnexo(Cue,Anexo);
+        LuTrab l = luTrabDAO.getByCueAnexo(Cue,Anexo);
+        Geoposicion geo = geoDAO.getByCueAnexo(Cue, Anexo);
+        l.setGeo(geo);
+        return l;
     }
 
     @Override

@@ -5,8 +5,12 @@
  */
 package com.mec.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -21,6 +25,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -32,6 +37,8 @@ import javax.validation.constraints.Size;
 @Table(name = "LuTrab")
 @NamedQueries({
     @NamedQuery(name = "LuTrab.findAll", query = "SELECT l FROM LuTrab l")})
+
+@JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.ANY, setterVisibility = Visibility.NONE)
 public class LuTrab implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -84,7 +91,7 @@ public class LuTrab implements Serializable {
     
     @JoinColumn(name = "Modali", referencedColumnName = "id",columnDefinition = "CHAR")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Modali modali;
+    private Modalidad modalidad;
     
     
     
@@ -203,7 +210,11 @@ public class LuTrab implements Serializable {
     @JoinColumn(name = "idLocalidad", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Localidad localidad;
-
+    
+    @Transient //The transient keyword in Java is used to indicate that a field should not be serialized. (hibernate)
+    @JsonSerialize//jackson
+    @JsonDeserialize
+    private Geoposicion geo = null;
     public LuTrab() {
     }
 
@@ -211,7 +222,13 @@ public class LuTrab implements Serializable {
         this.id = id;
     }
     
-
+    public Geoposicion getGeo(){
+        return this.geo;
+    }
+    
+    public void setGeo(Geoposicion geo){
+        this.geo = geo;
+    }
     public Integer getId() {
         return id;
     }
@@ -308,12 +325,12 @@ public class LuTrab implements Serializable {
         this.nivel = nivel;
     }*/
 
-    public Modali getModali() {
-        return modali;
+    public Modalidad getModalidad() {
+        return modalidad;
     }
 
-    public void setModali(Modali modali) {
-        this.modali = modali;
+    public void setModalidad(Modalidad modali) {
+        this.modalidad = modali;
     }
 
    /* public Integer getIdLuTrabNumerosidad() {
