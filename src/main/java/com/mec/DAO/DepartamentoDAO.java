@@ -5,10 +5,12 @@
  */
 package com.mec.DAO;
 
-import com.mec.Util.GET;
 import com.mec.Util.HibernateUtil;
-import com.mec.models.Departamento;
+import com.mec.models.especial.Dep;
 import java.util.List;
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,13 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional(readOnly = true)
 public class DepartamentoDAO extends HibernateUtil{
-    
-    public List<Departamento> getAll() {
-        return this.getSession().createCriteria(Departamento.class).list();
-    }
-
-    public Departamento getByID(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-   
+    public List<Dep> getAll() {
+        List<Dep> d = getSession().createCriteria(Dep.class).add(Restrictions.isNotNull("departamentoId")).list();
+        for (Dep departamento : d) {Hibernate.initialize(departamento.getLocalidadList());}
+        return d;
+    } 
 }

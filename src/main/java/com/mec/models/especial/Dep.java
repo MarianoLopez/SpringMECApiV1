@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mec.models;
+package com.mec.models.especial;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,8 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -26,15 +24,13 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Entity
 @Table(name = "Departamento")
-@NamedQueries({
-    @NamedQuery(name = "Departamento.findAll", query = "SELECT d FROM Departamento d")})
-public class Departamento implements Serializable {
+public class Dep implements Serializable {
     
     @Column(name = "DepartamentoId",columnDefinition = "TINYINT")
     private Integer departamentoId;
     
     @OneToMany(mappedBy = "departamento", fetch = FetchType.LAZY)
-    private List<Localidad> localidadList;
+    private List<LocalidadList> localidadList;
 
     private static final long serialVersionUID = 1L;
     //@JsonIgnore
@@ -61,10 +57,10 @@ public class Departamento implements Serializable {
     @OneToMany(mappedBy = "idDepartamento", fetch = FetchType.LAZY)
     private List<LuTrab> luTrabList;*/
 
-    public Departamento() {
+    public Dep() {
     }
 
-    public Departamento(Integer id) {
+    public Dep(Integer id) {
         this.id = id;
     }
 
@@ -127,10 +123,10 @@ public class Departamento implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Departamento)) {
+        if (!(object instanceof Dep)) {
             return false;
         }
-        Departamento other = (Departamento) object;
+        Dep other = (Dep) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -150,11 +146,11 @@ public class Departamento implements Serializable {
         this.departamentoId = departamentoId;
     }
 
-   public List<Localidad> getLocalidadList() {
+   public List<LocalidadList> getLocalidadList() {
         return localidadList;
     }
 
-    public void setLocalidadList(List<Localidad> localidadList) {
+    public void setLocalidadList(List<LocalidadList> localidadList) {
         this.localidadList = localidadList;
     }
     

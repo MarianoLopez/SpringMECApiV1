@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -20,8 +21,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,9 +34,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "LuTrab")
-@NamedQueries({
-    @NamedQuery(name = "LuTrab.findAll", query = "SELECT l FROM LuTrab l")})
-
 @JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.ANY, setterVisibility = Visibility.NONE)
 public class LuTrab implements Serializable {
 
@@ -51,16 +47,21 @@ public class LuTrab implements Serializable {
     /*
     @Column(name = "LuTrab")
     private Integer luTrab;*/
+    
     @Column(name = "Anexo",columnDefinition = "TINYINT")
     private Integer anexo;
+    
     @Column(name = "Numero",columnDefinition = "SMALLINT")
     private Integer numero;
+    
     @Size(max = 250)
     @Column(name = "Nombre")
     private String nombre;
+    
     @Size(max = 250)
     @Column(name = "NombreEspecial")
     private String nombreEspecial;
+    
     @Column(name = "CUE")
     private Integer cue;
     
@@ -206,6 +207,7 @@ public class LuTrab implements Serializable {
     @JoinColumn(name = "idNivelJur", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private NivelJur nivelJurisdiccional;
+    
     
     @JoinColumn(name = "idLocalidad", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)

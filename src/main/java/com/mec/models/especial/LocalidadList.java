@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mec.models;
+package com.mec.models.especial;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.apache.commons.lang3.StringUtils;
@@ -33,9 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 
 @Entity
 @Table(name = "Localidad")
-@NamedQueries({
-    @NamedQuery(name = "Localidad.findAll", query = "SELECT l FROM Localidad l")})
-public class Localidad implements Serializable {
+public class LocalidadList implements Serializable {
     private static final long serialVersionUID = 1L;
     //@JsonIgnore
     @Id
@@ -66,15 +58,16 @@ public class Localidad implements Serializable {
     private Integer localidadId;*/
     
     
+    @JsonIgnore
     @JoinColumn(name = "idDepartamento", referencedColumnName = "DepartamentoId")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Departamento departamento;
+    private Dep departamento;
    
 
-    public Localidad() {
+    public LocalidadList() {
     }
 
-    public Localidad(Integer id) {
+    public LocalidadList(Integer id) {
         this.id = id;
     }
 
@@ -135,13 +128,13 @@ public class Localidad implements Serializable {
         this.localidadId = localidadId;
     }*/
 
-    public Departamento getDepartamento() {
+    /*public Departamento getDepartamento() {
         return departamento;
     }
 
     public void setDepartamento(Departamento idDepartamento) {
         this.departamento = idDepartamento;
-    }
+    }*/
 
   
 
@@ -155,10 +148,10 @@ public class Localidad implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Localidad)) {
+        if (!(object instanceof LocalidadList)) {
             return false;
         }
-        Localidad other = (Localidad) object;
+        LocalidadList other = (LocalidadList) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

@@ -7,6 +7,8 @@ package com.mec.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.Column;
 
 /**
@@ -15,9 +17,11 @@ import javax.persistence.Column;
  */
 @JsonPropertyOrder({"lon","lat"})
 public class Geoposicion{
+    
     @Column(name = "x")
     @JsonProperty("lat")
     private Object x;
+    
     @JsonProperty("lon")
     @Column(name = "y")
     private Object y;
