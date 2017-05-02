@@ -5,16 +5,12 @@
  */
 package com.mec.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,15 +22,14 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Entity
 @Table(name = "Departamento")
-@NamedQueries({
-    @NamedQuery(name = "Departamento.findAll", query = "SELECT d FROM Departamento d")})
 public class Departamento implements Serializable {
     
+    @JsonIgnore
     @Column(name = "DepartamentoId",columnDefinition = "TINYINT")
     private Integer departamentoId;
     
-    @OneToMany(mappedBy = "departamento", fetch = FetchType.LAZY)
-    private List<Localidad> localidadList;
+    /*@OneToMany(mappedBy = "departamento", fetch = FetchType.LAZY)
+    private List<Localidad> localidadList;*/
 
     private static final long serialVersionUID = 1L;
     //@JsonIgnore
@@ -150,13 +145,13 @@ public class Departamento implements Serializable {
         this.departamentoId = departamentoId;
     }
 
-   public List<Localidad> getLocalidadList() {
+   /*public List<Localidad> getLocalidadList() {
         return localidadList;
     }
 
     public void setLocalidadList(List<Localidad> localidadList) {
         this.localidadList = localidadList;
-    }
+    }*/
     
    
     

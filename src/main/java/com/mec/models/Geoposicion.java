@@ -5,9 +5,9 @@
  */
 package com.mec.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.Column;
 
@@ -26,14 +26,25 @@ public class Geoposicion{
     @Column(name = "y")
     private Object y;
     
+    @JsonIgnore
+    @Column(name = "zoom")
+    private Object zoom;
+    
     public Geoposicion(){
         
     }
-    public Geoposicion(Object x, Object y) {
+    public Geoposicion(Object x, Object y, Object zoom) {
         this.x = x;
         this.y = y;
+        this.zoom = zoom;
     }
-
+    
+    public Object getZoom(){
+        return this.zoom;
+    }
+    public void setZoom(Object obj){
+        this.zoom = obj;
+    }
     public Object getX() {
         return x;
     }

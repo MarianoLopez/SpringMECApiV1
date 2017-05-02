@@ -7,9 +7,8 @@ package com.mec.DAO;
 
 import com.mec.Util.HibernateUtil;
 import com.mec.models.Geoposicion;
-import javax.persistence.NamedStoredProcedureQuery;
-import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter;
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
@@ -19,23 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author MarianoLopez
  */
-@NamedStoredProcedureQuery(name = "dbo.LuTrabGetCoordenadasByCueAnexo",procedureName = "dbo.LuTrabGetCoordenadasByCueAnexo", parameters = {
-        @StoredProcedureParameter(mode = ParameterMode.IN, name = "CueAnexo", type = Integer.class)
-})
+
 @Repository
 @Transactional(readOnly = true)
 public class GeoDAO extends HibernateUtil{
-    /*public Object getByCueAnexo(int cue, int anexo){
-        ProcedureCall call = getSession().createStoredProcedureCall("exec LuTrabGetCoordenadasByCueAnexo");
-        call.registerParameter("CueAnexo", Integer.class, ParameterMode.IN);
-        call.getParameterRegistration("CueAnexo").bindValue(Integer.parseInt(""+cue+anexo));
-        ProcedureOutputs procedureOutputs = call.getOutputs();
-        ResultSetOutput resultSetOutput = (ResultSetOutput) procedureOutputs.getCurrent();
-        Object o = resultSetOutput.getSingleResult();
-        System.out.println(""+o.toString());
-        return o;
-    }*/
-    
      public Geoposicion getByCueAnexo(int cue, int anexo){
         Query query = getSession().createSQLQuery("exec LuTrabGetCoordenadasByCueAnexo :CueAnexo");
         //System.out.println("anexo: "+anexo);
@@ -50,8 +36,7 @@ public class GeoDAO extends HibernateUtil{
         //System.out.println("CueAnexo: "+aux);
         query.setParameter("CueAnexo",aux);
         query.setResultTransformer(Transformers.aliasToBean(Geoposicion.class));
-        return (Geoposicion)query.uniqueResult();
-        //System.out.println(o.toString());
-        //return o;
+        List<Geoposicion> g = query.list();
+        return (g.isEmpty()?null:g.get(0));
      }
 }

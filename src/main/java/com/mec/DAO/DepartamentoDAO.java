@@ -6,10 +6,8 @@
 package com.mec.DAO;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.especial.Dep;
+import com.mec.models.Departamento;
 import java.util.List;
-import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional(readOnly = true)
 public class DepartamentoDAO extends HibernateUtil{
-    public List<Dep> getAll() {
-        List<Dep> d = getSession().createCriteria(Dep.class).add(Restrictions.isNotNull("departamentoId")).list();
-        for (Dep departamento : d) {Hibernate.initialize(departamento.getLocalidadList());}
-        return d;
-    } 
+    public List<Departamento> getAll() {
+        return getSession().createQuery("from Departamento where departamentoId is not null order by Descr").list();
+    }
+    
+    public Departamento getById(int id){
+        return getSession().get(Departamento.class, id);
+    }
 }

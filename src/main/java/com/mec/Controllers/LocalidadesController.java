@@ -5,9 +5,7 @@
  */
 package com.mec.Controllers;
 
-import com.mec.DAO.DepartamentoDAO;
-
-import com.mec.models.Departamento;
+import com.mec.DAO.LocalidadDAO;
 import com.mec.models.Localidad;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author MarianoLopez
  */
 @RestController
-@RequestMapping("/APIv1/departamentos")
-public class DepartamentosController {
+@RequestMapping("/APIv1/localidades")
+public class LocalidadesController {
     @Autowired
-    private DepartamentoDAO departamentoDAO;
+    private LocalidadDAO localidadDAO;
     
     @RequestMapping()
-    public List<Departamento> getAll(){
-        return departamentoDAO.getAll();
+    public List<Localidad> getAll(){
+        return this.localidadDAO.getAll();
     }
     
     @RequestMapping("/{id}")
-    public Departamento getAll(@PathVariable(value="id")int id){
-        return this.departamentoDAO.getById(id);
+    public Localidad getAll(@PathVariable(value="id")int id){
+        return this.localidadDAO.getById(id);
     }
 }

@@ -8,6 +8,7 @@ package com.mec.Controllers;
 
 import com.mec.Services.LuTrabService;
 import com.mec.models.LuTrab;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +29,21 @@ public class EstablecimientosController {
     public List<LuTrabNoRelationship> lugaresTrabajo(){
         return luTrabService.getAll();
     }*/
-    @RequestMapping("/{Cue}/{Anexo}")
+    @RequestMapping("byCueAnexo/{Cue}/{Anexo}")
     public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,@PathVariable(value="Anexo") int Anexo){
         return luTrabService.getByCueAnexo(Cue,Anexo);
     }
+    
+    @RequestMapping("byDepartamento/{id}")
+    public List<LuTrab> lugaresTrabajoByDepartamento(@PathVariable(value="id") int id){
+        return luTrabService.getByDepartamento2(id);
+    }
+    
+    @RequestMapping("byLocalidad/{id}")
+    public List<LuTrab> lugaresTrabajoByLocalidad(@PathVariable(value="id") int id){
+        return luTrabService.getByLocalidad(id);
+    }
+    
     
     @RequestMapping("hello")
     public String home(){

@@ -7,6 +7,7 @@ package com.mec.DAO;
 
 import com.mec.Util.HibernateUtil;
 import com.mec.models.LuTrab;
+import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
@@ -39,15 +40,35 @@ public class LuTrabDAO extends HibernateUtil{
         query.setParameter("Cue", Cue);
         query.setParameter("Anexo", Anexo);
         LuTrab l = (LuTrab)query.uniqueResult();
-        //Hibernate.initialize(l.getIdDepartamento());
-        Hibernate.initialize(l.getEntidadTipo());
+        ini(l);
+        return l;
+    }
+    
+    public List<LuTrab> getByDepartamento(int idDepartamento){
+        Query query = this.getSession().createQuery("from LuTrab where idDepartamento =:id AND FechaClausura is null AND Hasta is null AND CUE is not null AND LEN(CUE)=7");
+        query.setParameter("id", idDepartamento);
+        return query.list();
+        /*List<LuTrab> lugares = query.list();
+        for (LuTrab lugar : lugares) {ini(lugar);}
+        return lugares;*/
+    }
+    
+        public List<LuTrab> getByLocalidad(int idLocalidad){
+        Query query = this.getSession().createQuery("from LuTrab where idLocalidad =:id AND FechaClausura is null AND Hasta is null AND CUE is not null AND LEN(CUE)=7");
+        query.setParameter("id", idLocalidad);
+        List<LuTrab> lugares = query.list();
+        for (LuTrab lugar : lugares) {ini(lugar);}
+        return lugares;
+    }
+    
+    private void ini(LuTrab l){
+          Hibernate.initialize(l.getEntidadTipo());
         //Hibernate.initialize(l.getIdLuTrabZona()); ej: {id: 4, descr: "Muy Desfavorable", mnemo: "D", porcentaje: 150}
         Hibernate.initialize(l.getNivelJurisdiccional());
         Hibernate.initialize(l.getLocalidad());
-        Hibernate.initialize(l.getLocalidad().getDepartamento());
+        if(l.getLocalidad()!=null){Hibernate.initialize(l.getLocalidad().getDepartamento());}
         Hibernate.initialize(l.getRegimen());
         Hibernate.initialize(l.getModalidad());
         Hibernate.initialize(l.getTurno());
-        return l;
     }
 }
