@@ -37,7 +37,7 @@ import org.apache.commons.lang3.StringUtils;
     @NamedQuery(name = "Localidad.findAll", query = "SELECT l FROM Localidad l")})
 public class Localidad implements Serializable {
     private static final long serialVersionUID = 1L;
-    //@JsonIgnore
+    @JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull
@@ -62,8 +62,8 @@ public class Localidad implements Serializable {
     private Integer idUsuario;
    */
     
-    /*@Column(name = "LocalidadId")
-    private Integer localidadId;*/
+    @Column(name = "LocalidadId")
+    private Integer localidadId;
     
     
     @JoinColumn(name = "idDepartamento", referencedColumnName = "DepartamentoId")
@@ -127,13 +127,13 @@ public class Localidad implements Serializable {
         this.timestamp = timestamp;
     }*/
 
-   /* public Integer getLocalidadId() {
+   public Integer getLocalidadId() {
         return localidadId;
     }
 
     public void setLocalidadId(Integer localidadId) {
         this.localidadId = localidadId;
-    }*/
+    }
 
     public Departamento getDepartamento() {
         return departamento;

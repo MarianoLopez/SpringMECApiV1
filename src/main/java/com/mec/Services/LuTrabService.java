@@ -48,9 +48,7 @@ public class LuTrabService implements GET<LuTrab,Integer>{
     
     public List<LuTrab> getByDepartamento(int id){
         List<LuTrab> lugares = luTrabDAO.getByDepartamento(id);
-        if(id==9){
-           // CountDownLatch latch = new CountDownLatch(2);
-            
+        /*if(id==9||id==30){*/
             int size = lugares.size();
             Thread t = new Thread(new Runnable() {
                 @Override
@@ -81,9 +79,9 @@ public class LuTrabService implements GET<LuTrab,Integer>{
             } catch (InterruptedException ex) {
                 Logger.getLogger(LuTrabService.class.getName()).log(Level.SEVERE, null, ex);
             }*/
-        }else{
+        /*}else{
             for (LuTrab lugar : lugares) {lugar.setGeo(geoDAO.getByCueAnexo(lugar.getCue(),lugar.getAnexo()));}
-        }
+        }*/
         return lugares;
     }
     

@@ -5,66 +5,80 @@
  */
 package com.mec.models;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import javax.persistence.Column;
+
 
 /**
  *
  * @author MarianoLopez
  */
-@JsonPropertyOrder({"lon","lat"})
+@JsonPropertyOrder({"latitud","longitud","zoom"})
 public class Geoposicion{
+
+    @JsonIgnore
+    @Column(name = "cueanexo")
+    private Object cueanexo;
     
-    @Column(name = "x")
-    @JsonProperty("lat")
-    private Object x;
+    @Column(name = "Longitud")
+    private Object Longitud;
     
-    @JsonProperty("lon")
-    @Column(name = "y")
-    private Object y;
+    
+    @Column(name = "Latitud")
+    private Object Latitud;
+    
+    //@JsonIgnore
+    @Column(name = "Zoom")
+    private Object Zoom;
     
     @JsonIgnore
-    @Column(name = "zoom")
-    private Object zoom;
-    
+    @Column(name = "CueAnexoAsociado")
+    private Object CueAnexoAsociado;
+    @JsonIgnore
+    @Column(name = "Fecha")
+    private Object Fecha;
+    @JsonIgnore
+    @Column(name = "idUsuario")
+    private Object idUsuario;
+     
     public Geoposicion(){
         
     }
-    public Geoposicion(Object x, Object y, Object zoom) {
-        this.x = x;
-        this.y = y;
-        this.zoom = zoom;
-    }
     
-    public Object getZoom(){
-        return this.zoom;
-    }
-    public void setZoom(Object obj){
-        this.zoom = obj;
-    }
-    public Object getX() {
-        return x;
+    public Object getCueanexo() {
+        return cueanexo;
     }
 
-    public void setX(Object x) {
-        this.x = x;
+    public void setCueanexo(Object Cueanexo) {
+        this.cueanexo = Cueanexo;
     }
 
-    public Object getY() {
-        return y;
+    public Object getLongitud() {
+        return Longitud;
     }
 
-    public void setY(Object y) {
-        this.y = y;
+    public void setLongitud(Object Longitud) {
+        this.Longitud = Longitud;
     }
 
-    @Override
-    public String toString() {
-        return x+","+y;
+    public Object getLatitud() {
+        return Latitud;
     }
-    
+
+    public void setLatitud(Object Latitud) {
+        this.Latitud = Latitud;
+    }
+
+    public Object getZoom() {
+        return Zoom;
+    }
+
+    public void setZoom(Object Zoom) {
+        this.Zoom = Zoom;
+    }
+   
     
 }

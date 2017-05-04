@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class GeoDAO extends HibernateUtil{
      public Geoposicion getByCueAnexo(int cue, int anexo){
-        Query query = getSession().createSQLQuery("exec LuTrabGetCoordenadasByCueAnexo :CueAnexo");
+        Query query = getSession().createSQLQuery("exec [mapa].[paEntidadGetByCueAnexo] :CueAnexo");
         //System.out.println("anexo: "+anexo);
         int aux;
         if(String.valueOf(anexo).length()==1){

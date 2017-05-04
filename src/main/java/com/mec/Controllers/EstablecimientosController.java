@@ -36,7 +36,7 @@ public class EstablecimientosController {
     
     @RequestMapping("byDepartamento/{id}")
     public List<LuTrab> lugaresTrabajoByDepartamento(@PathVariable(value="id") int id){
-        return luTrabService.getByDepartamento2(id);
+        return luTrabService.getByDepartamento(id);
     }
     
     @RequestMapping("byLocalidad/{id}")

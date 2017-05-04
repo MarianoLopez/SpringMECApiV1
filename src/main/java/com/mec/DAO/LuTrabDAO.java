@@ -9,6 +9,7 @@ import com.mec.Util.HibernateUtil;
 import com.mec.models.LuTrab;
 import java.util.List;
 import org.hibernate.Hibernate;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -47,10 +48,10 @@ public class LuTrabDAO extends HibernateUtil{
     public List<LuTrab> getByDepartamento(int idDepartamento){
         Query query = this.getSession().createQuery("from LuTrab where idDepartamento =:id AND FechaClausura is null AND Hasta is null AND CUE is not null AND LEN(CUE)=7");
         query.setParameter("id", idDepartamento);
-        return query.list();
-        /*List<LuTrab> lugares = query.list();
+        //return query.list();
+        List<LuTrab> lugares = query.list();
         for (LuTrab lugar : lugares) {ini(lugar);}
-        return lugares;*/
+        return lugares;
     }
     
         public List<LuTrab> getByLocalidad(int idLocalidad){
@@ -65,8 +66,17 @@ public class LuTrabDAO extends HibernateUtil{
           Hibernate.initialize(l.getEntidadTipo());
         //Hibernate.initialize(l.getIdLuTrabZona()); ej: {id: 4, descr: "Muy Desfavorable", mnemo: "D", porcentaje: 150}
         Hibernate.initialize(l.getNivelJurisdiccional());
-        Hibernate.initialize(l.getLocalidad());
-        if(l.getLocalidad()!=null){Hibernate.initialize(l.getLocalidad().getDepartamento());}
+        try{
+            Hibernate.initialize(l.getLocalidad());
+            if(Hibernate.isInitialized(l.getLocalidad())){
+                if(l.getLocalidad()!=null){
+                    Hibernate.initialize(l.getLocalidad().getDepartamento());   
+                }
+            }
+        }catch(ObjectNotFoundException e){
+            //System.out.println(e.toString());
+            l.setLocalidad(null);
+        }
         Hibernate.initialize(l.getRegimen());
         Hibernate.initialize(l.getModalidad());
         Hibernate.initialize(l.getTurno());
