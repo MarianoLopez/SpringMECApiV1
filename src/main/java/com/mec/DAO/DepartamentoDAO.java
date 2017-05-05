@@ -8,7 +8,6 @@ package com.mec.DAO;
 import com.mec.Util.HibernateUtil;
 import com.mec.models.Departamento;
 import java.util.List;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

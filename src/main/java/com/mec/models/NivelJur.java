@@ -38,15 +38,18 @@ public class NivelJur implements Serializable {
     private Integer id;
     @Size(max = 50)
     @Column(name = "Descr")
-    private String descr;
+    private String descripcion;
     @Size(max = 50)
     @Column(name = "Mnemo")
     private String mnemo;
+    @JsonIgnore
     @Column(name = "idJurisdiccion",columnDefinition = "TINYINT")
     private Integer idJurisdiccion;
+    @JsonIgnore
     @Size(max = 5)
     @Column(name = "DepJur")
     private String depJur;
+    @JsonIgnore
     @Column(name = "NivelJurisdiccionalId",columnDefinition = "TINYINT")
     private Integer nivelJurisdiccionalId;
     /*
@@ -69,12 +72,12 @@ public class NivelJur implements Serializable {
         this.id = id;
     }
 
-    public String getDescr() {
-        return descr;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescr(String descr) {
-        this.descr = descr;
+    public void setDescripcion(String descr) {
+        this.descripcion = descr;
     }
 
     public String getMnemo() {

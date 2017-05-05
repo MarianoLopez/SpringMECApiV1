@@ -9,6 +9,7 @@ import com.mec.DAO.LocalidadDAO;
 import com.mec.models.Localidad;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author MarianoLopez
  */
 @RestController
+@CrossOrigin()
 @RequestMapping("/APIv1/localidades")
 public class LocalidadesController {
     @Autowired
@@ -31,5 +33,10 @@ public class LocalidadesController {
     @RequestMapping("/{id}")
     public Localidad getAll(@PathVariable(value="id")int id){
         return this.localidadDAO.getById(id);
+    }
+    
+    @RequestMapping("/byDepartamento/{id}")
+    public List<Localidad> getByDepartamentoId(@PathVariable(value="id")int id){
+        return this.localidadDAO.getByDepartamentoId(id);
     }
 }
