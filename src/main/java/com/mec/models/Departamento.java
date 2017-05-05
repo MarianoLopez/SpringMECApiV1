@@ -46,6 +46,7 @@ public class Departamento implements Serializable {
     @Size(max = 5)
     @Column(name = "Mnemo")
     private String mnemo;
+    @JsonIgnore
     @Size(max = 6)
     @Column(name = "CodDepto",columnDefinition="NCHAR")
     private String codDepto;

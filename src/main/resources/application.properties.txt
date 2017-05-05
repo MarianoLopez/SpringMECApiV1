@@ -21,3 +21,6 @@ entitymanager.packagesToScan: com.mec.models
 #Jackson
 #jsonPrettyPrint
 spring.jackson.serialization.indent_output=true
+
+#leaf
+spring.thymeleaf.cache: false

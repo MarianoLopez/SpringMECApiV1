@@ -33,7 +33,6 @@ import org.apache.commons.lang3.StringUtils;
     @NamedQuery(name = "Localidad.findAll", query = "SELECT l FROM Localidad l")})
 public class Localidad implements Serializable {
     private static final long serialVersionUID = 1L;
-    @JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull
@@ -57,7 +56,7 @@ public class Localidad implements Serializable {
     @Column(name = "idUsuario")
     private Integer idUsuario;
    */
-    
+    @JsonIgnore
     @Column(name = "LocalidadId")
     private Integer localidadId;
     

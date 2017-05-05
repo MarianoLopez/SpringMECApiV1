@@ -26,8 +26,10 @@ public class LuTrabService{
     
     public LuTrab getByCueAnexo(int Cue,int Anexo){
         LuTrab l = luTrabDAO.getByCueAnexo(Cue,Anexo);
-        Geoposicion geo = geoDAO.getByCueAnexo(Cue, Anexo);
-        l.setGeo(geo);
+        if(l!=null){
+            Geoposicion geo = geoDAO.getByCueAnexo(Cue, Anexo);
+            l.setGeo(geo);
+        }
         return l;
     }
 
