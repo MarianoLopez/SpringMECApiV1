@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,8 +34,10 @@ public class EstablecimientosController {
     }
     
     @RequestMapping("byDepartamento/{id}")
-    public List<LuTrab> lugaresTrabajoByDepartamento(@PathVariable(value="id") int id){
-        return luTrabService.getByDepartamento(id);
+    public List<LuTrab> lugaresTrabajoByDepartamento(@PathVariable(value="id") int id,
+            @RequestParam(value = "modalidad", required = false) Integer modalidad){
+        return (modalidad!=null)?luTrabService.getByDepartamento(id,modalidad):luTrabService.getByDepartamento(id);
+       
     }
     
     @RequestMapping("byLocalidad/{id}")

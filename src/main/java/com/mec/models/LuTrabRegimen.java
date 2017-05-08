@@ -28,7 +28,7 @@ import javax.validation.constraints.Size;
 public class LuTrabRegimen implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @JsonIgnore
+    //@JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull

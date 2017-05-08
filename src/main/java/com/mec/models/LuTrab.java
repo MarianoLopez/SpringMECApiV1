@@ -92,7 +92,7 @@ public class LuTrab implements Serializable {
     
     @JoinColumn(name = "Modali", referencedColumnName = "id",columnDefinition = "CHAR")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Modalidad modalidad;
+    private Modali modalidad;
     
     
     
@@ -327,11 +327,11 @@ public class LuTrab implements Serializable {
         this.nivel = nivel;
     }*/
 
-    public Modalidad getModalidad() {
+    public Modali getModalidad() {
         return modalidad;
     }
 
-    public void setModalidad(Modalidad modali) {
+    public void setModalidad(Modali modali) {
         this.modalidad = modali;
     }
 

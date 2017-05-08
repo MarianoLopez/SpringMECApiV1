@@ -35,17 +35,24 @@ public class LuTrabService{
 
     public List<LuTrab> getByDepartamento(int id){
         List<LuTrab> lugares = luTrabDAO.getByDepartamento(id);
-        lugares.parallelStream().forEach((lugar) -> {
-            lugar.setGeo(geoDAO.getByCueAnexo(lugar.getCue(),lugar.getAnexo()));
-        });
+        initGeo(lugares);
+        return lugares;
+    }
+    public List<LuTrab> getByDepartamento(int idDepartamento, int modalidad){
+        List<LuTrab> lugares = luTrabDAO.getByDepartamento(idDepartamento,modalidad);
+        initGeo(lugares);
         return lugares;
     }
     
     public List<LuTrab> getByLocalidad(int id){
         List<LuTrab> lugares = luTrabDAO.getByLocalidad(id);
+        initGeo(lugares);
+        return lugares;
+    }
+    
+    private void initGeo(List<LuTrab> lugares){
         lugares.parallelStream().forEach((lugar)->{
             lugar.setGeo(geoDAO.getByCueAnexo(lugar.getCue(),lugar.getAnexo()));
         });
-        return lugares;
-    }  
+    }
 }

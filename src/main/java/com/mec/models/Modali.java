@@ -25,9 +25,9 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Entity
 @Table(name = "Modali")
-public class Modalidad implements Serializable {
+public class Modali implements Serializable {
     private static final long serialVersionUID = 1L;
-    @JsonIgnore
+    //@JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull
@@ -42,10 +42,10 @@ public class Modalidad implements Serializable {
     @Column(name = "Orden",columnDefinition = "TINYINT")
     private Integer orden;*/
 
-    public Modalidad() {
+    public Modali() {
     }
 
-    public Modalidad(Integer id) {
+    public Modali(Integer id) {
         this.id = id;
     }
 
@@ -91,10 +91,10 @@ public class Modalidad implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Modalidad)) {
+        if (!(object instanceof Modali)) {
             return false;
         }
-        Modalidad other = (Modalidad) object;
+        Modali other = (Modali) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

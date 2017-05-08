@@ -21,9 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional(readOnly = true)
 public class LuTrabDAO extends HibernateUtil{
-   
+    private final String generalQuery = "from LuTrab where FechaClausura is null AND Hasta is null AND id != 12069 AND CUE is not null AND LEN(CUE)=7";//id=12069 --> pruebas pof
+    
     public LuTrab getByCueAnexo(int Cue, int Anexo){
-        Query query = this.getSession().createQuery("from LuTrab where CUE = :Cue AND Anexo = :Anexo AND FechaClausura is null AND Hasta is null AND id != 12069");//id=12069 --> pruebas pof
+        Query query = this.getSession().createQuery(generalQuery+" AND CUE = :Cue AND Anexo = :Anexo");
         query.setParameter("Cue", Cue);
         query.setParameter("Anexo", Anexo);
         LuTrab l = (LuTrab)query.uniqueResult();
@@ -32,16 +33,25 @@ public class LuTrabDAO extends HibernateUtil{
     }
     
     public List<LuTrab> getByDepartamento(int idDepartamento){
-        Query query = this.getSession().createQuery("from LuTrab where idDepartamento =:id AND FechaClausura is null AND Hasta is null AND CUE is not null AND LEN(CUE)=7 AND id != 12069");
+        Query query = this.getSession().createQuery(generalQuery+" AND idDepartamento =:id");
         query.setParameter("id", idDepartamento);
-        List<LuTrab> lugares = query.list();
-        lugares.parallelStream().forEach((lugar) -> {lazyInit(lugar);});
-        return lugares;
+        return queryToList(query);
     }
     
-        public List<LuTrab> getByLocalidad(int idLocalidad){
-        Query query = this.getSession().createQuery("from LuTrab where idLocalidad =:id AND FechaClausura is null AND Hasta is null AND CUE is not null AND LEN(CUE)=7 AND id != 12069");
+    public List<LuTrab> getByDepartamento(int idDepartamento, int modali){
+        Query query = this.getSession().createQuery(generalQuery+" AND idDepartamento =:id AND modali =:modali");
+        query.setParameter("id", idDepartamento);
+        query.setParameter("modali", modali);
+        return queryToList(query);
+    }
+    
+    public List<LuTrab> getByLocalidad(int idLocalidad){
+        Query query = this.getSession().createQuery(generalQuery+" AND idLocalidad =:id");
         query.setParameter("id", idLocalidad);
+        return queryToList(query);
+    }
+    
+    private List<LuTrab> queryToList(Query query){
         List<LuTrab> lugares = query.list();
         lugares.parallelStream().forEach((lugar) -> {lazyInit(lugar);});
         return lugares;
