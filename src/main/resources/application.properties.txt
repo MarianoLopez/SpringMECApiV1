@@ -15,8 +15,11 @@ hibernate.show_sql: false
     #create: creates the schema, destroying previous data.
     #create-drop: drop the schema when the SessionFactory is closed explicitly, typically when the application is stopped.
 hibernate.hbm2ddl.auto: validate
+hibernate.default_schema: dbo
 #ruta a los modelos a mapear automaticamente
 entitymanager.packagesToScan: com.mec.models
+#nivel de log
+logging.level.org.hibernate=ERROR
 
 #Jackson
 #jsonPrettyPrint

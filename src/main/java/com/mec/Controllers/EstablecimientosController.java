@@ -26,7 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class EstablecimientosController {
     @Autowired
     private LuTrabService luTrabService;
- 
+    
+    @RequestMapping()
+    public List<LuTrab> getAll(@RequestParam(value = "geo", required = false, defaultValue = "false") Boolean geo){
+        return luTrabService.getAll(geo);
+    }
     @RequestMapping("byCueAnexo/{Cue}/{Anexo}")
     public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,
                                      @PathVariable(value="Anexo") int Anexo){
@@ -35,13 +39,18 @@ public class EstablecimientosController {
     
     @RequestMapping("byDepartamento/{id}")
     public List<LuTrab> lugaresTrabajoByDepartamento(@PathVariable(value="id") int id,
-            @RequestParam(value = "modalidad", required = false) Integer modalidad){
-        return (modalidad!=null)?luTrabService.getByDepartamento(id,modalidad):luTrabService.getByDepartamento(id);
+            @RequestParam(value = "modalidad", required = false) Integer modalidad,
+            @RequestParam(value = "regimen", required = false) Integer regimen,
+            @RequestParam(value = "juridisccion", required = false) Integer juridisccion){
+        return luTrabService.getByFilter(id,null,modalidad,regimen,juridisccion);
        
     }
     
     @RequestMapping("byLocalidad/{id}")
-    public List<LuTrab> lugaresTrabajoByLocalidad(@PathVariable(value="id") int id){
-        return luTrabService.getByLocalidad(id);
+    public List<LuTrab> lugaresTrabajoByLocalidad(@PathVariable(value="id") int id,
+            @RequestParam(value = "modalidad", required = false) Integer modalidad,
+            @RequestParam(value = "regimen", required = false) Integer regimen,
+            @RequestParam(value = "juridisccion", required = false) Integer juridisccion){
+        return luTrabService.getByFilter(null,id,modalidad,regimen,juridisccion);
     }
 }

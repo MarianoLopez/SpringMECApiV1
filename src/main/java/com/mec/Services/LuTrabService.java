@@ -32,23 +32,18 @@ public class LuTrabService{
         }
         return l;
     }
-
-    public List<LuTrab> getByDepartamento(int id){
-        List<LuTrab> lugares = luTrabDAO.getByDepartamento(id);
+    public List<LuTrab> getAll(boolean geo){
+        List<LuTrab> lugares =  luTrabDAO.getAll();
+        if(geo){initGeo(lugares);}
+        return lugares;
+    }
+   
+    public List<LuTrab> getByFilter(Integer idDepartamento,Integer idLocalidad, Integer modalidad, Integer regimen, Integer juris){
+        List<LuTrab> lugares = luTrabDAO.getByFilter(idDepartamento,idLocalidad,modalidad,regimen,juris);
         initGeo(lugares);
         return lugares;
     }
-    public List<LuTrab> getByDepartamento(int idDepartamento, int modalidad){
-        List<LuTrab> lugares = luTrabDAO.getByDepartamento(idDepartamento,modalidad);
-        initGeo(lugares);
-        return lugares;
-    }
-    
-    public List<LuTrab> getByLocalidad(int id){
-        List<LuTrab> lugares = luTrabDAO.getByLocalidad(id);
-        initGeo(lugares);
-        return lugares;
-    }
+   
     
     private void initGeo(List<LuTrab> lugares){
         lugares.parallelStream().forEach((lugar)->{
