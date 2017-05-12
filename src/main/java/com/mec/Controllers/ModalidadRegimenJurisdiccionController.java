@@ -34,7 +34,7 @@ public class ModalidadRegimenJurisdiccionController {
     public List<LuTrabRegimen> getRegimenes(){
         return dao.getRegimenes();
     }
-    @RequestMapping(value = "/juridiscciones")
+    @RequestMapping(value = "/jurisdicciones")
     public List<NivelJur> getJurisdicciones(){
         return dao.getJurisdicciones();
     }

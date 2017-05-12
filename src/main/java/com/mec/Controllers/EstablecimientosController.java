@@ -41,7 +41,7 @@ public class EstablecimientosController {
     public List<LuTrab> lugaresTrabajoByDepartamento(@PathVariable(value="id") int id,
             @RequestParam(value = "modalidad", required = false) Integer modalidad,
             @RequestParam(value = "regimen", required = false) Integer regimen,
-            @RequestParam(value = "juridisccion", required = false) Integer juridisccion){
+            @RequestParam(value = "jurisdiccion", required = false) Integer juridisccion){
         return luTrabService.getByFilter(id,null,modalidad,regimen,juridisccion);
        
     }
