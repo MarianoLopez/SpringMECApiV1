@@ -23,13 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin()
 @RequestMapping("/APIv1/establecimientos")
-public class EstablecimientosController {
+public class EstablecimientosController{
     @Autowired
     private LuTrabService luTrabService;
     
     @RequestMapping()
     public List<LuTrab> getAll(@RequestParam(value = "geo", required = false, defaultValue = "false") Boolean geo){
-        return luTrabService.getAll(geo);
+        return luTrabService.getAll();
     }
     @RequestMapping("byCueAnexo/{Cue}/{Anexo}")
     public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,

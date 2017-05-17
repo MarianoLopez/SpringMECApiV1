@@ -12,9 +12,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
+
 @Configuration
+@EnableScheduling
 @EnableTransactionManagement//Enables Spring's annotation-driven transaction management capability, similar to the support found in Spring's <tx:*> XML namespace
 public class DatabaseConfig {
   /*@Value("${variable}") -> recupera el valor de ${variable} desde src/main/resources/application.properties*/

@@ -11,6 +11,7 @@ import com.mec.models.Geoposicion;
 import com.mec.models.LuTrab;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,6 +24,16 @@ public class LuTrabService{
     private LuTrabDAO luTrabDAO;
     @Autowired
     private GeoDAO geoDAO;
+    
+    private List<LuTrab> todos;
+    
+    @Scheduled(fixedRate = 120000)//2min
+    private void reportCurrentTime() {
+        todos = getAll(true);
+    }
+    public List<LuTrab> getAll(){
+        return todos;
+    }
     
     public LuTrab getByCueAnexo(int Cue,int Anexo){
         LuTrab l = luTrabDAO.getByCueAnexo(Cue,Anexo);
