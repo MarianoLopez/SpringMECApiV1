@@ -1,21 +1,21 @@
 # Database
-db.driver: com.mysql.jdbc.Driver
-#db.driver:com.microsoft.sqlserver.jdbc.SQLServerDriver
-db.url: jdbc:mysql://<ip>:<puerto>/<db>
-#db.url: jdbc:sqlserver:jdbc:sqlserver://<ip>:1433;databaseName=<db>
+#db.driver: com.mysql.jdbc.Driver
+db.driver:com.microsoft.sqlserver.jdbc.SQLServerDriver
+#db.url: jdbc:mysql://<ip>:<puerto>/<db>
+db.url: jdbc:sqlserver:jdbc:sqlserver://<ip>:1433;databaseName=<db>
 db.username: <username>
 db.password: <password>
 
 # Hibernate
-hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
-#hibernate.dialect: org.hibernate.dialect.SQLServerDialect
+#hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+hibernate.dialect: org.hibernate.dialect.SQLServerDialect
 hibernate.show_sql: false
     #validate: validate the schema, makes no changes to the database.
     #update: update the schema.
     #create: creates the schema, destroying previous data.
     #create-drop: drop the schema when the SessionFactory is closed explicitly, typically when the application is stopped.
 hibernate.hbm2ddl.auto: validate
-hibernate.default_schema: dbo
+#hibernate.default_schema: dbo
 #ruta a los modelos a mapear automaticamente
 entitymanager.packagesToScan: com.mec.models
 #nivel de log

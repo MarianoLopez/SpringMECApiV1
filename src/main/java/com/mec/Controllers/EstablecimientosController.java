@@ -28,9 +28,14 @@ public class EstablecimientosController{
     private LuTrabService luTrabService;
     
     @RequestMapping()
-    public List<LuTrab> getAll(@RequestParam(value = "geo", required = false, defaultValue = "false") Boolean geo){
-        return luTrabService.getAll();
+    public List<LuTrab> getAll(@RequestParam(value = "cache", required = false, defaultValue = "true") Boolean cache){
+        if(cache){
+            return luTrabService.getAll();
+        }else{
+            return luTrabService.getAll(true);
+        }
     }
+    
     @RequestMapping("byCueAnexo/{Cue}/{Anexo}")
     public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,
                                      @PathVariable(value="Anexo") int Anexo){

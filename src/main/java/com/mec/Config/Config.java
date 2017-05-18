@@ -3,24 +3,27 @@ package com.mec.Config;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import java.util.Properties;
+import java.util.concurrent.Executor;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 
 
 @Configuration
 @EnableScheduling
 @EnableTransactionManagement//Enables Spring's annotation-driven transaction management capability, similar to the support found in Spring's <tx:*> XML namespace
-public class DatabaseConfig {
+public class Config {
   /*@Value("${variable}") -> recupera el valor de ${variable} desde src/main/resources/application.properties*/
   @Value("${db.driver}")
   private String DB_DRIVER;
@@ -79,10 +82,16 @@ public class DatabaseConfig {
     transactionManager.setSessionFactory(sessionFactory().getObject());
     return transactionManager;
   }
+/**********JACKSON*************/  
   
 @Bean//Avoid Jackson serialization on non fetched lazy objects
-public Module datatypeHibernateModule() {
-  return new Hibernate5Module();
-}
+public Module datatypeHibernateModule() {return new Hibernate5Module();}
+
+/**********TASK*************/ 
+@Bean
+public TaskScheduler taskScheduler() {return new ConcurrentTaskScheduler();}
+
+@Bean
+public Executor taskExecutor() {return new SimpleAsyncTaskExecutor();}
   
 }

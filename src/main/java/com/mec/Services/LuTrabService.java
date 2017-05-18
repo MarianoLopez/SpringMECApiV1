@@ -28,11 +28,14 @@ public class LuTrabService{
     private List<LuTrab> todos;
     
     @Scheduled(fixedRate = 120000)//2min
-    private void reportCurrentTime() {
-        todos = getAll(true);
-    }
-    public List<LuTrab> getAll(){
-        return todos;
+    private void reportCurrentTime() {this.todos = getAll(true);}
+    
+    public List<LuTrab> getAll(){return this.todos;}
+    
+     public List<LuTrab> getAll(boolean geo){
+        List<LuTrab> lugares =  luTrabDAO.getAll();
+        if(geo){initGeo(lugares);}
+        return lugares;
     }
     
     public LuTrab getByCueAnexo(int Cue,int Anexo){
@@ -42,11 +45,6 @@ public class LuTrabService{
             l.setGeo(geo);
         }
         return l;
-    }
-    public List<LuTrab> getAll(boolean geo){
-        List<LuTrab> lugares =  luTrabDAO.getAll();
-        if(geo){initGeo(lugares);}
-        return lugares;
     }
    
     public List<LuTrab> getByFilter(Integer idDepartamento,Integer idLocalidad, Integer modalidad, Integer regimen, Integer juris){
