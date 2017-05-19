@@ -49,8 +49,8 @@ public class Config {
   @Value("${entitymanager.packagesToScan}")
   private String ENTITYMANAGER_PACKAGES_TO_SCAN;
   
-  @Value("${hibernate.default_schema}")
-  private String SCHEMA;
+  /*@Value("${hibernate.default_schema}")
+  private String SCHEMA;*/
   
   @Bean
   public DataSource dataSource() {
