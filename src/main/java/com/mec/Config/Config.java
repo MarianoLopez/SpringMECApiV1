@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
-@EnableScheduling
+@EnableScheduling//tareas
 @EnableTransactionManagement//Enables Spring's annotation-driven transaction management capability, similar to the support found in Spring's <tx:*> XML namespace
 public class Config {
   /*@Value("${variable}") -> recupera el valor de ${variable} desde src/main/resources/application.properties*/

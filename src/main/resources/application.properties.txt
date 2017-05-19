@@ -1,4 +1,4 @@
-# Database
+# Databasee
 #db.driver: com.mysql.jdbc.Driver
 db.driver:com.microsoft.sqlserver.jdbc.SQLServerDriver
 #db.url: jdbc:mysql://<ip>:<puerto>/<db>
