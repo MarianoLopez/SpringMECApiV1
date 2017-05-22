@@ -9,11 +9,14 @@ package com.mec.Controllers;
 
 import com.mec.Services.LuTrabService;
 import com.mec.models.LuTrab;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,12 +27,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin()
 @RequestMapping("/APIv1/establecimientos")
+@Api(value="establecimientos")
 public class EstablecimientosController{
     @Autowired
     private LuTrabService luTrabService;
     
- 
-    @RequestMapping()
+    @ApiOperation(value = "View a list of available products", response = LuTrab.class)
+    @RequestMapping(method = RequestMethod.GET)
     public List<LuTrab> getAll(@RequestParam(value = "cache", required = false, defaultValue = "true") Boolean cache,
                         @RequestParam(value="modalidades",required = false) Integer[] modalidades,
                         @RequestParam(value="regimenes",required = false) Integer[] regimenes,
@@ -43,7 +47,7 @@ public class EstablecimientosController{
         }
     }
     
-    @RequestMapping("byCueAnexo/{Cue}/{Anexo}")
+    @RequestMapping(method = RequestMethod.GET,value = "byCueAnexo/{Cue}/{Anexo}")
     public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,
                                      @PathVariable(value="Anexo") int Anexo){
         return luTrabService.getByCueAnexo(Cue,Anexo);

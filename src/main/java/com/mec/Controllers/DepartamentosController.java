@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -27,12 +28,12 @@ public class DepartamentosController {
     @Autowired
     private DepartamentoDAO departamentoDAO;
     
-    @RequestMapping()
+    @RequestMapping(method = RequestMethod.GET)
     public List<Departamento> getAll(){
         return departamentoDAO.getAll();
     }
     
-    @RequestMapping("/{id}")
+    @RequestMapping(method = RequestMethod.GET,value = "/{id}")
     public Departamento getAll(@PathVariable(value="id")int id){
         return this.departamentoDAO.getById(id);
     }

@@ -13,6 +13,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -26,15 +27,15 @@ public class ModalidadRegimenJurisdiccionController {
     @Autowired
     private ModalidadRegimenJurisdiccionDAO dao;
     
-    @RequestMapping(value = "/modalidades")
+    @RequestMapping(method = RequestMethod.GET,value = "/modalidades")
     public List<Modali> getModalidades(){
         return dao.getModalidades();
     }
-    @RequestMapping(value = "/regimenes")
+    @RequestMapping(method = RequestMethod.GET,value = "/regimenes")
     public List<LuTrabRegimen> getRegimenes(){
         return dao.getRegimenes();
     }
-    @RequestMapping(value = "/jurisdicciones")
+    @RequestMapping(method = RequestMethod.GET,value = "/jurisdicciones")
     public List<NivelJur> getJurisdicciones(){
         return dao.getJurisdicciones();
     }
