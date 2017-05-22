@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.mec.Services;
-
+import com.mec.Criteria.*;
 import com.mec.DAO.GeoDAO;
 import com.mec.DAO.LuTrabDAO;
 import com.mec.models.Geoposicion;
@@ -27,8 +27,8 @@ public class LuTrabService{
     
     private List<LuTrab> todos;
     
-    @Scheduled(fixedRate = 120000)//2min
-    private void reportCurrentTime() {this.todos = getAll(true);}
+    @Scheduled(fixedRate = 600000)//10min en ms
+    private void getAllScheduled() {this.todos = getAll(true);System.out.println("getAllScheduled() listo");}
     
     public List<LuTrab> getAll(){return this.todos;}
     
@@ -46,12 +46,30 @@ public class LuTrabService{
         }
         return l;
     }
-   
-    public List<LuTrab> getByFilter(Integer idDepartamento,Integer idLocalidad, Integer modalidad, Integer regimen, Integer juris){
+    public List<LuTrab> getByFilter(Integer[] modalidades,Integer[] regimenes,Integer[] jurisdicciones,Integer[] departamentos,Integer[] localidades){
+        List<LuTrab> todo = this.getAll();
+        if(modalidades!=null){
+            todo = new ModalidadCriteria().filterCriteria(todo, modalidades);
+        }
+        if(regimenes!=null){
+            todo = new RegimenCriteria().filterCriteria(todo, regimenes);
+        }
+        if(jurisdicciones!=null){
+            todo = new JurisdiccionCriteria().filterCriteria(todo, jurisdicciones);
+        }
+        if(departamentos!=null){
+            todo = new DepartamentoCriteria().filterCriteria(todo, departamentos);
+        }
+        if(localidades!=null){
+            todo = new LocalidadCriteria().filterCriteria(todo, localidades);
+        }
+        return todo;
+    }
+    /*public List<LuTrab> getByFilter(Integer idDepartamento,Integer idLocalidad, Integer modalidad, Integer regimen, Integer juris){
         List<LuTrab> lugares = luTrabDAO.getByFilter(idDepartamento,idLocalidad,modalidad,regimen,juris);
         initGeo(lugares);
         return lugares;
-    }
+    }*/
    
     
     private void initGeo(List<LuTrab> lugares){

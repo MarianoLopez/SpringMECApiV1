@@ -6,6 +6,7 @@
 package com.mec.Controllers;
 
 
+
 import com.mec.Services.LuTrabService;
 import com.mec.models.LuTrab;
 import java.util.List;
@@ -27,10 +28,16 @@ public class EstablecimientosController{
     @Autowired
     private LuTrabService luTrabService;
     
+ 
     @RequestMapping()
-    public List<LuTrab> getAll(@RequestParam(value = "cache", required = false, defaultValue = "true") Boolean cache){
+    public List<LuTrab> getAll(@RequestParam(value = "cache", required = false, defaultValue = "true") Boolean cache,
+                        @RequestParam(value="modalidades",required = false) Integer[] modalidades,
+                        @RequestParam(value="regimenes",required = false) Integer[] regimenes,
+                        @RequestParam(value="jurisdicciones",required = false) Integer[] jurisdicciones,
+                        @RequestParam(value="departamentos",required = false) Integer[] departamentos,
+                        @RequestParam(value="localidades",required = false) Integer[] localidades){
         if(cache){
-            return luTrabService.getAll();
+            return luTrabService.getByFilter(modalidades, regimenes, jurisdicciones, departamentos, localidades);
         }else{
             return luTrabService.getAll(true);
         }
@@ -42,7 +49,7 @@ public class EstablecimientosController{
         return luTrabService.getByCueAnexo(Cue,Anexo);
     }
     
-    @RequestMapping("byDepartamento/{id}")
+   /* @RequestMapping("byDepartamento/{id}")
     public List<LuTrab> lugaresTrabajoByDepartamento(@PathVariable(value="id") int id,
             @RequestParam(value = "modalidad", required = false) Integer modalidad,
             @RequestParam(value = "regimen", required = false) Integer regimen,
@@ -57,5 +64,5 @@ public class EstablecimientosController{
             @RequestParam(value = "regimen", required = false) Integer regimen,
             @RequestParam(value = "juridisccion", required = false) Integer juridisccion){
         return luTrabService.getByFilter(null,id,modalidad,regimen,juridisccion);
-    }
+    }*/
 }
