@@ -9,6 +9,7 @@ import com.mec.DAO.ModalidadRegimenJurisdiccionDAO;
 import com.mec.models.LuTrabRegimen;
 import com.mec.models.Modali;
 import com.mec.models.NivelJur;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,20 +24,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin()
 @RequestMapping("/APIv1/")
-public class ModalidadRegimenJurisdiccionController {
+public class ModalidadRegimenJurisdiccion {
     @Autowired
     private ModalidadRegimenJurisdiccionDAO dao;
     
+    @ApiOperation(value = "Listado de todas las Modalidades posibles de los Establecimientos Educativos", response = Modali.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "/modalidades")
-    public List<Modali> getModalidades(){
-        return dao.getModalidades();
-    }
+    public List<Modali> getModalidades(){return dao.getModalidades();}
+    
+    @ApiOperation(value = "Listado de todos los Regímenes posibles de los Establecimientos Educativos", response = LuTrabRegimen.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "/regimenes")
-    public List<LuTrabRegimen> getRegimenes(){
-        return dao.getRegimenes();
-    }
+    public List<LuTrabRegimen> getRegimenes(){return dao.getRegimenes();}
+    
+    @ApiOperation(value = "Listado de todas las Jurisdicciones posibles de los Establecimientos Educativos", response = LuTrabRegimen.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "/jurisdicciones")
-    public List<NivelJur> getJurisdicciones(){
-        return dao.getJurisdicciones();
-    }
+    public List<NivelJur> getJurisdicciones(){return dao.getJurisdicciones();}
 }

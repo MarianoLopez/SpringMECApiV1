@@ -37,7 +37,7 @@ public class SwaggerConfig {
                 "Spring Boot REST API Establecimientos",
                 "1.0",
                 "Terms of service",
-                new Contact("Lopez, Mariano; Loebarth, Federico", "INNOVAME - Programación", "mariano.lopez@mec.gob.ar;federico.loebarth@mec.gob.ar"),
+                new Contact("Lopez, Mariano; Loebarth, Federico", "http://innovame.mec.gob.ar/", "mariano.lopez@mec.gob.ar;federico.loebarth@mec.gob.ar"),
                "Apache License Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0");
         return apiInfo;

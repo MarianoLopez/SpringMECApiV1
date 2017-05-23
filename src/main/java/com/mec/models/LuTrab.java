@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -48,20 +49,25 @@ public class LuTrab implements Serializable {
     @Column(name = "LuTrab")
     private Integer luTrab;*/
     
+    @ApiModelProperty(notes = "Código de Anexo del Establecimiento",dataType = "Integer",required = true,example = "00")
     @Column(name = "Anexo",columnDefinition = "TINYINT")
     private Integer anexo;
     
+    @ApiModelProperty(notes = "Número del Establecimiento",dataType = "Integer",required = false,example = "12")
     @Column(name = "Numero",columnDefinition = "SMALLINT")
     private Integer numero;
     
+    @ApiModelProperty(notes = "Nombre del Establecimiento",dataType = "String",required = true,example = "ESCUELA Nº 12 \\\"ALTE.GUILLERMO BROWN\\\"")
     @Size(max = 250)
     @Column(name = "Nombre")
     private String nombre;
     
+    @ApiModelProperty(notes = "Nombre del Establecimiento sin número",dataType = "String",required = true,example = "ALTE.GUILLERMO BROWN")
     @Size(max = 250)
     @Column(name = "NombreEspecial")
     private String nombreEspecial;
     
+    @ApiModelProperty(notes = "Clave Única Establecimiento de 7 digitos",dataType = "Integer",required = true,example = "1800386")
     @Column(name = "CUE")
     private Integer cue;
     

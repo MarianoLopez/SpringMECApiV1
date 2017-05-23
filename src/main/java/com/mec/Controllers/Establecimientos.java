@@ -27,12 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin()
 @RequestMapping("/APIv1/establecimientos")
-@Api(value="establecimientos")
-public class EstablecimientosController{
+public class Establecimientos{
     @Autowired
     private LuTrabService luTrabService;
     
-    @ApiOperation(value = "Lista de establecimientos educativos", response = LuTrab.class)
+    @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (modalidades, regimenes, jurisdicciones, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = LuTrab.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET)
     public List<LuTrab> getAll(@RequestParam(value = "cache", required = false, defaultValue = "true") Boolean cache,
                         @RequestParam(value="modalidades",required = false) Integer[] modalidades,
@@ -47,6 +46,7 @@ public class EstablecimientosController{
         }
     }
     
+    @ApiOperation(value = "Búsqueda de Establecimiento Educativo de la Provincia de Corrientes a través del CUE/ANEXO", response = LuTrab.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "byCueAnexo/{Cue}/{Anexo}")
     public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,
                                      @PathVariable(value="Anexo") int Anexo){
