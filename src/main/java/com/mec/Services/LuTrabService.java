@@ -65,13 +65,7 @@ public class LuTrabService{
         }
         return todo;
     }
-    /*public List<LuTrab> getByFilter(Integer idDepartamento,Integer idLocalidad, Integer modalidad, Integer regimen, Integer juris){
-        List<LuTrab> lugares = luTrabDAO.getByFilter(idDepartamento,idLocalidad,modalidad,regimen,juris);
-        initGeo(lugares);
-        return lugares;
-    }*/
-   
-    
+ 
     private void initGeo(List<LuTrab> lugares){
         lugares.parallelStream().forEach((lugar)->{
             lugar.setGeo(geoDAO.getByCueAnexo(lugar.getCue(),lugar.getAnexo()));

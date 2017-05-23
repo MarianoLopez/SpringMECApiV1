@@ -8,7 +8,6 @@ package com.mec.Controllers;
 import com.mec.DAO.DepartamentoDAO;
 
 import com.mec.models.Departamento;
-import com.mec.models.Localidad;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

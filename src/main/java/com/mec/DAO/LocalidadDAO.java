@@ -8,7 +8,6 @@ package com.mec.DAO;
 import com.mec.Util.HibernateUtil;
 import com.mec.models.Localidad;
 import java.util.List;
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,11 +27,11 @@ public class LocalidadDAO extends HibernateUtil{
         return getSession().get(Localidad.class, id);
     }
     
-    public List<Localidad> getByDepartamentoId(int id){
+    /*public List<Localidad> getByDepartamentoId(int id){
         Query query = getSession().createQuery("from Localidad where idProvincia = 8 AND idDepartamento = :id order by Descr");
         query.setParameter("id", id);
         List<Localidad> localidades = query.list();
         return localidades;
-    }
+    }*/
     
 }

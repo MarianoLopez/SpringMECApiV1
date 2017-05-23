@@ -32,7 +32,7 @@ public class EstablecimientosController{
     @Autowired
     private LuTrabService luTrabService;
     
-    @ApiOperation(value = "View a list of available products", response = LuTrab.class)
+    @ApiOperation(value = "Lista de establecimientos educativos", response = LuTrab.class)
     @RequestMapping(method = RequestMethod.GET)
     public List<LuTrab> getAll(@RequestParam(value = "cache", required = false, defaultValue = "true") Boolean cache,
                         @RequestParam(value="modalidades",required = false) Integer[] modalidades,
@@ -52,21 +52,4 @@ public class EstablecimientosController{
                                      @PathVariable(value="Anexo") int Anexo){
         return luTrabService.getByCueAnexo(Cue,Anexo);
     }
-    
-   /* @RequestMapping("byDepartamento/{id}")
-    public List<LuTrab> lugaresTrabajoByDepartamento(@PathVariable(value="id") int id,
-            @RequestParam(value = "modalidad", required = false) Integer modalidad,
-            @RequestParam(value = "regimen", required = false) Integer regimen,
-            @RequestParam(value = "jurisdiccion", required = false) Integer juridisccion){
-        return luTrabService.getByFilter(id,null,modalidad,regimen,juridisccion);
-       
-    }
-    
-    @RequestMapping("byLocalidad/{id}")
-    public List<LuTrab> lugaresTrabajoByLocalidad(@PathVariable(value="id") int id,
-            @RequestParam(value = "modalidad", required = false) Integer modalidad,
-            @RequestParam(value = "regimen", required = false) Integer regimen,
-            @RequestParam(value = "juridisccion", required = false) Integer juridisccion){
-        return luTrabService.getByFilter(null,id,modalidad,regimen,juridisccion);
-    }*/
 }

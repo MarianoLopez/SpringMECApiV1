@@ -7,7 +7,6 @@ package com.mec.DAO;
 
 import com.mec.Util.HibernateUtil;
 import com.mec.models.LuTrab;
-import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.ObjectNotFoundException;
@@ -32,43 +31,9 @@ public class LuTrabDAO extends HibernateUtil{
         lazyInit(l);
         return l;
     }
+    
     public List<LuTrab> getAll(){
         List<LuTrab> lugares =  this.getSession().createQuery(generalQuery).setCacheable(true).list();
-        lugares.parallelStream().forEach((lugar) -> {lazyInit(lugar);});
-        return lugares;
-    }
-  
-    public List<LuTrab> getByFilter(Integer idDepartamento,Integer idLocalidad, Integer modalidad, Integer regimen, Integer jurisdiccion){
-        String internalQuery = generalQuery;
-        List<Integer> params = new ArrayList<>() ;
-        if(idDepartamento!=null){
-            internalQuery+=" AND idDepartamento =?";
-            params.add(idDepartamento);
-        }
-        if(idLocalidad!=null){
-            internalQuery+=" AND idLocalidad =?";
-            params.add(idLocalidad);
-        }
-        if(modalidad!=null){
-            internalQuery+=" AND modali =?";
-            params.add(modalidad);
-        }
-        if(regimen!=null){
-            internalQuery+=" AND idLuTrabRegimen =?";
-            params.add(regimen);
-        }
-        if(jurisdiccion!=null){
-            internalQuery+="AND idNivelJur = ?";
-            params.add(jurisdiccion);
-        }
-        Query query = this.getSession().createQuery(internalQuery);
-        for (int i =0; i<params.size();i++) {query.setParameter(i,params.get(i));}
-        return queryToList(query);
-    }
- 
-    
-    private List<LuTrab> queryToList(Query query){
-        List<LuTrab> lugares = query.list();
         lugares.parallelStream().forEach((lugar) -> {lazyInit(lugar);});
         return lugares;
     }
