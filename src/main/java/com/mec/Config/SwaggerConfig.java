@@ -33,8 +33,8 @@ public class SwaggerConfig {
     }
     private ApiInfo metaData() {
         ApiInfo apiInfo = new ApiInfo(
-                "Spring Boot MEC REST API",
-                "Spring Boot REST API Establecimientos",
+                "MEC REST API",
+                "REST API de Establecimientos Educativos",
                 "1.0",
                 "Terms of service",
                 new Contact("Lopez, Mariano; Loebarth, Federico", "http://innovame.mec.gob.ar/", "mariano.lopez@mec.gob.ar;federico.loebarth@mec.gob.ar"),

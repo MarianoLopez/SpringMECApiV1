@@ -6,6 +6,7 @@
 package com.mec.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -29,19 +30,25 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "NivelJur.findAll", query = "SELECT n FROM NivelJur n")})
 public class NivelJur implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    
+    @ApiModelProperty(notes = "Identificador Unico DB",dataType = "Integer",required = true)
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id",columnDefinition = "TINYINT")
     private Integer id;
+    
+    @ApiModelProperty(notes = "Jurisdicción nombre",dataType = "String(50)",required = true)
     @Size(max = 50)
     @Column(name = "Descr")
     private String descripcion;
+    
+    @ApiModelProperty(notes = "Jurisdicción nombre reducido",dataType = "String(50)",required = true)
     @Size(max = 50)
     @Column(name = "Mnemo")
     private String mnemo;
+    
     @JsonIgnore
     @Column(name = "idJurisdiccion",columnDefinition = "TINYINT")
     private Integer idJurisdiccion;

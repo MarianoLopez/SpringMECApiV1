@@ -6,6 +6,7 @@
 package com.mec.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -23,6 +24,8 @@ import org.apache.commons.lang3.StringUtils;
 @Entity
 @Table(name = "Departamento")
 public class Departamento implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     
     @JsonIgnore
     @Column(name = "DepartamentoId",columnDefinition = "TINYINT")
@@ -30,19 +33,19 @@ public class Departamento implements Serializable {
     
     /*@OneToMany(mappedBy = "departamento", fetch = FetchType.LAZY)
     private List<Localidad> localidadList;*/
-
-    private static final long serialVersionUID = 1L;
     //@JsonIgnore
+    @ApiModelProperty(notes = "Identificador Unico DB",dataType = "Integer",required = true)
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id",columnDefinition = "TINYINT")
     private Integer id;
     
-    
+    @ApiModelProperty(notes = "Nombre del Departamento",dataType = "String(20)",required = true)
     @Size(max = 20)
     @Column(name = "Descr")
     private String descripcion;
+    @ApiModelProperty(notes = "Nombre reducido del Departamento",dataType = "String(5)",required = true)
     @Size(max = 5)
     @Column(name = "Mnemo")
     private String mnemo;

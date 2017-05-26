@@ -6,6 +6,7 @@
 package com.mec.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -27,6 +28,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Turno.findAll", query = "SELECT t FROM Turno t")})
 public class Turno implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    @ApiModelProperty(notes = "Identificador Unico DB",dataType = "Integer",required = true)
     @JsonIgnore
     @Id
     @Basic(optional = false)
@@ -35,12 +38,18 @@ public class Turno implements Serializable {
     private Integer id;
     /*@Column(name = "TurnoCge")
     private Character turnoCge;*/
+    
+    @ApiModelProperty(notes = "Turno nombre reducido",dataType = "String(50)",required = true)
     @Size(max = 50)
     @Column(name = "Mnemo")
     private String mnemo;
+    
+    @ApiModelProperty(notes = "Turno nombre",dataType = "String(30)",required = true)
     @Size(max = 30)
     @Column(name = "Descr")
     private String descripcion;
+    
+    @ApiModelProperty(notes = "Turno simple",dataType = "Boolean",required = true)
     @Column(name = "EsSimple")
     private Boolean esSimple;
     

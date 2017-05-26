@@ -37,8 +37,9 @@ import javax.validation.constraints.Size;
 @Table(name = "LuTrab")
 @JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.ANY, setterVisibility = Visibility.NONE)
 public class LuTrab implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    
+    @ApiModelProperty(notes = "Identificador Unico DB",dataType = "Integer",required = true)
     @JsonIgnore
     @Id
     @Basic(optional = false)
@@ -123,6 +124,7 @@ public class LuTrab implements Serializable {
     private LuTrabRegimen regimen;
     
     @JsonIgnore
+    @ApiModelProperty(notes = "Fecha de creación",dataType = "Date",required = true)
     //@JsonFormat(pattern="dd-MM-yyyy")
     @Column(name = "FechaCreacion")
     @Temporal(TemporalType.TIMESTAMP)
@@ -132,6 +134,7 @@ public class LuTrab implements Serializable {
     @Column(name = "NLCreacion")
     private String nLCreacion;*/
     @JsonIgnore
+    @ApiModelProperty(notes = "Fecha de clausura",dataType = "Date",required = false)
     @Column(name = "FechaClausura")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaClausura;
@@ -146,6 +149,7 @@ public class LuTrab implements Serializable {
     /* Preguntar
     @Column(name = "idOrg")
     private Integer idOrg;*/
+    @ApiModelProperty(notes = "Fecha del último movimiento",dataType = "Date",required = true)
     @JsonFormat(pattern="dd-MM-yyyy")
     @Column(name = "Desde")
     @Temporal(TemporalType.TIMESTAMP)

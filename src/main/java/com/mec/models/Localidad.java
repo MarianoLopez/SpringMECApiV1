@@ -6,6 +6,7 @@
 package com.mec.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -33,12 +34,15 @@ import org.apache.commons.lang3.StringUtils;
     @NamedQuery(name = "Localidad.findAll", query = "SELECT l FROM Localidad l")})
 public class Localidad implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    @ApiModelProperty(notes = "Identificador Unico DB",dataType = "Integer",required = true)
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
     private Integer id;
     
+    @ApiModelProperty(notes = "Localidad nombre",dataType = "String(50)",required = true)
     @Size(max = 50)
     @Column(name = "Descr")
     private String descripcion;

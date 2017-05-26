@@ -8,6 +8,7 @@ package com.mec.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Column;
 
@@ -19,20 +20,23 @@ import javax.persistence.Column;
 @JsonPropertyOrder({"latitud","longitud","zoom"})
 public class Geoposicion{
 
+    @ApiModelProperty(notes = "CueAnexo del Establecimiento",dataType = "Integer",required = true)
     @JsonIgnore
     @Column(name = "cueanexo")
     private Object cueanexo;
     
+    @ApiModelProperty(notes = "Longitud del Establecimiento",dataType = "float",required = true)
     @Column(name = "Longitud")
-    private Object Longitud;
+    private Object longitud;
     
-    
+    @ApiModelProperty(notes = "Latitud del Establecimiento",dataType = "float",required = true)
     @Column(name = "Latitud")
-    private Object Latitud;
+    private Object latitud;
     
+    @ApiModelProperty(notes = "Nivel de Zoom",dataType = "Integer",required = true)
     //@JsonIgnore
     @Column(name = "Zoom")
-    private Object Zoom;
+    private Object zoom;
     
     @JsonIgnore
     @Column(name = "CueAnexoAsociado")
@@ -57,27 +61,27 @@ public class Geoposicion{
     }
 
     public Object getLongitud() {
-        return Longitud;
+        return longitud;
     }
 
     public void setLongitud(Object Longitud) {
-        this.Longitud = Longitud;
+        this.longitud = Longitud;
     }
 
     public Object getLatitud() {
-        return Latitud;
+        return latitud;
     }
 
     public void setLatitud(Object Latitud) {
-        this.Latitud = Latitud;
+        this.latitud = Latitud;
     }
 
     public Object getZoom() {
-        return Zoom;
+        return zoom;
     }
 
     public void setZoom(Object Zoom) {
-        this.Zoom = Zoom;
+        this.zoom = Zoom;
     }
    
     

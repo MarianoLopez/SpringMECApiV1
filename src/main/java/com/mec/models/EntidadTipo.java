@@ -6,6 +6,7 @@
 package com.mec.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -27,12 +28,15 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "EntidadTipo.findAll", query = "SELECT e FROM EntidadTipo e")})
 public class EntidadTipo implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    @ApiModelProperty(notes = "Identificador Unico DB",dataType = "Integer",required = true)
     @JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id",columnDefinition = "TINYINT")
     private Integer id;
+    @ApiModelProperty(notes = "Nombre del tipo de Entidad",dataType = "String(40)",required = true)
     @Size(max = 40)
     @Column(name = "Descr")
     private String descripcion;

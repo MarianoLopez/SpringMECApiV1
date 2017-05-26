@@ -9,7 +9,6 @@ package com.mec.Controllers;
 
 import com.mec.Services.LuTrabService;
 import com.mec.models.LuTrab;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

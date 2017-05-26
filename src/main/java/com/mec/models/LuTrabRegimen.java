@@ -6,6 +6,7 @@
 package com.mec.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -26,17 +27,22 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "LuTrabRegimen.findAll", query = "SELECT l FROM LuTrabRegimen l")})
 public class LuTrabRegimen implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    
+    @ApiModelProperty(notes = "Identificador Unico DB",dataType = "Integer",required = true)
     //@JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id",columnDefinition = "TINYINT")
     private Integer id;
+    
+    @ApiModelProperty(notes = "Regimen nombre",dataType = "String(25)",required = true)
     @Size(max = 25)
     @Column(name = "Descr")
     private String descripcion;
+    
+    @ApiModelProperty(notes = "Regimen nombre reducido",dataType = "String(3)",required = true)
     @Size(max = 3)
     @Column(name = "Mnemo")
     private String mnemo;

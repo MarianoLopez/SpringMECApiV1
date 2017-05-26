@@ -7,6 +7,7 @@ package com.mec.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -27,12 +28,16 @@ import org.apache.commons.lang3.StringUtils;
 @Table(name = "Modali")
 public class Modali implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    @ApiModelProperty(notes = "Identificador Unico DB",dataType = "Integer",required = true)
     //@JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id",columnDefinition = "TINYINT")
     private Integer id;
+    
+    @ApiModelProperty(notes = "Modalidad nombre",dataType = "String(20)",required = true)
     @Size(max = 20)
     @Column(name = "Descr",columnDefinition = "CHAR")
     private String descripcion;
