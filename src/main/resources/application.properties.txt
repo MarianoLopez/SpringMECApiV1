@@ -2,7 +2,9 @@
 #db.driver: com.mysql.jdbc.Driver
 db.driver:com.microsoft.sqlserver.jdbc.SQLServerDriver
 #db.url: jdbc:mysql://<ip>:<puerto>/<db>
-db.url: jdbc:sqlserver://<ip>:1433;databaseName=<db>
+db.url: jdbc:sqlserver://<ip>:1433;databaseName=
+db.Pof2=Pof2
+db.GE=GE3
 db.username: <username>
 db.password: <password>
 
@@ -17,7 +19,8 @@ hibernate.show_sql: false
 hibernate.hbm2ddl.auto: validate
 #hibernate.default_schema: dbo
 #ruta a los modelos a mapear automaticamente
-entitymanager.packagesToScan: com.mec.models
+entitymanager.packagesToScan.Pof2: com.mec.models.Pof2
+entitymanager.packagesToScan.GE: com.mec.models.GE
 #nivel de log
 logging.level.org.hibernate=ERROR
 

@@ -6,7 +6,7 @@
 package com.mec.DAO;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.LuTrab;
+import com.mec.models.Pof2.LuTrab;
 import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.ObjectNotFoundException;
@@ -19,12 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
  * @author MarianoLopez
  */
 @Repository
-@Transactional(readOnly = true)
+@Transactional(readOnly = true,transactionManager = "managerPof2")
 public class LuTrabDAO extends HibernateUtil{
     private final String generalQuery = "from LuTrab where FechaClausura is null AND Hasta is null AND id != 12069 AND CUE is not null AND LEN(CUE)=7";//id=12069 --> pruebas pof
     
     public LuTrab getByCueAnexo(int Cue, int Anexo){
-        Query query = this.getSession().createQuery(generalQuery+" AND CUE = :Cue AND Anexo = :Anexo");
+        Query query = this.getSessionPof2().createQuery(generalQuery+" AND CUE = :Cue AND Anexo = :Anexo");
         query.setParameter("Cue", Cue);
         query.setParameter("Anexo", Anexo);
         LuTrab l = (LuTrab)query.uniqueResult();
@@ -33,7 +33,7 @@ public class LuTrabDAO extends HibernateUtil{
     }
     
     public List<LuTrab> getAll(){
-        List<LuTrab> lugares =  this.getSession().createQuery(generalQuery).setCacheable(true).list();
+        List<LuTrab> lugares =  this.getSessionPof2().createQuery(generalQuery).setCacheable(true).list();
         lugares.parallelStream().forEach((lugar) -> {lazyInit(lugar);});
         return lugares;
     }

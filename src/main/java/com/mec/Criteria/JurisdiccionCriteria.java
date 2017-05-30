@@ -5,9 +5,9 @@
  */
 package com.mec.Criteria;
 
-import com.mec.models.LuTrab;
-import com.mec.models.LuTrabRegimen;
-import com.mec.models.NivelJur;
+import com.mec.models.Pof2.LuTrab;
+import com.mec.models.Pof2.LuTrabRegimen;
+import com.mec.models.Pof2.NivelJur;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -6,7 +6,7 @@
 package com.mec.DAO;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.Geoposicion;
+import com.mec.models.Pof2.Geoposicion;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -20,10 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional(readOnly = true,transactionManager = "managerPof2")
 public class GeoDAO extends HibernateUtil{
      public Geoposicion getByCueAnexo(int cue, int anexo){
-        Query query = getSession().createSQLQuery("exec [mapa].[paEntidadGetByCueAnexo] :CueAnexo");
+        Query query = getSessionPof2().createSQLQuery("exec [mapa].[paEntidadGetByCueAnexo] :CueAnexo");
         //System.out.println("anexo: "+anexo);
         int aux;
         if(String.valueOf(anexo).length()==1){

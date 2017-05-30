@@ -6,7 +6,7 @@
 package com.mec.Services;
 
 import com.mec.DAO.LocalidadDAO;
-import com.mec.models.Localidad;
+import com.mec.models.Pof2.Localidad;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

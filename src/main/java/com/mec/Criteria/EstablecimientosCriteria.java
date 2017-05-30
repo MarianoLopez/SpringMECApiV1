@@ -5,7 +5,7 @@
  */
 package com.mec.Criteria;
 
-import com.mec.models.LuTrab;
+import com.mec.models.Pof2.LuTrab;
 import java.util.List;
 
 /**

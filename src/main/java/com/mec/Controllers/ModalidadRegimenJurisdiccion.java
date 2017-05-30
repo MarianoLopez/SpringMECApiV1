@@ -6,9 +6,9 @@
 package com.mec.Controllers;
 
 import com.mec.DAO.ModalidadRegimenJurisdiccionDAO;
-import com.mec.models.LuTrabRegimen;
-import com.mec.models.Modali;
-import com.mec.models.NivelJur;
+import com.mec.models.Pof2.LuTrabRegimen;
+import com.mec.models.Pof2.Modali;
+import com.mec.models.Pof2.NivelJur;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,7 +7,7 @@ package com.mec.Controllers;
 
 import com.mec.DAO.DepartamentoDAO;
 
-import com.mec.models.Departamento;
+import com.mec.models.Pof2.Departamento;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

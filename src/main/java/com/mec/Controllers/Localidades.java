@@ -6,8 +6,8 @@
 package com.mec.Controllers;
 
 import com.mec.Services.LocalidadService;
-import com.mec.models.Departamento;
-import com.mec.models.Localidad;
+import com.mec.models.Pof2.Departamento;
+import com.mec.models.Pof2.Localidad;
 import io.swagger.annotations.ApiOperation;
 import java.util.ArrayList;
 import java.util.Arrays;

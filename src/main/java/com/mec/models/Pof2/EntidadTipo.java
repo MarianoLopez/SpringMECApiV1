@@ -3,20 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mec.models;
+package com.mec.models.Pof2;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,48 +23,35 @@ import javax.validation.constraints.Size;
  * @author MarianoLopez
  */
 @Entity
-@Table(name = "NivelJur")
+@Table(name = "EntidadTipo")
 @NamedQueries({
-    @NamedQuery(name = "NivelJur.findAll", query = "SELECT n FROM NivelJur n")})
-public class NivelJur implements Serializable {
+    @NamedQuery(name = "EntidadTipo.findAll", query = "SELECT e FROM EntidadTipo e")})
+public class EntidadTipo implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @ApiModelProperty(notes = "Identificador Unico DB",dataType = "Integer",required = true)
+    @JsonIgnore
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id",columnDefinition = "TINYINT")
     private Integer id;
-    
-    @ApiModelProperty(notes = "Jurisdicción nombre",dataType = "String(50)",required = true)
-    @Size(max = 50)
+    @ApiModelProperty(notes = "Nombre del tipo de Entidad",dataType = "String(40)",required = true)
+    @Size(max = 40)
     @Column(name = "Descr")
     private String descripcion;
     
-    @ApiModelProperty(notes = "Jurisdicción nombre reducido",dataType = "String(50)",required = true)
-    @Size(max = 50)
-    @Column(name = "Mnemo")
-    private String mnemo;
-    
-    @JsonIgnore
-    @Column(name = "idJurisdiccion",columnDefinition = "TINYINT")
-    private Integer idJurisdiccion;
-    @JsonIgnore
-    @Size(max = 5)
-    @Column(name = "DepJur")
-    private String depJur;
-    @JsonIgnore
-    @Column(name = "NivelJurisdiccionalId",columnDefinition = "TINYINT")
-    private Integer nivelJurisdiccionalId;
+    /*@Column(name = "TipoEntidadId",columnDefinition = "TINYINT")
+    private Integer tipoEntidadId;*/
     /*
     @JsonIgnore
-    @OneToMany(mappedBy = "nivelJurisdiccional", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "entidadTipo", fetch = FetchType.LAZY)
     private List<LuTrab> luTrabList;
     */
-    public NivelJur() {
+    public EntidadTipo() {
     }
 
-    public NivelJur(Integer id) {
+    public EntidadTipo(Integer id) {
         this.id = id;
     }
 
@@ -87,39 +71,15 @@ public class NivelJur implements Serializable {
         this.descripcion = descr;
     }
 
-    public String getMnemo() {
-        return mnemo;
+    /*public Integer getTipoEntidadId() {
+        return tipoEntidadId;
     }
 
-    public void setMnemo(String mnemo) {
-        this.mnemo = mnemo;
-    }
+    public void setTipoEntidadId(Integer tipoEntidadId) {
+        this.tipoEntidadId = tipoEntidadId;
+    }*/
 
-    public Integer getIdJurisdiccion() {
-        return idJurisdiccion;
-    }
-
-    public void setIdJurisdiccion(Integer idJurisdiccion) {
-        this.idJurisdiccion = idJurisdiccion;
-    }
-
-    public String getDepJur() {
-        return depJur;
-    }
-
-    public void setDepJur(String depJur) {
-        this.depJur = depJur;
-    }
-
-    public Integer getNivelJurisdiccionalId() {
-        return nivelJurisdiccionalId;
-    }
-
-    public void setNivelJurisdiccionalId(Integer nivelJurisdiccionalId) {
-        this.nivelJurisdiccionalId = nivelJurisdiccionalId;
-    }
-
-   /* public List<LuTrab> getLuTrabList() {
+    /*public List<LuTrab> getLuTrabList() {
         return luTrabList;
     }
 
@@ -137,10 +97,10 @@ public class NivelJur implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof NivelJur)) {
+        if (!(object instanceof EntidadTipo)) {
             return false;
         }
-        NivelJur other = (NivelJur) object;
+        EntidadTipo other = (EntidadTipo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -149,7 +109,7 @@ public class NivelJur implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mec.models.NivelJur[ id=" + id + " ]";
+        return "com.mec.models.EntidadTipo[ id=" + id + " ]";
     }
     
 }

@@ -6,7 +6,7 @@
 package com.mec.DAO;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.Localidad;
+import com.mec.models.Pof2.Localidad;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,15 +16,15 @@ import org.springframework.transaction.annotation.Transactional;
  * @author MarianoLopez
  */
 @Repository
-@Transactional(readOnly = true)
+@Transactional(readOnly = true,transactionManager = "managerPof2")
 public class LocalidadDAO extends HibernateUtil{
     public List<Localidad> getAll(){
-        List<Localidad> localidades = getSession().createQuery("from Localidad where idProvincia = 8 order by Descr").list();
+        List<Localidad> localidades = getSessionPof2().createQuery("from Localidad where idProvincia = 8 order by Descr").list();
         return localidades;
     }
     
     public Localidad getById(int id){
-        return getSession().get(Localidad.class, id);
+        return getSessionPof2().get(Localidad.class, id);
     }
     
     /*public List<Localidad> getByDepartamentoId(int id){

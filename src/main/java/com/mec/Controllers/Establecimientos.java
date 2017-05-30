@@ -8,7 +8,7 @@ package com.mec.Controllers;
 
 
 import com.mec.Services.LuTrabService;
-import com.mec.models.LuTrab;
+import com.mec.models.Pof2.LuTrab;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class Establecimientos{
     }
     
     @ApiOperation(value = "Búsqueda de Establecimiento Educativo de la Provincia de Corrientes a través del CUE/ANEXO", response = LuTrab.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "byCueAnexo/{Cue}/{Anexo}")
+    @RequestMapping(method = RequestMethod.GET,value = "/{Cue}/{Anexo}")
     public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,
                                      @PathVariable(value="Anexo") int Anexo){
         return luTrabService.getByCueAnexo(Cue,Anexo);

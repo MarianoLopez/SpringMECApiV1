@@ -5,8 +5,8 @@
  */
 package com.mec.Criteria;
 
-import com.mec.models.Localidad;
-import com.mec.models.LuTrab;
+import com.mec.models.Pof2.Localidad;
+import com.mec.models.Pof2.LuTrab;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
