@@ -7,7 +7,9 @@ package com.mec.Controllers;
 
 
 
+import com.mec.DAO.EstablecimientoDAO;
 import com.mec.Services.LuTrabService;
+import com.mec.models.GE.Establecimiento;
 import com.mec.models.Pof2.LuTrab;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
@@ -29,6 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class Establecimientos{
     @Autowired
     private LuTrabService luTrabService;
+    @Autowired
+    private EstablecimientoDAO establecimientoDAO;
     
     @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (modalidades, regimenes, jurisdicciones, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = LuTrab.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET)
@@ -50,5 +54,10 @@ public class Establecimientos{
     public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,
                                      @PathVariable(value="Anexo") int Anexo){
         return luTrabService.getByCueAnexo(Cue,Anexo);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET,value = "/test")
+    public List<Establecimiento> test(){
+        return establecimientoDAO.getAll();
     }
 }

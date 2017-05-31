@@ -129,6 +129,7 @@ public LocalSessionFactoryBean sessionFactory2() {
   hibernateProperties.put("hibernate.dialect", HIBERNATE_DIALECT);
   hibernateProperties.put("hibernate.show_sql", HIBERNATE_SHOW_SQL);
   hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);
+  hibernateProperties.put("hibernate.default_schema", "dbo");
   hibernateProperties.put("hibernate.default_catalog", GE);
   sessionFactoryBean.setHibernateProperties(hibernateProperties);
   return sessionFactoryBean;
