@@ -6,18 +6,12 @@
 package com.mec.models.GE;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -38,8 +32,8 @@ public class Establecimiento implements Serializable {
     @NotNull
     @Column(name = "EstablecimientoId")
     private Integer establecimientoId;
-    @Column(name = "EdificioId")
-    private Integer edificioId;
+    /*@Column(name = "EdificioId")
+    private Integer edificioId;*/
     @Size(max = 15)
     @Column(name = "CUE")
     private String cue;
@@ -55,8 +49,8 @@ public class Establecimiento implements Serializable {
     @JoinColumn(name = "EstablecimientoDetalleId", referencedColumnName = "EstablecimientoDetalleId")
     @ManyToOne(fetch = FetchType.LAZY)
     private EstablecimientoDetalle establecimientoDetalleId;*/
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "establecimientoId", fetch = FetchType.LAZY)
-    private List<EstablecimientoDetalle> establecimientoDetalleList;
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "establecimientoId", fetch = FetchType.LAZY)
+    private List<EstablecimientoDetalle> establecimientoDetalleList;*/
 
     public Establecimiento() {
     }
@@ -73,13 +67,13 @@ public class Establecimiento implements Serializable {
         this.establecimientoId = establecimientoId;
     }
 
-    public Integer getEdificioId() {
+    /*public Integer getEdificioId() {
         return edificioId;
     }
 
     public void setEdificioId(Integer edificioId) {
         this.edificioId = edificioId;
-    }
+    }*/
 
     public String getCue() {
         return cue;
@@ -129,13 +123,13 @@ public class Establecimiento implements Serializable {
         this.establecimientoDetalleId = establecimientoDetalleId;
     }*/
 
-    public List<EstablecimientoDetalle> getEstablecimientoDetalleList() {
+    /*public List<EstablecimientoDetalle> getEstablecimientoDetalleList() {
         return establecimientoDetalleList;
     }
 
     public void setEstablecimientoDetalleList(List<EstablecimientoDetalle> establecimientoDetalleList) {
         this.establecimientoDetalleList = establecimientoDetalleList;
-    }
+    }*/
 
     @Override
     public int hashCode() {

@@ -7,9 +7,12 @@ package com.mec.Controllers;
 
 
 
+import com.mec.DAO.EdificioDAO;
 import com.mec.DAO.EstablecimientoDAO;
 import com.mec.Services.LuTrabService;
 import com.mec.models.GE.Establecimiento;
+import com.mec.models.GE.EstablecimientoEdificio;
+
 import com.mec.models.Pof2.LuTrab;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
@@ -33,6 +36,8 @@ public class Establecimientos{
     private LuTrabService luTrabService;
     @Autowired
     private EstablecimientoDAO establecimientoDAO;
+    @Autowired
+    private EdificioDAO edificioDAO;
     
     @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (modalidades, regimenes, jurisdicciones, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = LuTrab.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET)
@@ -56,8 +61,13 @@ public class Establecimientos{
         return luTrabService.getByCueAnexo(Cue,Anexo);
     }
     
-    @RequestMapping(method = RequestMethod.GET,value = "/test")
-    public List<Establecimiento> test(){
-        return establecimientoDAO.getAll();
+    @RequestMapping(method = RequestMethod.GET,value = "/test/{id}")
+    public List<EstablecimientoEdificio> test(@PathVariable(value="id") int id){
+        return edificioDAO.getByEstablecimientoId(id);
+    }
+    
+     @RequestMapping(method = RequestMethod.GET,value = "/test2/{Cue}/{Anexo}")
+    public Establecimiento test2(@PathVariable(value="Cue") int Cue,@PathVariable(value="Anexo") int Anexo){
+        return establecimientoDAO.getByCueAnexo(Cue,Anexo);
     }
 }

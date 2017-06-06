@@ -7,9 +7,9 @@ package com.mec.DAO;
 
 import com.mec.Util.HibernateUtil;
 import com.mec.models.GE.Establecimiento;
-import com.mec.models.GE.EstablecimientoDetalle;
+
 import java.util.List;
-import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,20 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true,transactionManager = "managerGE")
 public class EstablecimientoDAO extends HibernateUtil{
     
-    
-    public List<Establecimiento> getAll(){
-        List<Establecimiento> list = getSessionGE().createQuery("from Establecimiento").list();
-        init(list);
-        return list;
-    }
-    
-    private void init(List<Establecimiento> list){
-        list.parallelStream().forEach((e) -> {
-            Hibernate.initialize(e.getEstablecimientoDetalleList());
-            /*List<EstablecimientoDetalle> detalle = e.getEstablecimientoDetalleList();
-            detalle.parallelStream().forEach((d) -> {
-                Hibernate.initialize(d.getCategoriaEstablecimientoId());
-            });*/
-        });
+     public Establecimiento getByCueAnexoLuTrab(int Cue, int Anexo, int luTrab){
+        Query query = this.getSessionGE().createQuery("from Establecimiento WHERE CUE = :Cue AND Anexo = :Anexo AND LuTrab = :luTrab");
+        query.setParameter("Cue", Cue);
+        query.setParameter("Anexo", Anexo);
+        query.setParameter("luTrab", luTrab);
+        return (Establecimiento)query.uniqueResult();
     }
 }

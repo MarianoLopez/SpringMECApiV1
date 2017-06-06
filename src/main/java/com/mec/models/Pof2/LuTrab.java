@@ -11,10 +11,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.mec.models.GE.EstablecimientoEdificio;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,9 +48,10 @@ public class LuTrab implements Serializable {
     @NotNull
     @Column(name = "id")
     private Integer id;
-    /*
+    
     @Column(name = "LuTrab")
-    private Integer luTrab;*/
+    @NotNull
+    private Integer luTrab;
     
     @ApiModelProperty(notes = "Código de Anexo del Establecimiento",dataType = "Integer",required = true,example = "00")
     @Column(name = "Anexo",columnDefinition = "TINYINT")
@@ -227,11 +230,25 @@ public class LuTrab implements Serializable {
     @JsonSerialize//jackson
     @JsonDeserialize
     private Geoposicion geo = null;
+    
+    @Transient //The transient keyword in Java is used to indicate that a field should not be serialized. (hibernate)
+    @JsonSerialize//jackson
+    @JsonDeserialize
+    private List<EstablecimientoEdificio> edificios = null;
+    
     public LuTrab() {
     }
 
     public LuTrab(Integer id) {
         this.id = id;
+    }
+
+    public List<EstablecimientoEdificio> getEdificios() {
+        return edificios;
+    }
+
+    public void setEdificios(List<EstablecimientoEdificio> edificios) {
+        this.edificios = edificios;
     }
     
     public Geoposicion getGeo(){
@@ -249,13 +266,13 @@ public class LuTrab implements Serializable {
         this.id = id;
     }
 
-    /*public Integer getLuTrab() {
+    public Integer getLuTrab() {
         return luTrab;
     }
 
     public void setLuTrab(Integer luTrab) {
         this.luTrab = luTrab;
-    }*/
+    }
 
     public int getAnexo() {
         return anexo;

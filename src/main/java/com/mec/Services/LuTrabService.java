@@ -5,10 +5,14 @@
  */
 package com.mec.Services;
 import com.mec.Criteria.*;
+import com.mec.DAO.EdificioDAO;
+import com.mec.DAO.EstablecimientoDAO;
 import com.mec.DAO.GeoDAO;
 import com.mec.DAO.LuTrabDAO;
+import com.mec.models.GE.Establecimiento;
 import com.mec.models.Pof2.Geoposicion;
 import com.mec.models.Pof2.LuTrab;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,17 +28,27 @@ public class LuTrabService{
     private LuTrabDAO luTrabDAO;
     @Autowired
     private GeoDAO geoDAO;
+    @Autowired
+    private EdificioDAO edificioDAO;
+    @Autowired
+    private EstablecimientoDAO establecimientoDAO;
     
-    private List<LuTrab> todos;
+    private List<LuTrab> todos = new ArrayList<>();
     
     @Scheduled(fixedRate = 600000)//10min en ms
-    private void getAllScheduled() {this.todos = getAll(true);System.out.println("getAllScheduled() listo");}
+    private void getAllEstablecimientos() {
+        long startTime = System.currentTimeMillis();
+        List<LuTrab> aux = getAll(true);
+        this.todos = aux;
+        long endTime = System.currentTimeMillis();
+        System.out.println("getAllScheduled() listo -->"+(endTime - startTime)/1000.0+" segundos");
+    }
     
     public List<LuTrab> getAll(){return this.todos;}
     
      public List<LuTrab> getAll(boolean geo){
         List<LuTrab> lugares =  luTrabDAO.getAll();
-        if(geo){initGeo(lugares);}
+        if(geo){initGeoAndEdificios(lugares);}
         return lugares;
     }
     
@@ -43,6 +57,7 @@ public class LuTrabService{
         if(l!=null){
             Geoposicion geo = geoDAO.getByCueAnexo(Cue, Anexo);
             l.setGeo(geo);
+            initEdificio(l);
         }
         return l;
     }
@@ -66,9 +81,17 @@ public class LuTrabService{
         return todo;
     }
  
-    private void initGeo(List<LuTrab> lugares){
+    private void initGeoAndEdificios(List<LuTrab> lugares){
         lugares.parallelStream().forEach((lugar)->{
             lugar.setGeo(geoDAO.getByCueAnexo(lugar.getCue(),lugar.getAnexo()));
+            initEdificio(lugar);
         });
+    }
+    
+    private void initEdificio(LuTrab lugar){
+        Establecimiento e = establecimientoDAO.getByCueAnexoLuTrab(lugar.getCue(), lugar.getAnexo(),lugar.getLuTrab());
+        if(e!=null){
+            lugar.setEdificios(edificioDAO.getByEstablecimientoId(e.getEstablecimientoId()));
+        }
     }
 }
