@@ -61,7 +61,7 @@ public class LuTrabService{
         }
         return l;
     }
-    public List<LuTrab> getByFilter(Integer[] modalidades,Integer[] regimenes,Integer[] jurisdicciones,Integer[] departamentos,Integer[] localidades){
+    public List<LuTrab> getByFilter(Integer[] modalidades,Integer[] regimenes,Integer[] jurisdicciones,Integer[] departamentos,Integer[] localidades,Integer[] ambitos){
         List<LuTrab> todo = this.getAll();
         if(modalidades!=null){
             todo = new ModalidadCriteria().filterCriteria(todo, modalidades);
@@ -77,6 +77,9 @@ public class LuTrabService{
         }
         if(localidades!=null){
             todo = new LocalidadCriteria().filterCriteria(todo, localidades);
+        }
+        if(ambitos!=null){
+            todo = new AmbitoCriteria().filterCriteria(todo,ambitos);
         }
         return todo;
     }

@@ -34,10 +34,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class Establecimientos{
     @Autowired
     private LuTrabService luTrabService;
-    @Autowired
-    private EstablecimientoDAO establecimientoDAO;
-    @Autowired
-    private EdificioDAO edificioDAO;
     
     @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (modalidades, regimenes, jurisdicciones, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = LuTrab.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET)
@@ -46,9 +42,10 @@ public class Establecimientos{
                         @RequestParam(value="regimenes",required = false) Integer[] regimenes,
                         @RequestParam(value="jurisdicciones",required = false) Integer[] jurisdicciones,
                         @RequestParam(value="departamentos",required = false) Integer[] departamentos,
-                        @RequestParam(value="localidades",required = false) Integer[] localidades){
+                        @RequestParam(value="localidades",required = false) Integer[] localidades,
+                        @RequestParam(value="ambitos",required = false) Integer[] ambitos){
         if(cache){
-            return luTrabService.getByFilter(modalidades, regimenes, jurisdicciones, departamentos, localidades);
+            return luTrabService.getByFilter(modalidades, regimenes, jurisdicciones, departamentos, localidades,ambitos);
         }else{
             return luTrabService.getAll(true);
         }
@@ -59,15 +56,5 @@ public class Establecimientos{
     public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,
                                      @PathVariable(value="Anexo") int Anexo){
         return luTrabService.getByCueAnexo(Cue,Anexo);
-    }
-    
-    @RequestMapping(method = RequestMethod.GET,value = "/test/{id}")
-    public List<EstablecimientoEdificio> test(@PathVariable(value="id") int id){
-        return edificioDAO.getByEstablecimientoId(id);
-    }
-    
-     @RequestMapping(method = RequestMethod.GET,value = "/test2/{Cue}/{Anexo}")
-    public Establecimiento test2(@PathVariable(value="Cue") int Cue,@PathVariable(value="Anexo") int Anexo){
-        return establecimientoDAO.getByCueAnexo(Cue,Anexo);
     }
 }
