@@ -26,15 +26,17 @@ public class AmbitoCriteria implements EstablecimientosCriteria{
         establecimientos.forEach((establecimiento) -> {
             List <EstablecimientoEdificio> edificios = establecimiento.getEdificios();
             if(edificios!=null){
-                edificios.forEach((e) -> {
-                   Edificio edificio = e.getEdificioId();
-                   if(edificio!=null){
-                       Ambito ambito = edificio.getAmbitoId();
-                       if(ambito!=null&&list.contains(ambito.getAmbitoId())){
-                           filtro.add(establecimiento);
-                       }
-                   }
-                });
+                boolean insert = true;//el establecimiento puede tener más de 1 edificio, no se lo debe incluir n veces al establecimiento
+                for(EstablecimientoEdificio e:edificios){
+                    Edificio edificio = e.getEdificioId();
+                    if(edificio!=null){
+                        Ambito ambito = edificio.getAmbitoId();
+                        if(ambito!=null&&list.contains(ambito.getAmbitoId())&&insert){
+                            filtro.add(establecimiento);
+                            insert=false;
+                        }
+                    }
+                }
             }
         });
         return filtro;
