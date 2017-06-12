@@ -64,6 +64,9 @@ public class Localidad implements Serializable {
     @Column(name = "LocalidadId")
     private Integer localidadId;
     
+    @JsonIgnore
+    @Column(name = "idProvincia",columnDefinition = "TINYINT")
+    private Integer idProvincia;
     
     @JoinColumn(name = "idDepartamento", referencedColumnName = "DepartamentoId")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -86,6 +89,15 @@ public class Localidad implements Serializable {
         this.id = id;
     }
 
+    public Integer getIdProvincia() {
+        return idProvincia;
+    }
+
+    public void setIdProvincia(Integer idProvincia) {
+        this.idProvincia = idProvincia;
+    }
+    
+    
     public String getDescripcion() {
         return StringUtils.stripEnd(descripcion, " ");
     }
