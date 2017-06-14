@@ -37,10 +37,10 @@ public class EdificioDAO extends HibernateUtil{
     }
     
     private void lazyInit(EstablecimientoEdificio e){
-        Edificio edificio = e.getEdificioId();
+        Edificio edificio = e.getEdificio();
         Hibernate.initialize(edificio);
         if(edificio!=null){
-            Hibernate.initialize(edificio.getAmbitoId());
+            Hibernate.initialize(edificio.getAmbito());
         }
     }
 }

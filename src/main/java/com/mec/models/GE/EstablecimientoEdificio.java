@@ -29,22 +29,25 @@ public class EstablecimientoEdificio implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
+    @JsonIgnore
     @Column(name = "EstablecimientoEdificioId")
     private Integer establecimientoEdificioId;
     @Basic(optional = false)
     @NotNull
+    @JsonIgnore
     @Column(name = "EstablecimientoId")
     private int establecimientoId;
     
     @Basic(optional = false)
     @NotNull
+    @JsonIgnore
     @Column(name = "EsPrincipal")
     private boolean esPrincipal;
     
     
     @JoinColumn(name = "EdificioId", referencedColumnName = "EdificioId")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Edificio edificioId;
+    private Edificio edificio;
 
     public EstablecimientoEdificio() {
     }
@@ -85,12 +88,12 @@ public class EstablecimientoEdificio implements Serializable {
         this.esPrincipal = esPrincipal;
     }
 
-    public Edificio getEdificioId() {
-        return edificioId;
+    public Edificio getEdificio() {
+        return edificio;
     }
 
-    public void setEdificioId(Edificio edificioId) {
-        this.edificioId = edificioId;
+    public void setEdificio(Edificio edificioId) {
+        this.edificio = edificioId;
     }
 
     @Override

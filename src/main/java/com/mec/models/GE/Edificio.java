@@ -34,7 +34,7 @@ public class Edificio implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "EdificioId")
-    private Integer edificioId;
+    private Integer id;
     
     @Size(max = 150)
     @Column(name = "Domicilio")
@@ -45,25 +45,25 @@ public class Edificio implements Serializable {
    
     @JoinColumn(name = "AmbitoId", referencedColumnName = "AmbitoId")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Ambito ambitoId;
+    private Ambito ambito;
     
-    @JsonIgnore
+    /*@JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "edificioId", fetch = FetchType.LAZY)
-    private List<EstablecimientoEdificio> establecimientoEdificioList;
+    private List<EstablecimientoEdificio> establecimientoEdificioList;*/
 
     public Edificio() {
     }
 
     public Edificio(Integer edificioId) {
-        this.edificioId = edificioId;
+        this.id = edificioId;
     }
 
-    public Integer getEdificioId() {
-        return edificioId;
+    public Integer getId() {
+        return this.id;
     }
 
-    public void setEdificioId(Integer edificioId) {
-        this.edificioId = edificioId;
+    public void setId(Integer edificioId) {
+        this.id = edificioId;
     }
 
  
@@ -84,26 +84,26 @@ public class Edificio implements Serializable {
         this.cui = cui;
     }
 
-    public Ambito getAmbitoId() {
-        return ambitoId;
+    public Ambito getAmbito() {
+        return ambito;
     }
 
     public void setAmbitoId(Ambito ambitoId) {
-        this.ambitoId = ambitoId;
+        this.ambito = ambitoId;
     }
 
-    public List<EstablecimientoEdificio> getEstablecimientoEdificioList() {
+    /*public List<EstablecimientoEdificio> getEstablecimientoEdificioList() {
         return establecimientoEdificioList;
     }
 
     public void setEstablecimientoEdificioList(List<EstablecimientoEdificio> establecimientoEdificioList) {
         this.establecimientoEdificioList = establecimientoEdificioList;
-    }
+    }*/
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (edificioId != null ? edificioId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -114,7 +114,7 @@ public class Edificio implements Serializable {
             return false;
         }
         Edificio other = (Edificio) object;
-        if ((this.edificioId == null && other.edificioId != null) || (this.edificioId != null && !this.edificioId.equals(other.edificioId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -122,7 +122,7 @@ public class Edificio implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mec.models.GE.Edificio[ edificioId=" + edificioId + " ]";
+        return "com.mec.models.GE.Edificio[ edificioId=" + id + " ]";
     }
     
 }

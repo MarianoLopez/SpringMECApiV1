@@ -28,10 +28,10 @@ public class AmbitoCriteria implements EstablecimientosCriteria{
             if(edificios!=null){
                 boolean insert = true;//el establecimiento puede tener más de 1 edificio, no se lo debe incluir n veces al establecimiento
                 for(EstablecimientoEdificio e:edificios){
-                    Edificio edificio = e.getEdificioId();
+                    Edificio edificio = e.getEdificio();
                     if(edificio!=null){
-                        Ambito ambito = edificio.getAmbitoId();
-                        if(ambito!=null&&list.contains(ambito.getAmbitoId())&&insert){
+                        Ambito ambito = edificio.getAmbito();
+                        if(ambito!=null&&list.contains(ambito.getId())&&insert){
                             filtro.add(establecimiento);
                             insert=false;
                         }

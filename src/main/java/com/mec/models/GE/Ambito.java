@@ -27,7 +27,7 @@ public class Ambito implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "AmbitoId")
-    private Integer ambitoId;
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
@@ -39,20 +39,20 @@ public class Ambito implements Serializable {
     }
 
     public Ambito(Integer ambitoId) {
-        this.ambitoId = ambitoId;
+        this.id = ambitoId;
     }
 
     public Ambito(Integer ambitoId, String descripcion) {
-        this.ambitoId = ambitoId;
+        this.id = ambitoId;
         this.descripcion = descripcion;
     }
 
-    public Integer getAmbitoId() {
-        return ambitoId;
+    public Integer getId() {
+        return this.id;
     }
 
-    public void setAmbitoId(Integer ambitoId) {
-        this.ambitoId = ambitoId;
+    public void setId(Integer ambitoId) {
+        this.id = ambitoId;
     }
 
     public String getDescripcion() {
@@ -68,7 +68,7 @@ public class Ambito implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (ambitoId != null ? ambitoId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -79,7 +79,7 @@ public class Ambito implements Serializable {
             return false;
         }
         Ambito other = (Ambito) object;
-        if ((this.ambitoId == null && other.ambitoId != null) || (this.ambitoId != null && !this.ambitoId.equals(other.ambitoId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -87,7 +87,7 @@ public class Ambito implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mec.models.GE.Ambito[ ambitoId=" + ambitoId + " ]";
+        return "com.mec.models.GE.Ambito[ ambitoId=" + id + " ]";
     }
     
 }

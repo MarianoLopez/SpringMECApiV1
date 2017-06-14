@@ -10,7 +10,6 @@ import com.mec.models.Pof2.Localidad;
 import com.mec.models.Pof2.LuTrab;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
@@ -46,12 +45,4 @@ public class LocalidadDAO extends HibernateUtil{
     public Localidad getById(int id){
         return getSessionPof2().get(Localidad.class, id);
     }
-    
-    /*public List<Localidad> getByDepartamentoId(int id){
-        Query query = getSession().createQuery("from Localidad where idProvincia = 8 AND idDepartamento = :id order by Descr");
-        query.setParameter("id", id);
-        List<Localidad> localidades = query.list();
-        return localidades;
-    }*/
-    
 }
