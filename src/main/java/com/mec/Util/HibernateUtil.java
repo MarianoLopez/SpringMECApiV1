@@ -23,6 +23,10 @@ public abstract class HibernateUtil {
     @Qualifier(value="sessionGE")
     private SessionFactory session2;
     
+    @Autowired
+    @Qualifier(value="sessionPassport")
+    private SessionFactory session3;
+    
     public SessionFactory getSessionFactoryPof2(){return this.session;}
     
     public Session getSessionPof2(){return this.session.getCurrentSession();}
@@ -30,5 +34,9 @@ public abstract class HibernateUtil {
     public SessionFactory getSessionFactoryGE(){return this.session2;}
     
     public Session getSessionGE(){return this.session2.getCurrentSession();}
+    
+    public SessionFactory getSessionFactoryPassport(){return this.session3;}
+    
+    public Session getSessionPassport(){return this.session3.getCurrentSession();}
     
 }

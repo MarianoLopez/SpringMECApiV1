@@ -7,13 +7,12 @@ package com.mec.Controllers;
 
 
 
-import com.mec.DAO.EdificioDAO;
-import com.mec.DAO.EstablecimientoDAO;
+import com.mec.DAO.UserDAO;
 import com.mec.Services.LuTrabService;
-import com.mec.models.GE.Establecimiento;
-import com.mec.models.GE.EstablecimientoEdificio;
+import com.mec.models.Passport.Usuario;
 
 import com.mec.models.Pof2.LuTrab;
+import com.sun.imageio.plugins.jpeg.JPEG;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class Establecimientos{
     @Autowired
     private LuTrabService luTrabService;
+    @Autowired
+    private UserDAO userDAO;
     
     @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (modalidades, regimenes, jurisdicciones, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = LuTrab.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET)
@@ -56,5 +57,10 @@ public class Establecimientos{
     public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,
                                      @PathVariable(value="Anexo") int Anexo){
         return luTrabService.getByCueAnexo(Cue,Anexo);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET,value = "/test/{userName}/{pass}")
+    public Usuario test(@PathVariable(value="userName") String userName,@PathVariable(value="pass") String pass){
+        return userDAO.getUser(userName,pass);
     }
 }

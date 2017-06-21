@@ -41,6 +41,9 @@ public class Config {
   @Value("${db.GE}")
   private String GE;
   
+  @Value("${db.Passport}")
+  private String Passport;
+  
   @Value("${db.username}")
   private String DB_USERNAME;
 
@@ -123,7 +126,7 @@ public DataSource dataSource2() {
 @Bean("sessionGE")
 public LocalSessionFactoryBean sessionFactory2() {
   LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-  sessionFactoryBean.setDataSource(dataSource());
+  sessionFactoryBean.setDataSource(dataSource2());
   sessionFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN_GE);
   Properties hibernateProperties = new Properties();
   hibernateProperties.put("hibernate.dialect", HIBERNATE_DIALECT);
@@ -137,6 +140,41 @@ public LocalSessionFactoryBean sessionFactory2() {
 
 @Bean("managerGE")//gestor
 public HibernateTransactionManager transactionManager2() {
+  HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+  transactionManager.setSessionFactory(sessionFactory().getObject());
+  return transactionManager;
+}
+
+
+/********DB3***********/
+
+@Bean("dataPassport")
+public DataSource dataSource3() {
+  DriverManagerDataSource dataSource = new DriverManagerDataSource();
+  dataSource.setDriverClassName(DB_DRIVER);
+  dataSource.setUrl(DB_URL+Passport);
+  dataSource.setUsername(DB_USERNAME);
+  dataSource.setPassword(DB_PASSWORD);
+  return dataSource;
+}
+/*config hibernate*/
+@Bean("sessionPassport")
+public LocalSessionFactoryBean sessionFactory3() {
+  LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+  sessionFactoryBean.setDataSource(dataSource3());
+  //sessionFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN_GE);
+  Properties hibernateProperties = new Properties();
+  hibernateProperties.put("hibernate.dialect", HIBERNATE_DIALECT);
+  hibernateProperties.put("hibernate.show_sql", HIBERNATE_SHOW_SQL);
+  hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);
+  hibernateProperties.put("hibernate.default_schema", "dbo");
+  hibernateProperties.put("hibernate.default_catalog", Passport);
+  sessionFactoryBean.setHibernateProperties(hibernateProperties);
+  return sessionFactoryBean;
+}
+
+@Bean("managerPassport")//gestor
+public HibernateTransactionManager transactionManager3() {
   HibernateTransactionManager transactionManager = new HibernateTransactionManager();
   transactionManager.setSessionFactory(sessionFactory().getObject());
   return transactionManager;
