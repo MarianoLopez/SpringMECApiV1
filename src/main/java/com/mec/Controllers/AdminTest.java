@@ -5,9 +5,12 @@
  */
 package com.mec.Controllers;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  *
@@ -15,10 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "APIv1/admin")
+@ApiIgnore
 public class AdminTest {
     
     @RequestMapping(method = RequestMethod.GET)
     public String home(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+    authentication.getAuthorities().forEach((t) -> {
+        System.out.println(t.getAuthority());
+    });
         return "Admin";
     }
 }

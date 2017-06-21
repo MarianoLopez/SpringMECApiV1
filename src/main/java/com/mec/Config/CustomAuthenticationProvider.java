@@ -5,8 +5,12 @@
  */
 package com.mec.Config;
 
+import com.mec.DAO.UserDAO;
+import com.mec.models.Passport.Rol;
+import com.mec.models.Passport.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,20 +27,25 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider{
-
+    @Autowired
+    private UserDAO userDAO;
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        Authentication auth = null;
         final String name = authentication.getName();
         final String password = authentication.getCredentials().toString();
-        if (name.equals("admin") && password.equals("1234")) {
-            final List<GrantedAuthority> grantedAuths = new ArrayList<>();
-            grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-            final UserDetails principal = new User(name, password, grantedAuths);
-            final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
-            return auth;
-        } else {
-            return null;
+        if(name!=null&&password!=null){
+             Usuario u = userDAO.getUser(name, password);
+            if (u!=null) {
+                List<GrantedAuthority> grantedAuths = new ArrayList<>();
+                for(Rol r:u.getRoles()){
+                    grantedAuths.add(new SimpleGrantedAuthority("ROLE_"+r.getNombre()));
+                }
+                final UserDetails principal = new User(name, password, grantedAuths);
+                auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);  
+            }
         }
+       return auth;
     }
 
     @Override

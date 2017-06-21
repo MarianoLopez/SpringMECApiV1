@@ -5,7 +5,6 @@
  */
 package com.mec.DAO;
 
-import com.mec.Util.HibernateUtil;
 import com.mec.models.Passport.Rol;
 import com.mec.models.Passport.Usuario;
 import java.sql.ResultSet;
@@ -15,19 +14,15 @@ import java.sql.Types;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
-import org.hibernate.Query;
-import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.SqlInOutParameter;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
