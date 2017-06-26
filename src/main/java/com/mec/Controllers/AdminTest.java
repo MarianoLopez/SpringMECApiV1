@@ -5,7 +5,9 @@
  */
 package com.mec.Controllers;
 
+import java.util.List;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,12 +24,9 @@ import springfox.documentation.annotations.ApiIgnore;
 public class AdminTest {
     
     @RequestMapping(method = RequestMethod.GET)
-    public String home(){
+    public List<GrantedAuthority> home(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-    authentication.getAuthorities().forEach((t) -> {
-        System.out.println(t.getAuthority());
-    });
-        return "Admin";
+        return (List<GrantedAuthority>)authentication.getAuthorities();
+       
     }
 }

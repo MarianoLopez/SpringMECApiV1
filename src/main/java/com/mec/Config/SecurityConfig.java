@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .formLogin().loginProcessingUrl("login").and()
+                .formLogin().loginProcessingUrl("/APIv1/login").and()//POST url
                 .authorizeRequests().antMatchers("/APIv1/admin/**").authenticated();
     }
 }

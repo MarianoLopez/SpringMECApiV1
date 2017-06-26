@@ -5,7 +5,6 @@
  */
 package com.mec.DAO;
 
-import com.mec.models.Passport.Rol;
 import com.mec.models.Passport.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +21,8 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -29,28 +30,10 @@ import org.springframework.stereotype.Repository;
  * @author 36194445
  */
 @Repository
-//@Transactional(readOnly = true,transactionManager = "managerPassport")
 public class UserDAO{
     @Autowired
     @Qualifier(value="dataPassport")
     private DataSource ds;
-    
-    /*public String[] getUserRoles(Integer userID){
-        String output = "";
-        Query query = getSessionPassport().createSQLQuery(
-            "EXEC [SqlSp].[paRolesGetByIdUsuario] :idAplicacion, :idUsuario, :ErrText")
-            .setParameter("idAplicacion", 1)
-            .setParameter("idUsuario", userID)
-            .setParameter("ErrText", output);
-        query.setResultTransformer(Transformers.aliasToBean(Rol.class));
-        
-        List<Rol> result = query.list();
-        String roles[] = new String[result.size()];
-        for (int i=0;i<result.size();i++) {
-            roles[i]=result.get(i).getNombre().toString();
-        }
-        return roles;
-    }*/
     
     public Usuario getUser(String nombre,String clave){
         Usuario u = null;
@@ -75,13 +58,13 @@ public class UserDAO{
             }
         }
         if(userId!=null && errText.equals("Ok")){
-            List<Rol> roles = getUserRoles(userId);
+            List<GrantedAuthority> roles = getUserRoles(userId);
             u = new Usuario(userId,roles);
         }
         return u;
     }
     
-     private List<Rol> getUserRoles(Integer userID){
+     private List<GrantedAuthority> getUserRoles(Integer userID){
          SimpleJdbcCall jdbcCall =  new SimpleJdbcCall(ds)
                  .withCatalogName("SqlSp")
                  .withProcedureName("paRolesGetByIdUsuario")
@@ -93,16 +76,14 @@ public class UserDAO{
         SqlParameterSource in = new MapSqlParameterSource()
                     .addValue("idAplicacion", 1)
                     .addValue("idUsuario", userID);
-        return (List<Rol>)jdbcCall.execute(in).entrySet().iterator().next().getValue();
+        return (List<GrantedAuthority>)jdbcCall.execute(in).entrySet().iterator().next().getValue();
     }
     
-public class MyRowMapper implements RowMapper<Rol>{
+public class MyRowMapper implements RowMapper<SimpleGrantedAuthority>{
 
         @Override
-        public Rol mapRow(ResultSet rs, int i) throws SQLException {
-            Rol r = new Rol();
-            r.setNombre(rs.getString("Nombre"));
-            return r;
+        public SimpleGrantedAuthority mapRow(ResultSet rs, int i) throws SQLException {
+            return new SimpleGrantedAuthority("ROLE_"+rs.getString("Nombre"));
         }
     
 }

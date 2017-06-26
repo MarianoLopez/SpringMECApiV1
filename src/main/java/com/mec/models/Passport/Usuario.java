@@ -6,6 +6,7 @@
 package com.mec.models.Passport;
 
 import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  *
@@ -13,9 +14,9 @@ import java.util.List;
  */
 public class Usuario {
     private int id;
-    private List<Rol> roles;
+    private List<GrantedAuthority> roles;
 
-    public Usuario(int id, List<Rol> roles) {
+    public Usuario(int id, List<GrantedAuthority> roles) {
         this.id = id;
         this.roles = roles;
     }
@@ -29,11 +30,11 @@ public class Usuario {
         this.id = id;
     }
 
-    public List<Rol> getRoles() {
+    public List<GrantedAuthority> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Rol> roles) {
+    public void setRoles(List<GrantedAuthority> roles) {
         this.roles = roles;
     }
     
