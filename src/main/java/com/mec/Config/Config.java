@@ -62,6 +62,24 @@ public class Config {
   @Value("${entitymanager.packagesToScan.GE}")
   private String ENTITYMANAGER_PACKAGES_TO_SCAN_GE;
   
+  @Value("${db.driver2}")
+  private String DB_DRIVER2;
+  
+  @Value("${db.password2}")
+  private String DB_PASSWORD2;
+  
+  @Value("${db.url2}")
+  private String DB_URL2;
+  
+  @Value("${db.username2}")
+  private String DB_USERNAME2;
+
+  @Value("${hibernate.dialect2}")
+  private String HIBERNATE_DIALECT2;
+  
+  @Value("${entitymanager.packagesToScan.Padron}")
+  private String ENTITYMANAGER_PACKAGES_TO_SCAN_PADRON;
+  
   /*@Value("${hibernate.default_schema}")
   private String SCHEMA;*/
   
@@ -141,7 +159,7 @@ public LocalSessionFactoryBean sessionFactory2() {
 @Bean("managerGE")//gestor
 public HibernateTransactionManager transactionManager2() {
   HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-  transactionManager.setSessionFactory(sessionFactory().getObject());
+  transactionManager.setSessionFactory(sessionFactory2().getObject());
   return transactionManager;
 }
 
@@ -176,7 +194,41 @@ public LocalSessionFactoryBean sessionFactory3() {
 @Bean("managerPassport")//gestor
 public HibernateTransactionManager transactionManager3() {
   HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-  transactionManager.setSessionFactory(sessionFactory().getObject());
+  transactionManager.setSessionFactory(sessionFactory3().getObject());
+  return transactionManager;
+}
+
+/********DB4***********/
+
+@Bean("dataPostgre")
+public DataSource dataSource4() {
+  DriverManagerDataSource dataSource = new DriverManagerDataSource();
+  dataSource.setDriverClassName(DB_DRIVER2);
+  dataSource.setUrl(DB_URL2);
+  dataSource.setUsername(DB_USERNAME2);
+  dataSource.setPassword(DB_PASSWORD2);
+  return dataSource;
+}
+/*config hibernate*/
+@Bean("sessionPostgre")
+public LocalSessionFactoryBean sessionFactory4() {
+  LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+  sessionFactoryBean.setDataSource(dataSource4());
+  sessionFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN_PADRON);
+  Properties hibernateProperties = new Properties();
+  hibernateProperties.put("hibernate.dialect", HIBERNATE_DIALECT2);
+  hibernateProperties.put("hibernate.show_sql", HIBERNATE_SHOW_SQL);
+  hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);
+  hibernateProperties.put("hibernate.default_schema", "public");
+  hibernateProperties.put("hibernate.default_catalog", "padron");
+  sessionFactoryBean.setHibernateProperties(hibernateProperties);
+  return sessionFactoryBean;
+}
+
+@Bean("managerPostgre")//gestor
+public HibernateTransactionManager transactionManager4() {
+  HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+  transactionManager.setSessionFactory(sessionFactory4().getObject());
   return transactionManager;
 }
 }

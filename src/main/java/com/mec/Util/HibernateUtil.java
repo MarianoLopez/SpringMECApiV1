@@ -27,6 +27,10 @@ public abstract class HibernateUtil {
     @Qualifier(value="sessionPassport")
     private SessionFactory session3;
     
+    @Autowired
+    @Qualifier(value="sessionPostgre")
+    private SessionFactory session4;
+    
     public SessionFactory getSessionFactoryPof2(){return this.session;}
     
     public Session getSessionPof2(){return this.session.getCurrentSession();}
@@ -38,5 +42,9 @@ public abstract class HibernateUtil {
     public SessionFactory getSessionFactoryPassport(){return this.session3;}
     
     public Session getSessionPassport(){return this.session3.getCurrentSession();}
+    
+    public SessionFactory getSessionFactoryPostgre(){return this.session4;}
+    
+    public Session getSessionPostgre(){return this.session4.getCurrentSession();}
     
 }
