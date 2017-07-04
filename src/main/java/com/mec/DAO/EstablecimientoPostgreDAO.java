@@ -8,6 +8,7 @@ package com.mec.DAO;
 import com.mec.Util.HibernateUtil;
 import com.mec.models.Padron.EstablecimientoPost;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional(readOnly = true,transactionManager = "managerPostgre")
 public class EstablecimientoPostgreDAO extends HibernateUtil{
+    
     public List<EstablecimientoPost> getAll(){
-        return this.getSessionPostgre().createQuery("from "+EstablecimientoPost.class.getName()).list();
+        return lazyInit(this.getSessionPostgre().createQuery("from "+EstablecimientoPost.class.getName()+" WHERE fechaBaja is null").list());
+    }
+    
+    private List<EstablecimientoPost> lazyInit(List<EstablecimientoPost> establecimientos){
+        establecimientos.parallelStream().forEach((t) -> {
+            Hibernate.initialize(t.getCategoria());
+            Hibernate.initialize(t.getDependencia());
+            Hibernate.initialize(t.getEstado());
+            Hibernate.initialize(t.getSector());
+        });
+        return establecimientos;
     }
 }

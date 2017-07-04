@@ -5,6 +5,8 @@
  */
 package com.mec.models.Padron;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -28,6 +30,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "establecimiento",catalog = "padron",schema = "public")
+@JsonPropertyOrder({"id"})
 public class EstablecimientoPost implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,17 +51,20 @@ public class EstablecimientoPost implements Serializable {
     private String nombre;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fecha_creacion")
-    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_creacion",columnDefinition = "DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date fechaCreacion;
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_actualizacion")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date fechaActualizacion;
     @Column(name = "fecha_baja")
     @Temporal(TemporalType.DATE)
     private Date fechaBaja;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "fecha_alta")
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
@@ -92,11 +98,11 @@ public class EstablecimientoPost implements Serializable {
         this.fechaActualizacion = fechaActualizacion;
     }
 
-    public Integer getIdEstablecimiento() {
+    public Integer getId() {
         return idEstablecimiento;
     }
 
-    public void setIdEstablecimiento(Integer idEstablecimiento) {
+    public void setId(Integer idEstablecimiento) {
         this.idEstablecimiento = idEstablecimiento;
     }
 
@@ -115,7 +121,6 @@ public class EstablecimientoPost implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
@@ -148,35 +153,35 @@ public class EstablecimientoPost implements Serializable {
         this.fechaAlta = fechaAlta;
     }
 
-    public CategoriaTipo getCCategoria() {
+    public CategoriaTipo getCategoria() {
         return cCategoria;
     }
 
-    public void setCCategoria(CategoriaTipo cCategoria) {
+    public void setCategoria(CategoriaTipo cCategoria) {
         this.cCategoria = cCategoria;
     }
 
-    public DependenciaTipo getCDependencia() {
+    public DependenciaTipo getDependencia() {
         return cDependencia;
     }
 
-    public void setCDependencia(DependenciaTipo cDependencia) {
+    public void setDependencia(DependenciaTipo cDependencia) {
         this.cDependencia = cDependencia;
     }
 
-    public EstadoTipo getCEstado() {
+    public EstadoTipo getEstado() {
         return cEstado;
     }
 
-    public void setCEstado(EstadoTipo cEstado) {
+    public void setEstado(EstadoTipo cEstado) {
         this.cEstado = cEstado;
     }
 
-    public SectorTipo getCSector() {
+    public SectorTipo getSector() {
         return cSector;
     }
 
-    public void setCSector(SectorTipo cSector) {
+    public void setSector(SectorTipo cSector) {
         this.cSector = cSector;
     }
 

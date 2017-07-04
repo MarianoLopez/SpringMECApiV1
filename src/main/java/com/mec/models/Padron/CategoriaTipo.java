@@ -5,18 +5,11 @@
  */
 package com.mec.models.Padron;
 
-import com.mec.models.GE.Establecimiento;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,8 +20,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "categoria_tipo")
-@NamedQueries({
-    @NamedQuery(name = "CategoriaTipo.findAll", query = "SELECT c FROM CategoriaTipo c")})
 public class CategoriaTipo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,35 +27,36 @@ public class CategoriaTipo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "c_categoria")
-    private Short cCategoria;
+    private Short id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
-    @Column(name = "orden")
-    private Short orden;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cCategoria", fetch = FetchType.LAZY)
+    /*@Column(name = "orden")
+    private Short orden;*/
+    /*
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id", fetch = FetchType.LAZY)
     private List<EstablecimientoPost> establecimientoList;
-
+    */
     public CategoriaTipo() {
     }
 
-    public CategoriaTipo(Short cCategoria) {
-        this.cCategoria = cCategoria;
+    public CategoriaTipo(Short id) {
+        this.id = id;
     }
 
-    public CategoriaTipo(Short cCategoria, String descripcion) {
-        this.cCategoria = cCategoria;
+    public CategoriaTipo(Short id, String descripcion) {
+        this.id = id;
         this.descripcion = descripcion;
     }
 
-    public Short getCCategoria() {
-        return cCategoria;
+    public Short getId() {
+        return id;
     }
 
-    public void setCCategoria(Short cCategoria) {
-        this.cCategoria = cCategoria;
+    public void setId(Short id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
@@ -75,26 +67,26 @@ public class CategoriaTipo implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Short getOrden() {
+    /*public Short getOrden() {
         return orden;
     }
 
     public void setOrden(Short orden) {
         this.orden = orden;
-    }
+    }*/
 
-    public List<EstablecimientoPost> getEstablecimientoList() {
+    /*public List<EstablecimientoPost> getEstablecimientoPostList() {
         return establecimientoList;
     }
 
-    public void setEstablecimientoList(List<EstablecimientoPost> establecimientoList) {
+    public void setEstablecimientoPostList(List<EstablecimientoPost> establecimientoList) {
         this.establecimientoList = establecimientoList;
-    }
+    }*/
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cCategoria != null ? cCategoria.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -105,7 +97,7 @@ public class CategoriaTipo implements Serializable {
             return false;
         }
         CategoriaTipo other = (CategoriaTipo) object;
-        if ((this.cCategoria == null && other.cCategoria != null) || (this.cCategoria != null && !this.cCategoria.equals(other.cCategoria))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -113,7 +105,7 @@ public class CategoriaTipo implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mec.models.Padron.CategoriaTipo[ cCategoria=" + cCategoria + " ]";
+        return "com.mec.models.Padron.CategoriaTipo[ id=" + id + " ]";
     }
     
 }

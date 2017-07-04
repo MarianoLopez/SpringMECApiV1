@@ -1,26 +1,31 @@
-# Databasee
-#db.driver: com.mysql.jdbc.Driver
+# Database
 db.driver:com.microsoft.sqlserver.jdbc.SQLServerDriver
-#db.url: jdbc:mysql://<ip>:<puerto>/<db>
-db.url: jdbc:sqlserver://<ip>:1433;databaseName=
+db.url:jdbc:sqlserver://MECSQLCLUSTER01.mec.local:1433;databaseName=
+db.driver2:org.postgresql.Driver
+db.url2:jdbc:postgresql://172.16.0.33:5432/padron
+db.username2:
+db.password2:
 db.Pof2=Pof2
 db.GE=GE3
-db.username: <username>
-db.password: <password>
+db.Passport=Passport
+db.username:
+db.password:
 
 # Hibernate
-#hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
 hibernate.dialect: org.hibernate.dialect.SQLServerDialect
+hibernate.dialect2:org.hibernate.dialect.PostgreSQLDialect
 hibernate.show_sql: false
     #validate: validate the schema, makes no changes to the database.
     #update: update the schema.
     #create: creates the schema, destroying previous data.
     #create-drop: drop the schema when the SessionFactory is closed explicitly, typically when the application is stopped.
 hibernate.hbm2ddl.auto: validate
-#hibernate.default_schema: dbo
+hibernate.default_schema: dbo
 #ruta a los modelos a mapear automaticamente
 entitymanager.packagesToScan.Pof2: com.mec.models.Pof2
 entitymanager.packagesToScan.GE: com.mec.models.GE
+entitymanager.packagesToScan.Padron: com.mec.models.Padron
+
 #nivel de log
 logging.level.org.hibernate=ERROR
 
