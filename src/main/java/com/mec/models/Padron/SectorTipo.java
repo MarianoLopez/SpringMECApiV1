@@ -5,17 +5,12 @@
  */
 package com.mec.models.Padron;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,44 +21,42 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "sector_tipo")
-@NamedQueries({
-    @NamedQuery(name = "SectorTipo.findAll", query = "SELECT s FROM SectorTipo s")})
+@JsonPropertyOrder({"id"})
 public class SectorTipo implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "c_sector")
-    private Short cSector;
+    private Short id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
-    @Column(name = "orden")
+    /*@Column(name = "orden")
     private Short orden;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cSector", fetch = FetchType.LAZY)
-    private List<EstablecimientoPost> establecimientoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id", fetch = FetchType.LAZY)
+    private List<EstablecimientoPost> establecimientoList;*/
 
     public SectorTipo() {
     }
 
-    public SectorTipo(Short cSector) {
-        this.cSector = cSector;
+    public SectorTipo(Short id) {
+        this.id = id;
     }
 
-    public SectorTipo(Short cSector, String descripcion) {
-        this.cSector = cSector;
+    public SectorTipo(Short id, String descripcion) {
+        this.id = id;
         this.descripcion = descripcion;
     }
 
-    public Short getCSector() {
-        return cSector;
+    public Short getId() {
+        return id;
     }
 
-    public void setCSector(Short cSector) {
-        this.cSector = cSector;
+    public void setId(Short id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
@@ -74,7 +67,7 @@ public class SectorTipo implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Short getOrden() {
+    /*public Short getOrden() {
         return orden;
     }
 
@@ -88,12 +81,12 @@ public class SectorTipo implements Serializable {
 
     public void setEstablecimientoList(List<EstablecimientoPost> establecimientoList) {
         this.establecimientoList = establecimientoList;
-    }
+    }*/
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cSector != null ? cSector.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -104,7 +97,7 @@ public class SectorTipo implements Serializable {
             return false;
         }
         SectorTipo other = (SectorTipo) object;
-        if ((this.cSector == null && other.cSector != null) || (this.cSector != null && !this.cSector.equals(other.cSector))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -112,7 +105,7 @@ public class SectorTipo implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mec.models.Padron.SectorTipo[ cSector=" + cSector + " ]";
+        return "com.mec.models.Padron.SectorTipo[ id=" + id + " ]";
     }
     
 }

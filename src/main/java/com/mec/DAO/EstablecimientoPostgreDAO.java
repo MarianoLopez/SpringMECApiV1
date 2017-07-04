@@ -7,6 +7,7 @@ package com.mec.DAO;
 
 import com.mec.Util.HibernateUtil;
 import com.mec.models.Padron.EstablecimientoPost;
+import com.mec.models.Padron.Localizacion;
 import java.util.List;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,11 @@ public class EstablecimientoPostgreDAO extends HibernateUtil{
             Hibernate.initialize(t.getDependencia());
             Hibernate.initialize(t.getEstado());
             Hibernate.initialize(t.getSector());
+            List<Localizacion> loc = t.getLocalizacion();
+            Hibernate.initialize(loc);
+            if(loc!=null){
+                loc.forEach((l) -> {Hibernate.initialize(l.getAmbito());});
+            }
         });
         return establecimientos;
     }

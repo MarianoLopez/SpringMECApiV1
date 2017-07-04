@@ -20,15 +20,15 @@ import javax.validation.constraints.Size;
  * @author 36194445
  */
 @Entity
-@Table(name = "estado_tipo")
+@Table(name = "ambito_tipo")
 @JsonPropertyOrder({"id"})
-public class EstadoTipo implements Serializable {
+public class AmbitoTipo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "c_estado")
+    @Column(name = "c_ambito")
     private Short id;
     @Basic(optional = false)
     @NotNull
@@ -37,18 +37,19 @@ public class EstadoTipo implements Serializable {
     private String descripcion;
     /*@Column(name = "orden")
     private Short orden;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "cod_estado")
-    private Character codEstado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "id", fetch = FetchType.LAZY)
-    private List<EstablecimientoPost> establecimientoList;*/
+    private List<Localizacion> localizacionList;*/
 
-    public EstadoTipo() {
+    public AmbitoTipo() {
     }
 
-    public EstadoTipo(Short id) {
+    public AmbitoTipo(Short id) {
         this.id = id;
+    }
+
+    public AmbitoTipo(Short id, String descripcion) {
+        this.id = id;
+        this.descripcion = descripcion;
     }
 
     public Short getId() {
@@ -73,22 +74,14 @@ public class EstadoTipo implements Serializable {
 
     public void setOrden(Short orden) {
         this.orden = orden;
+    }*/
+
+   /* public List<Localizacion> getLocalizacionList() {
+        return localizacionList;
     }
 
-    public Character getCodEstado() {
-        return codEstado;
-    }
-
-    public void setCodEstado(Character codEstado) {
-        this.codEstado = codEstado;
-    }
-
-    public List<EstablecimientoPost> getEstablecimientoList() {
-        return establecimientoList;
-    }
-
-    public void setEstablecimientoList(List<EstablecimientoPost> establecimientoList) {
-        this.establecimientoList = establecimientoList;
+    public void setLocalizacionList(List<Localizacion> localizacionList) {
+        this.localizacionList = localizacionList;
     }*/
 
     @Override
@@ -101,10 +94,10 @@ public class EstadoTipo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EstadoTipo)) {
+        if (!(object instanceof AmbitoTipo)) {
             return false;
         }
-        EstadoTipo other = (EstadoTipo) object;
+        AmbitoTipo other = (AmbitoTipo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -113,7 +106,7 @@ public class EstadoTipo implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mec.models.Padron.EstadoTipo[ id=" + id + " ]";
+        return "com.mec.models.Padron.AmbitoTipo[ id=" + id + " ]";
     }
     
 }

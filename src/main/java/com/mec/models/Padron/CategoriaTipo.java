@@ -5,11 +5,16 @@
  */
 package com.mec.models.Padron;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,8 +25,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "categoria_tipo")
+@JsonPropertyOrder({"id"})
 public class CategoriaTipo implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)

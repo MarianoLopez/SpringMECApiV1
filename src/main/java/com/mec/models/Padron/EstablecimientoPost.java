@@ -9,7 +9,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +20,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,31 +33,32 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "establecimiento",catalog = "padron",schema = "public")
-@JsonPropertyOrder({"id"})
+@JsonPropertyOrder({"id","cue","localizacion","categoria","sector","dependencia","estado","fechaAlta","fechaActualizacion","fechaBaja"})
 public class EstablecimientoPost implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_establecimiento")
-    private Integer idEstablecimiento;
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "cue")
     private String cue;
-    @Basic(optional = false)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "establecimiento", fetch = FetchType.LAZY)
+    private List<Localizacion> localizacionList;
+    /*@Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "nombre")
-    private String nombre;
-    @Basic(optional = false)
+    private String nombre;*/
+   /* @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_creacion",columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date fechaCreacion;
+    private Date fechaCreacion;*/
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_actualizacion")
@@ -65,8 +69,8 @@ public class EstablecimientoPost implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaBaja;
     @JsonFormat(pattern = "dd-MM-yyyy")
-    @Column(name = "fecha_alta")
-    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_alta",columnDefinition = "DATE")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaAlta;
     @JoinColumn(name = "c_categoria", referencedColumnName = "c_categoria")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -86,24 +90,24 @@ public class EstablecimientoPost implements Serializable {
     public EstablecimientoPost() {
     }
 
-    public EstablecimientoPost(Integer idEstablecimiento) {
-        this.idEstablecimiento = idEstablecimiento;
+    public EstablecimientoPost(Integer id) {
+        this.id = id;
     }
 
-    public EstablecimientoPost(Integer idEstablecimiento, String cue, String nombre, Date fechaCreacion, Date fechaActualizacion) {
-        this.idEstablecimiento = idEstablecimiento;
+    /*public EstablecimientoPost(Integer id, String cue, String nombre, Date fechaCreacion, Date fechaActualizacion) {
+        this.id = id;
         this.cue = cue;
         this.nombre = nombre;
         this.fechaCreacion = fechaCreacion;
         this.fechaActualizacion = fechaActualizacion;
-    }
+    }*/
 
     public Integer getId() {
-        return idEstablecimiento;
+        return id;
     }
 
-    public void setId(Integer idEstablecimiento) {
-        this.idEstablecimiento = idEstablecimiento;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCue() {
@@ -114,20 +118,20 @@ public class EstablecimientoPost implements Serializable {
         this.cue = cue;
     }
 
-    public String getNombre() {
+    /*public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-    public Date getFechaCreacion() {
+    }*/
+    /*public Date getFechaCreacion() {
         return fechaCreacion;
     }
 
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
-    }
+    }*/
 
     public Date getFechaActualizacion() {
         return fechaActualizacion;
@@ -189,7 +193,7 @@ public class EstablecimientoPost implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idEstablecimiento != null ? idEstablecimiento.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -200,7 +204,7 @@ public class EstablecimientoPost implements Serializable {
             return false;
         }
         EstablecimientoPost other = (EstablecimientoPost) object;
-        if ((this.idEstablecimiento == null && other.idEstablecimiento != null) || (this.idEstablecimiento != null && !this.idEstablecimiento.equals(other.idEstablecimiento))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -208,7 +212,15 @@ public class EstablecimientoPost implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mec.models.Padron.Establecimiento[ idEstablecimiento=" + idEstablecimiento + " ]";
+        return "com.mec.models.Padron.Establecimiento[ id=" + id + " ]";
+    }
+
+    public List<Localizacion> getLocalizacion() {
+        return localizacionList;
+    }
+
+    public void setLocalizacion(List<Localizacion> localizacionList) {
+        this.localizacionList = localizacionList;
     }
     
 }
