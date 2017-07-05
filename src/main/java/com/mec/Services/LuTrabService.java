@@ -41,7 +41,7 @@ public class LuTrabService{
         List<LuTrab> aux = getAll(true);
         this.todos = aux;
         long endTime = System.currentTimeMillis();
-        System.out.println("getAllScheduled() listo -->"+(endTime - startTime)/1000.0+" segundos");
+        System.out.println("getAllEstablecimientos() listo -->"+(endTime - startTime)/1000.0+" segundos");
     }
     
     public List<LuTrab> getAll(){return this.todos;}

@@ -5,7 +5,7 @@
  */
 package com.mec.Controllers;
 
-import com.mec.DAO.EstablecimientoPostgreDAO;
+import com.mec.Services.PostgreService;
 import com.mec.models.Padron.EstablecimientoPost;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/APIv1/postgree")
 public class Postgre {
     @Autowired
-    private EstablecimientoPostgreDAO dao;
+    private PostgreService dao;
     
     @RequestMapping(method = RequestMethod.GET)
     public List<EstablecimientoPost> getAll(){

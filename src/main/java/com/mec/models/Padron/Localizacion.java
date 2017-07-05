@@ -8,9 +8,14 @@ package com.mec.models.Padron;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.mec.models.Pof2.Geoposicion;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,10 +23,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Where;
@@ -32,7 +40,7 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name = "localizacion")
-@JsonPropertyOrder({"anexo","nombre","ambito"})
+@JsonPropertyOrder({"anexo","nombre","ambito","domicilios"})
 public class Localizacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @JsonIgnore
@@ -100,6 +108,12 @@ public class Localizacion implements Serializable {
     @JoinColumn(name = "c_ambito", referencedColumnName = "c_ambito")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private AmbitoTipo cAmbito;
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "localizacion_domicilio",
+            joinColumns = {@JoinColumn(name = "id_localizacion")},inverseJoinColumns = {@JoinColumn(name = "id_domicilio")})
+    private List<Domicilio> domicilios;
+   
 
     public Localizacion() {
     }
@@ -107,6 +121,24 @@ public class Localizacion implements Serializable {
     public Localizacion(Integer idLocalizacion) {
         this.idLocalizacion = idLocalizacion;
     }
+
+    public List<Domicilio> getDomicilios() {
+        return domicilios;
+    }
+
+    public void setDomicilios(List<Domicilio> domicilios) {
+        this.domicilios = domicilios;
+    }
+
+    /*public Geoposicion getGeo() {
+        return geo;
+    }
+
+    public void setGeo(Geoposicion geo) {
+        this.geo = geo;
+    }*/
+    
+    
 
     /*public Localizacion(Integer idLocalizacion, String anexo, String nombre, Date fechaActualizacion, Date fechaCreacion) {
         this.idLocalizacion = idLocalizacion;

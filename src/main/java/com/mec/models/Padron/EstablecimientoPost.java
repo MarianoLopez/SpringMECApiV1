@@ -85,8 +85,8 @@ public class EstablecimientoPost implements Serializable {
     @JoinColumn(name = "c_sector", referencedColumnName = "c_sector")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private SectorTipo cSector;
+      
    
-
     public EstablecimientoPost() {
     }
 
@@ -94,14 +94,14 @@ public class EstablecimientoPost implements Serializable {
         this.id = id;
     }
 
-    /*public EstablecimientoPost(Integer id, String cue, String nombre, Date fechaCreacion, Date fechaActualizacion) {
-        this.id = id;
-        this.cue = cue;
-        this.nombre = nombre;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaActualizacion = fechaActualizacion;
+      /*public EstablecimientoPost(Integer id, String cue, String nombre, Date fechaCreacion, Date fechaActualizacion) {
+    this.id = id;
+    this.cue = cue;
+    this.nombre = nombre;
+    this.fechaCreacion = fechaCreacion;
+    this.fechaActualizacion = fechaActualizacion;
     }*/
-
+   
     public Integer getId() {
         return id;
     }
