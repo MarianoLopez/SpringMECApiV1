@@ -92,7 +92,6 @@ public class Domicilio implements Serializable {
     private Geoposicion geo = null;
     @JoinColumn(name = "c_localidad", referencedColumnName = "c_localidad")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @Where(clause = "c_departamento = 18")
     private LocalidadTipo localidad;
     
     @Basic(optional = false)

@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -40,6 +41,7 @@ public class LocalidadTipo implements Serializable {
     private String tipo;
     @JoinColumn(name = "c_departamento", referencedColumnName = "c_departamento",columnDefinition = "int2")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @Where(clause = "c_provincia = 18")
     private DepartamentoTipo cDepartamento;
 
     public LocalidadTipo() {

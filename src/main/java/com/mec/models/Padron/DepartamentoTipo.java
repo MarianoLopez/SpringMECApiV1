@@ -5,6 +5,7 @@
  */
 package com.mec.models.Padron;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -32,6 +33,10 @@ public class DepartamentoTipo implements Serializable {
     private String codDepartamento;*/
     @Column(name = "nombre")
     private String nombre;
+    
+    @JsonIgnore
+    @Column(name = "c_provincia",columnDefinition = "int2")
+    private Integer c_provincia;
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "cDepartamento", fetch = FetchType.LAZY)
     private List<LocalidadTipo> localidadTipoList;*/
     /*@JoinColumn(name = "c_provincia", referencedColumnName = "c_provincia")
@@ -60,6 +65,16 @@ public class DepartamentoTipo implements Serializable {
     public void setId(Integer cDepartamento) {
         this.cDepartamento = cDepartamento;
     }
+
+    public Integer getC_provincia() {
+        return c_provincia;
+    }
+
+    public void setC_provincia(Integer c_provincia) {
+        this.c_provincia = c_provincia;
+    }
+    
+    
 
     /*public String getCodDepartamento() {
         return codDepartamento;
