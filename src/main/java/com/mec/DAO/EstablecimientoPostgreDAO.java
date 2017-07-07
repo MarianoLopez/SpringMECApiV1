@@ -6,14 +6,12 @@
 package com.mec.DAO;
 
 import com.mec.Util.HibernateUtil;
+import com.mec.models.Padron.Domicilio;
 import com.mec.models.Padron.EstablecimientoPost;
+import com.mec.models.Padron.LocalidadTipo;
 import com.mec.models.Padron.Localizacion;
-import java.util.Date;
 import java.util.List;
 import org.hibernate.Hibernate;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,7 +45,16 @@ public class EstablecimientoPostgreDAO extends HibernateUtil{
             if(loc!=null){
                 loc.forEach((l) -> {
                     Hibernate.initialize(l.getAmbito());
-                    Hibernate.initialize(l.getDomicilios());
+                    List<Domicilio> dom = l.getDomicilios();
+                    if(dom!=null){
+                        dom.forEach((d) -> {
+                            LocalidadTipo localidad = d.getLocalidad();
+                            Hibernate.initialize(localidad);
+                            if(localidad!=null){
+                                Hibernate.initialize(localidad.getDepartamento());
+                            }
+                        });
+                    }
                 });
             }
         });

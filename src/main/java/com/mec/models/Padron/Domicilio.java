@@ -15,9 +15,12 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -26,6 +29,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -86,6 +90,10 @@ public class Domicilio implements Serializable {
     @JsonSerialize//jackson
     @JsonDeserialize
     private Geoposicion geo = null;
+    @JoinColumn(name = "c_localidad", referencedColumnName = "c_localidad")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @Where(clause = "c_departamento = 18")
+    private LocalidadTipo localidad;
     
     @Basic(optional = false)
     @NotNull
@@ -107,6 +115,15 @@ public class Domicilio implements Serializable {
         this.fechaActualizacion = fechaActualizacion;
     }
 
+    public LocalidadTipo getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(LocalidadTipo localidad) {
+        this.localidad = localidad;
+    }
+    
+    
     public Geoposicion getGeo() {
         return geo;
     }

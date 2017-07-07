@@ -43,7 +43,6 @@ import org.hibernate.annotations.Where;
 @JsonPropertyOrder({"anexo","nombre","ambito","domicilios"})
 public class Localizacion implements Serializable {
     private static final long serialVersionUID = 1L;
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -158,11 +157,11 @@ public class Localizacion implements Serializable {
     
     
 
-    public Integer getIdLocalizacion() {
+    public Integer getId() {
         return idLocalizacion;
     }
 
-    public void setIdLocalizacion(Integer idLocalizacion) {
+    public void setId(Integer idLocalizacion) {
         this.idLocalizacion = idLocalizacion;
     }
 

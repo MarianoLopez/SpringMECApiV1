@@ -35,13 +35,13 @@ public class LuTrabService{
     
     private List<LuTrab> todos = new ArrayList<>();
     
-    //@Scheduled(fixedRate = 600000)//10min en ms
+    @Scheduled(fixedRate = 600000)//10min en ms
     private void getAllEstablecimientos() {
         long startTime = System.currentTimeMillis();
         List<LuTrab> aux = getAll(true);
         this.todos = aux;
         long endTime = System.currentTimeMillis();
-        System.out.println("getAllEstablecimientos() listo -->"+(endTime - startTime)/1000.0+" segundos");
+        System.out.println("Pof/GE getAllEstablecimientos() listo -->"+(endTime - startTime)/1000.0+" segundos");
     }
     
     public List<LuTrab> getAll(){return this.todos;}

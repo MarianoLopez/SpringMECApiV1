@@ -8,7 +8,6 @@ import java.util.concurrent.Executor;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -24,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableScheduling//tareas
-@EnableCaching//cache
+//@EnableCaching//cache
 @EnableTransactionManagement//Enables Spring's annotation-driven transaction management capability, similar to the support found in Spring's <tx:*> XML namespace
 public class Config {
   /*@Value("${variable}") -> recupera el valor de ${variable} desde src/main/resources/application.properties*/
