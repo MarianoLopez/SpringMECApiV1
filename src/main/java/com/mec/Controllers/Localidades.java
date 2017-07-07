@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author MarianoLopez
  */
 @RestController
-@CrossOrigin()
 @RequestMapping("/APIv1/localidades")
 public class Localidades {
     @Autowired

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author MarianoLopez
  */
 @RestController
-@CrossOrigin()
 @RequestMapping("/APIv1/departamentos")
 public class Departamentos {
     @Autowired
