@@ -5,7 +5,7 @@
  */
 package com.mec.Services;
 
-import com.mec.DAO.EstablecimientoPostgreDAO;
+import com.mec.DAO.Postgre.EstablecimientoPostgreDAO;
 import com.mec.DAO.GeoDAO;
 import com.mec.models.Padron.EstablecimientoPost;
 import com.mec.models.Pof2.Geoposicion;
@@ -31,6 +31,12 @@ public class PostgreService {
     
     public List<EstablecimientoPost> getAll(){
         return this.todos;
+    }
+    public EstablecimientoPost getByCue(int Cue){
+        return establecimientoDAO.getByCue(Cue);
+    }
+    public EstablecimientoPost getByCueAnexo(int Cue, int Anexo){
+        return establecimientoDAO.getByCueAnexo(Cue, Anexo);
     }
     
     //cache task

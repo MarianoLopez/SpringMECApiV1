@@ -233,6 +233,7 @@ public class LuTrab implements Serializable {
     @JsonDeserialize
     private Geoposicion geo = null;
     
+    
     @Transient //The transient keyword in Java is used to indicate that a field should not be serialized. (hibernate)
     @JsonSerialize//jackson
     @JsonDeserialize

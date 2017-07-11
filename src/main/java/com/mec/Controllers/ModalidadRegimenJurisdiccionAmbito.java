@@ -7,14 +7,19 @@ package com.mec.Controllers;
 
 import com.mec.DAO.AmbitoDAO;
 import com.mec.DAO.ModalidadRegimenJurisdiccionDAO;
+import com.mec.DAO.Postgre.PostgreDAO;
 import com.mec.models.GE.Ambito;
+import com.mec.models.Padron.AmbitoTipo;
+import com.mec.models.Padron.CategoriaTipo;
+import com.mec.models.Padron.DependenciaTipo;
+import com.mec.models.Padron.EstadoTipo;
+import com.mec.models.Padron.SectorTipo;
 import com.mec.models.Pof2.LuTrabRegimen;
 import com.mec.models.Pof2.Modali;
 import com.mec.models.Pof2.NivelJur;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +35,8 @@ public class ModalidadRegimenJurisdiccionAmbito {
     private ModalidadRegimenJurisdiccionDAO dao;
     @Autowired
     private AmbitoDAO ambitoDAO;
+    @Autowired
+    private PostgreDAO postgre;
     
     @ApiOperation(value = "Listado de todas las Modalidades posibles de los Establecimientos Educativos", response = Modali.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "/modalidades")
@@ -46,4 +53,25 @@ public class ModalidadRegimenJurisdiccionAmbito {
     @ApiOperation(value = "Listado de todos los Ambitos posibles de los Establecimientos Educativos", response = Ambito.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "/ambitos")
     public List<Ambito> getAmbitos(){return ambitoDAO.getAll();}
+    
+    /*****************************************************POSTGRE**************************************************/
+    @ApiOperation(value = "Listado de todos los Ambitos posibles de los Establecimientos Educativos", response = AmbitoTipo.class,produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET,value = "/postgre/ambitos")
+    public List<AmbitoTipo> getAmbitosP(){return postgre.getAmbitos();}
+    
+    @ApiOperation(value = "Listado de todas las Categorías posibles de los Establecimientos Educativos", response = CategoriaTipo.class,produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET,value = "/postgre/categorias")
+    public List<CategoriaTipo> getCategoriasP(){return postgre.getCategorias();}
+    
+    @ApiOperation(value = "Listado de todas las Dependecias posibles de los Establecimientos Educativos", response = DependenciaTipo.class,produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET,value = "/postgre/dependencias")
+    public List<DependenciaTipo> getDependenciasP(){return postgre.getDependencias();}
+    
+    @ApiOperation(value = "Listado de todos los Estados posibles de los Establecimientos Educativos", response = EstadoTipo.class,produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET,value = "/postgre/estados")
+    public List<EstadoTipo> getEstadosP(){return postgre.getEstados();}
+    
+    @ApiOperation(value = "Listado de todos los Sectores posibles de los Establecimientos Educativos", response = SectorTipo.class,produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET,value = "/postgre/sectores")
+    public List<SectorTipo> getSectoresP(){return postgre.getSectores();}
 }

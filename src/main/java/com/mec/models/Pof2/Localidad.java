@@ -61,6 +61,7 @@ public class Localidad implements Serializable {
     private Integer idUsuario;
    */
     @JsonIgnore
+    //no sé quién usa
     @Column(name = "LocalidadId")
     private Integer localidadId;
     

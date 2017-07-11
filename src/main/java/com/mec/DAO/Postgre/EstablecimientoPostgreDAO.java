@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mec.DAO;
+package com.mec.DAO.Postgre;
 
 import com.mec.Util.HibernateUtil;
 import com.mec.models.Padron.Domicilio;
 import com.mec.models.Padron.EstablecimientoPost;
 import com.mec.models.Padron.LocalidadTipo;
 import com.mec.models.Padron.Localizacion;
+import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +28,23 @@ public class EstablecimientoPostgreDAO extends HibernateUtil{
     
     //@Cacheable("establecimientos")
     public List<EstablecimientoPost> getAll(){
-        return lazyInit(this.getSessionPostgre().createQuery("from "+EstablecimientoPost.class.getName()+" WHERE fechaBaja is null").list());
+        Criteria cr = this.getSessionPostgre().createCriteria(EstablecimientoPost.class);
+        cr.add(Restrictions.isNull("fechaBaja"));
+        return lazyInit(cr.list());
+    }
+    public EstablecimientoPost getByCue(int Cue){
+        Criteria cr = this.getSessionPostgre().createCriteria(EstablecimientoPost.class);
+        cr.add(Restrictions.eq("cue", String.valueOf(Cue)));
+        EstablecimientoPost e =(EstablecimientoPost)cr.uniqueResult();
+        init(e);
+        return e;
+    }
+    public EstablecimientoPost getByCueAnexo(int Cue, int Anexo){
+        EstablecimientoPost e = getByCue(Cue);
+        List<Localizacion> anexo = new ArrayList<>();
+        for(Localizacion l:e.getLocalizacion()){if(Integer.parseInt(l.getAnexo())==Anexo){anexo.add(l);}}
+        e.setLocalizacion(anexo);
+        return e;
     }
     
     /*@CacheEvict(allEntries = true, value = {"establecimientos"})
@@ -35,8 +54,11 @@ public class EstablecimientoPostgreDAO extends HibernateUtil{
     }*/
     
     private List<EstablecimientoPost> lazyInit(List<EstablecimientoPost> establecimientos){
-        establecimientos.forEach((t) -> {
-            Hibernate.initialize(t.getCategoria());
+        establecimientos.forEach((t) -> {init(t);});
+        return establecimientos;
+    }
+    private void init(EstablecimientoPost t){
+         Hibernate.initialize(t.getCategoria());
             Hibernate.initialize(t.getDependencia());
             Hibernate.initialize(t.getEstado());
             Hibernate.initialize(t.getSector());
@@ -57,7 +79,5 @@ public class EstablecimientoPostgreDAO extends HibernateUtil{
                     }
                 });
             }
-        });
-        return establecimientos;
     }
 }
