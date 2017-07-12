@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author MarianoLopez
  */
 @RestController
-@RequestMapping("/APIv1/localidades")
+@RequestMapping("/API")
 public class Localidades {
     @Autowired
     private LocalidadService localidadService;
@@ -35,7 +35,7 @@ public class Localidades {
     private LocalidadPostgreDAO plocalidad;
     
     @ApiOperation(value = "Listado de todas las Localidades de la Provincia de Corrientes. Filtro por departamentos opcional vía query: departamentos=id,id...", response = Localidad.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "v1/localidades")
     public List<Localidad> getAll(@RequestParam(value="departamentos",required = false) Integer[] departamentos){
         if(departamentos!=null){
             List<Localidad> filtro = new ArrayList<>();
@@ -53,7 +53,7 @@ public class Localidades {
     }
     
     @ApiOperation(value = "Búsqueda de Localidad de la Provincia de Corrientes a través de su ID 'Código Postal'", response = Localidad.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value="/{id}")
+    @RequestMapping(method = RequestMethod.GET,value="v1/localidades/{id}")
     public Localidad getAll(@PathVariable(value="id")int id){
         return this.localidadService.getById(id);
     }
@@ -62,7 +62,7 @@ public class Localidades {
     /**************************************************/
     
     @ApiOperation(value = "Listado de todas las Localidades de la Provincia de Corrientes. Filtro por departamentos opcional vía query: departamentos=id,id...", response = LocalidadTipo.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value="/postgre")
+    @RequestMapping(method = RequestMethod.GET,value="v2/localidades")
     public List<LocalidadTipo> getAllP(@RequestParam(value="departamentos",required = false) Integer[] departamentos){
          if(departamentos!=null){
             List<LocalidadTipo> filtro = new ArrayList<>();
@@ -80,7 +80,7 @@ public class Localidades {
     }
     
     @ApiOperation(value = "Búsqueda de Localidad de la Provincia de Corrientes a través de su ID 'Código Postal'", response = LocalidadTipo.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value="/postgre/{id}")
+    @RequestMapping(method = RequestMethod.GET,value="v2/localidades/{id}")
     public LocalidadTipo getP(@PathVariable(value="id")int id){
         return this.plocalidad.getById(id);
     }

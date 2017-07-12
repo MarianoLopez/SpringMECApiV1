@@ -23,20 +23,20 @@ import org.springframework.web.bind.annotation.RestController;
  * @author MarianoLopez
  */
 @RestController
-@RequestMapping("/APIv1/departamentos")
+@RequestMapping("/API")
 public class Departamentos {
     @Autowired
     private DepartamentoDAO departamentoDAO;
     @Autowired
     private DepartamentoPostgreDAO pDepartamento;
     @ApiOperation(value = "Listado de todos los Departamentos de la Provincia de Corrientes", response = Departamento.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET,value="v1/departamentos")
     public List<Departamento> getAll(){
         return departamentoDAO.getAll();
     }
     
     @ApiOperation(value = "Búsqueda de Departamento de la Provincia de Corrientes a través de su ID", response = Departamento.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/{id}")
+    @RequestMapping(method = RequestMethod.GET,value = "v1/departamentos/{id}")
     public Departamento getAll(@PathVariable(value="id")int id){
         return this.departamentoDAO.getById(id);
     }
@@ -44,13 +44,13 @@ public class Departamentos {
     
     /*******************************POSTGRE***************************************/
     @ApiOperation(value = "Listado de todos los Departamentos de la Provincia de Corrientes", response = DepartamentoTipo.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value="/postgre")
+    @RequestMapping(method = RequestMethod.GET,value="v2/departamentos")
     public List<DepartamentoTipo> getAllP(){
         return pDepartamento.getAll();
     }
     
     @ApiOperation(value = "Búsqueda de Departamento de la Provincia de Corrientes a través de su ID", response = DepartamentoTipo.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/{id}/postgre")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/departamentos/{id}")
     public DepartamentoTipo getP(@PathVariable(value="id")int id){
         return this.pDepartamento.getById(id);
     }

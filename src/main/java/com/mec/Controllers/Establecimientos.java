@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author MarianoLopez
  */
 @RestController
-@RequestMapping("/APIv1/establecimientos")
+@RequestMapping("/API")
 public class Establecimientos{
     @Autowired
     private LuTrabService luTrabService;
@@ -36,7 +36,7 @@ public class Establecimientos{
     private EstablecimientosPostgreService dao;
     
     @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (modalidades, regimenes, jurisdicciones, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = LuTrab.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos")
     public List<LuTrab> getAll(@RequestParam(value = "cache", required = false, defaultValue = "true") Boolean cache,
                         @RequestParam(value="modalidades",required = false) Integer[] modalidades,
                         @RequestParam(value="regimenes",required = false) Integer[] regimenes,
@@ -52,7 +52,7 @@ public class Establecimientos{
     }
     
     @ApiOperation(value = "Búsqueda de Establecimiento Educativo de la Provincia de Corrientes a través del CUE/ANEXO", response = LuTrab.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/{Cue}/{Anexo}")
+    @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos/{Cue}/{Anexo}")
     public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,
                                      @PathVariable(value="Anexo") int Anexo){
         return luTrabService.getByCueAnexo(Cue,Anexo);
@@ -60,7 +60,7 @@ public class Establecimientos{
     
     /*************POSTGRE************/
     @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (ámbitos, categorías, dependencias, estados, sectores, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value="postgre")
+    @RequestMapping(method = RequestMethod.GET,value="v2/establecimientos")
     public List<EstablecimientoPost> getAllP(
                         @RequestParam(value="ambitos",required = false) Integer[] ambitos,
                         @RequestParam(value="categorias",required = false) Integer[] categorias,
@@ -73,14 +73,14 @@ public class Establecimientos{
     }
     
     @ApiOperation(value = "Búsqueda de Establecimiento Educativo de la Provincia de Corrientes a través del CUE/ANEXO", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "postgre/{Cue}/{Anexo}")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/{Cue}/{Anexo}")
     public EstablecimientoPost getByID(@PathVariable(value="Cue") int Cue,
                                      @PathVariable(value="Anexo") int Anexo){
         return dao.getByCueAnexo(Cue,Anexo);
     }
     
     @ApiOperation(value = "Búsqueda de Establecimiento Educativo de la Provincia de Corrientes a través del CUE", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "postgre/{Cue}")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/{Cue}")
     public EstablecimientoPost getByCue(@PathVariable(value="Cue") int Cue){
         return dao.getByCue(Cue);
     }

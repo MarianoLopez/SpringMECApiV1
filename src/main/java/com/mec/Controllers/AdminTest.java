@@ -19,7 +19,7 @@ import springfox.documentation.annotations.ApiIgnore;
  * @author 36194445
  */
 @RestController
-@RequestMapping(value = "APIv1/admin")
+@RequestMapping(value = "API/v1/roles")
 @ApiIgnore
 public class AdminTest {
     

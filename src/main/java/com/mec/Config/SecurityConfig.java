@@ -38,12 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .csrf().ignoringAntMatchers("/APIv1/**").and()
+                .csrf().ignoringAntMatchers("/API/**").and()
                 .cors().and()
-                .formLogin().loginProcessingUrl("/APIv1/login").permitAll().and()//POST url
+                .formLogin().loginProcessingUrl("/API/login").permitAll().and()//POST url
                 .formLogin().permitAll().and()
-                .authorizeRequests().antMatchers("/APIv1/login").permitAll().and()
-                .authorizeRequests().antMatchers("/APIv1/admin/**").hasAnyRole("mapa.Editor");
+                .authorizeRequests().antMatchers("/API/login").permitAll().and()
+                .authorizeRequests().antMatchers("/API/roles/**").hasAnyRole("mapa.Editor");
     }
     
     @Bean

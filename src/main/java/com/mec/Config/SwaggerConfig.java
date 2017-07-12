@@ -27,7 +27,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.mec.Controllers"))
-                .paths(regex("/APIv1/.*"))
+                .paths(regex("/API/.*"))
                 .build()
                 .apiInfo(metaData());
     }
@@ -37,7 +37,7 @@ public class SwaggerConfig {
                 "REST API de Establecimientos Educativos",
                 "1.0",
                 "Terms of service",
-                new Contact("Área Programación", "http://innovame.mec.gob.ar/", "mariano.lopez@mec.gob.ar;federico.loebarth@mec.gob.ar"),
+                new Contact("Área de Programación", "http://innovame.mec.gob.ar/", "mariano.lopez@mec.gob.ar;federico.loebarth@mec.gob.ar"),
                "Apache License Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0");
         return apiInfo;

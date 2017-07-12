@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author MarianoLopez
  */
 @RestController
-@RequestMapping("/APIv1/")
+@RequestMapping("/API")
 public class InformacionAdicional {
     @Autowired
     private ModalidadRegimenJurisdiccionDAO dao;
@@ -39,39 +39,39 @@ public class InformacionAdicional {
     private PostgreDAO postgre;
     
     @ApiOperation(value = "Listado de todas las Modalidades posibles de los Establecimientos Educativos", response = Modali.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/modalidades")
+    @RequestMapping(method = RequestMethod.GET,value = "v1/modalidades")
     public List<Modali> getModalidades(){return dao.getModalidades();}
     
     @ApiOperation(value = "Listado de todos los Regímenes posibles de los Establecimientos Educativos", response = LuTrabRegimen.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/regimenes")
+    @RequestMapping(method = RequestMethod.GET,value = "v1/regimenes")
     public List<LuTrabRegimen> getRegimenes(){return dao.getRegimenes();}
     
     @ApiOperation(value = "Listado de todas las Jurisdicciones posibles de los Establecimientos Educativos", response = LuTrabRegimen.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/jurisdicciones")
+    @RequestMapping(method = RequestMethod.GET,value = "v1/jurisdicciones")
     public List<NivelJur> getJurisdicciones(){return dao.getJurisdicciones();}
     
     @ApiOperation(value = "Listado de todos los Ambitos posibles de los Establecimientos Educativos", response = Ambito.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/ambitos")
+    @RequestMapping(method = RequestMethod.GET,value = "v1/ambitos")
     public List<Ambito> getAmbitos(){return ambitoDAO.getAll();}
     
     /*****************************************************POSTGRE**************************************************/
     @ApiOperation(value = "Listado de todos los Ambitos posibles de los Establecimientos Educativos", response = AmbitoTipo.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/postgre/ambitos")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/ambitos")
     public List<AmbitoTipo> getAmbitosP(){return postgre.getAmbitos();}
     
     @ApiOperation(value = "Listado de todas las Categorías posibles de los Establecimientos Educativos", response = CategoriaTipo.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/postgre/categorias")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/categorias")
     public List<CategoriaTipo> getCategoriasP(){return postgre.getCategorias();}
     
     @ApiOperation(value = "Listado de todas las Dependecias posibles de los Establecimientos Educativos", response = DependenciaTipo.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/postgre/dependencias")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/dependencias")
     public List<DependenciaTipo> getDependenciasP(){return postgre.getDependencias();}
     
     @ApiOperation(value = "Listado de todos los Estados posibles de los Establecimientos Educativos", response = EstadoTipo.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/postgre/estados")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/estados")
     public List<EstadoTipo> getEstadosP(){return postgre.getEstados();}
     
     @ApiOperation(value = "Listado de todos los Sectores posibles de los Establecimientos Educativos", response = SectorTipo.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "/postgre/sectores")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/sectores")
     public List<SectorTipo> getSectoresP(){return postgre.getSectores();}
 }

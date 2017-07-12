@@ -5,7 +5,6 @@
  */
 package com.mec.Criteria.Postgre;
 
-import com.mec.models.Padron.DepartamentoTipo;
 import com.mec.models.Padron.Domicilio;
 import com.mec.models.Padron.EstablecimientoPost;
 import com.mec.models.Padron.LocalidadTipo;
