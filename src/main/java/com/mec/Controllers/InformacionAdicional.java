@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/APIv1/")
-public class ModalidadRegimenJurisdiccionAmbito {
+public class InformacionAdicional {
     @Autowired
     private ModalidadRegimenJurisdiccionDAO dao;
     @Autowired

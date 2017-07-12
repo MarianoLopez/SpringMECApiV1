@@ -5,10 +5,16 @@
  */
 package com.mec.Services;
 
+import com.mec.Criteria.Postgre.AmbitoCriteriaPostgre;
+import com.mec.Criteria.Postgre.CategoriaCriteriaPostgre;
+import com.mec.Criteria.Postgre.DepartamentoCriteriaPostgre;
+import com.mec.Criteria.Postgre.DependenciaCriteriaPostgre;
+import com.mec.Criteria.Postgre.EstadoCriteriaPostgre;
+import com.mec.Criteria.Postgre.LocalidadCriteriaPostgre;
+import com.mec.Criteria.Postgre.SectorCriteriaPostgre;
 import com.mec.DAO.Postgre.EstablecimientoPostgreDAO;
 import com.mec.DAO.GeoDAO;
 import com.mec.models.Padron.EstablecimientoPost;
-import com.mec.models.Pof2.Geoposicion;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +26,7 @@ import org.springframework.stereotype.Service;
  * @author 36194445
  */
 @Service
-public class PostgreService {
+public class EstablecimientosPostgreService {
     @Autowired
     private GeoDAO geoDAO;
     @Autowired
@@ -37,6 +43,35 @@ public class PostgreService {
     }
     public EstablecimientoPost getByCueAnexo(int Cue, int Anexo){
         return establecimientoDAO.getByCueAnexo(Cue, Anexo);
+    }
+    
+    
+    
+     public List<EstablecimientoPost> getByFilter(Integer[] ambitos,Integer[] categorias,Integer[] dependencias,
+                                                    Integer[] estados,Integer[] sectores,Integer[] departamentos,Integer[] localidades){
+        List<EstablecimientoPost> todo = this.getAll();
+        if(ambitos!=null){
+            todo = new AmbitoCriteriaPostgre().filterCriteria(todo, ambitos);
+        }
+        if(categorias!=null){
+            todo = new CategoriaCriteriaPostgre().filterCriteria(todo, categorias);
+        }
+        if(dependencias!=null){
+            todo = new DependenciaCriteriaPostgre().filterCriteria(todo, dependencias);
+        }
+        if(estados!=null){
+            todo = new EstadoCriteriaPostgre().filterCriteria(todo, estados);
+        }
+        if(sectores!=null){
+            todo = new SectorCriteriaPostgre().filterCriteria(todo, sectores);
+        }
+        if(departamentos!=null){
+            todo = new DepartamentoCriteriaPostgre().filterCriteria(todo,departamentos);
+        }
+        if(localidades!=null){
+            todo = new LocalidadCriteriaPostgre().filterCriteria(todo,localidades);
+        }
+        return todo;
     }
     
     //cache task

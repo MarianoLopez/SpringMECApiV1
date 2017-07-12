@@ -7,11 +7,9 @@ package com.mec.Controllers;
 
 
 
-import com.mec.DAO.UserDAO;
 import com.mec.Services.LuTrabService;
-import com.mec.Services.PostgreService;
+import com.mec.Services.EstablecimientosPostgreService;
 import com.mec.models.Padron.EstablecimientoPost;
-import com.mec.models.Passport.Usuario;
 
 import com.mec.models.Pof2.LuTrab;
 import io.swagger.annotations.ApiOperation;
@@ -32,10 +30,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class Establecimientos{
     @Autowired
     private LuTrabService luTrabService;
+    /*@Autowired
+    private UserDAO userDAO;*/
     @Autowired
-    private UserDAO userDAO;
-    @Autowired
-    private PostgreService dao;
+    private EstablecimientosPostgreService dao;
     
     @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (modalidades, regimenes, jurisdicciones, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = LuTrab.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET)
@@ -61,16 +59,17 @@ public class Establecimientos{
     }
     
     /*************POSTGRE************/
-    @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (modalidades, regimenes, jurisdicciones, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (ámbitos, categorías, dependencias, estados, sectores, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value="postgre")
     public List<EstablecimientoPost> getAllP(
-                        @RequestParam(value="modalidades",required = false) Integer[] modalidades,
-                        @RequestParam(value="regimenes",required = false) Integer[] regimenes,
-                        @RequestParam(value="jurisdicciones",required = false) Integer[] jurisdicciones,
+                        @RequestParam(value="ambitos",required = false) Integer[] ambitos,
+                        @RequestParam(value="categorias",required = false) Integer[] categorias,
+                        @RequestParam(value="dependencias",required = false) Integer[] dependencias,
+                        @RequestParam(value="estados",required = false) Integer[] estados,
+                        @RequestParam(value="sectores",required = false) Integer[] sectores,
                         @RequestParam(value="departamentos",required = false) Integer[] departamentos,
-                        @RequestParam(value="localidades",required = false) Integer[] localidades,
-                        @RequestParam(value="ambitos",required = false) Integer[] ambitos){
-        return dao.getAll();
+                        @RequestParam(value="localidades",required = false) Integer[] localidades){
+        return dao.getByFilter(ambitos, categorias, dependencias, estados, sectores, departamentos, localidades);
     }
     
     @ApiOperation(value = "Búsqueda de Establecimiento Educativo de la Provincia de Corrientes a través del CUE/ANEXO", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")
