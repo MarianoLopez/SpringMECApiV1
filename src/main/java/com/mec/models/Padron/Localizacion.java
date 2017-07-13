@@ -8,9 +8,6 @@ package com.mec.models.Padron;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.mec.models.Pof2.Geoposicion;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -26,10 +23,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Where;
@@ -112,8 +109,12 @@ public class Localizacion implements Serializable {
     @JoinTable(name = "localizacion_domicilio",
             joinColumns = {@JoinColumn(name = "id_localizacion")},inverseJoinColumns = {@JoinColumn(name = "id_domicilio")})
     private List<Domicilio> domicilios;
-   
-
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "localizacion", fetch = FetchType.LAZY)
+    private List<OfertaLocal> ofertas;
+    
+    
+  
     public Localizacion() {
     }
 
@@ -121,6 +122,15 @@ public class Localizacion implements Serializable {
         this.idLocalizacion = idLocalizacion;
     }
 
+    public List<OfertaLocal> getOfertas() {
+        return ofertas;
+    }
+
+    public void setOfertas(List<OfertaLocal> ofertas) {
+        this.ofertas = ofertas;
+    }
+
+    
     public List<Domicilio> getDomicilios() {
         return domicilios;
     }

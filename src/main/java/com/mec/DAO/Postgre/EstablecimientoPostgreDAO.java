@@ -10,6 +10,7 @@ import com.mec.models.Padron.Domicilio;
 import com.mec.models.Padron.EstablecimientoPost;
 import com.mec.models.Padron.LocalidadTipo;
 import com.mec.models.Padron.Localizacion;
+import com.mec.models.Padron.OfertaLocal;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -77,6 +78,8 @@ public class EstablecimientoPostgreDAO extends HibernateUtil{
                             }
                         });
                     }
+                    List<OfertaLocal> oferta = l.getOfertas();
+                    Hibernate.initialize(oferta);
                 });
             }
     }
