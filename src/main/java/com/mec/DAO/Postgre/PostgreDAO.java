@@ -10,6 +10,7 @@ import com.mec.models.Padron.AmbitoTipo;
 import com.mec.models.Padron.CategoriaTipo;
 import com.mec.models.Padron.DependenciaTipo;
 import com.mec.models.Padron.EstadoTipo;
+import com.mec.models.Padron.OfertaTipo;
 import com.mec.models.Padron.SectorTipo;
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -27,6 +28,7 @@ public class PostgreDAO extends HibernateUtil{
     public List<DependenciaTipo> getDependencias(){return get(DependenciaTipo.class);}
     public List<EstadoTipo> getEstados(){return get(EstadoTipo.class);}
     public List<SectorTipo> getSectores(){return get(SectorTipo.class);}
+    public List<OfertaTipo> getOfertas(){return get(OfertaTipo.class);}
     
     private List get(Class c){return getSessionPostgre().createCriteria(c).list();}
 }

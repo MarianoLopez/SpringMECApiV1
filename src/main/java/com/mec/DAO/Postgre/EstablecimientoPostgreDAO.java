@@ -80,6 +80,11 @@ public class EstablecimientoPostgreDAO extends HibernateUtil{
                     }
                     List<OfertaLocal> oferta = l.getOfertas();
                     Hibernate.initialize(oferta);
+                    if(oferta!=null){
+                        oferta.forEach((o) -> {
+                            Hibernate.initialize(o.getOferta());
+                        });
+                    }
                 });
             }
     }

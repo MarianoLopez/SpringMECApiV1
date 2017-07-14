@@ -7,6 +7,7 @@ package com.mec.models.Padron;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -18,14 +19,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import org.hibernate.annotations.Where;
 
 /**
  *
@@ -33,8 +30,7 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name = "oferta_local")
-@NamedQueries({
-    @NamedQuery(name = "OfertaLocal.findAll", query = "SELECT o FROM OfertaLocal o")})
+@JsonPropertyOrder({"id","oferta"})
 public class OfertaLocal implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,13 +43,18 @@ public class OfertaLocal implements Serializable {
     @JsonIgnore
     @ManyToOne(optional = false, fetch = FetchType.LAZY)   
     @JoinColumn(name = "id_localizacion")
-    @Where(clause = "fecha_baja is null")
     private Localizacion localizacion;
+    
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="c_oferta", insertable = false,updatable = false)
+    private OfertaTipo ofertaTipo;
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fecha_creacion")
-    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_creacion",columnDefinition = "date")
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @Basic(optional = false)
     @NotNull
@@ -97,6 +98,16 @@ public class OfertaLocal implements Serializable {
     public OfertaLocal(Integer idOfertaLocal) {
         this.idOfertaLocal = idOfertaLocal;
     }
+
+    public OfertaTipo getOferta() {
+        return ofertaTipo;
+    }
+
+    public void setOferta(OfertaTipo ofertaTipo) {
+        this.ofertaTipo = ofertaTipo;
+    }
+    
+    
 
 
     public Integer getId() {

@@ -13,6 +13,7 @@ import com.mec.models.Padron.AmbitoTipo;
 import com.mec.models.Padron.CategoriaTipo;
 import com.mec.models.Padron.DependenciaTipo;
 import com.mec.models.Padron.EstadoTipo;
+import com.mec.models.Padron.OfertaTipo;
 import com.mec.models.Padron.SectorTipo;
 import com.mec.models.Pof2.LuTrabRegimen;
 import com.mec.models.Pof2.Modali;
@@ -74,4 +75,8 @@ public class InformacionAdicional {
     @ApiOperation(value = "Listado de todos los Sectores posibles de los Establecimientos Educativos", response = SectorTipo.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "v2/sectores")
     public List<SectorTipo> getSectoresP(){return postgre.getSectores();}
+    
+    @ApiOperation(value = "Listado de todas las Ofertas posibles de los Establecimientos Educativos", response = OfertaTipo.class,produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/ofertas")
+    public List<OfertaTipo> getOfertasP(){return postgre.getOfertas();}
 }

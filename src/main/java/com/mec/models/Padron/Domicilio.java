@@ -6,7 +6,7 @@
 package com.mec.models.Padron;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mec.models.Pof2.Geoposicion;
@@ -21,15 +21,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.annotations.Where;
 
 /**
  *
@@ -37,11 +34,10 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name = "domicilio")
-@NamedQueries({
-    @NamedQuery(name = "Domicilio.findAll", query = "SELECT d FROM Domicilio d")})
+@JsonPropertyOrder({"id","calle","nro","barrio","codPostal","referencia","geo","calleFondo","calleDerecha","calleIzquierda","localidad"})
 public class Domicilio implements Serializable {
     private static final long serialVersionUID = 1L;
-    @JsonIgnore
+    //@JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -132,11 +128,11 @@ public class Domicilio implements Serializable {
     }
     
     
-    public Integer getIdDomicilio() {
+    public Integer getId() {
         return idDomicilio;
     }
 
-    public void setIdDomicilio(Integer idDomicilio) {
+    public void setId(Integer idDomicilio) {
         this.idDomicilio = idDomicilio;
     }
 

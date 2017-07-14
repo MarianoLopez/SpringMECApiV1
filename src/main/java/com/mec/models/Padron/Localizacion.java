@@ -37,7 +37,7 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name = "localizacion")
-@JsonPropertyOrder({"anexo","nombre","ambito","domicilios"})
+@JsonPropertyOrder({"id","anexo","nombre","ambito","ofertas","categoria","sector","dependencia","estado","domicilios"})
 public class Localizacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -110,6 +110,7 @@ public class Localizacion implements Serializable {
             joinColumns = {@JoinColumn(name = "id_localizacion")},inverseJoinColumns = {@JoinColumn(name = "id_domicilio")})
     private List<Domicilio> domicilios;
     
+    @Where(clause = "fecha_baja is null")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "localizacion", fetch = FetchType.LAZY)
     private List<OfertaLocal> ofertas;
     
