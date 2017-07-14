@@ -82,7 +82,7 @@ public class OfertaLocal implements Serializable {
     @NotNull
     @Column(name = "c_estado")
     private short cEstado;*/
-    @Basic(optional = false)
+    /*@Basic(optional = false)
     @NotNull
     @Column(name = "c_jornada")
     private short cJornada;
@@ -94,7 +94,7 @@ public class OfertaLocal implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "c_subvencion")
-    private short cSubvencion;
+    private short cSubvencion;*/
 
     public OfertaLocal() {
     }
@@ -162,7 +162,7 @@ public class OfertaLocal implements Serializable {
         this.matriculaTotal = matriculaTotal;
     }
 
-    public short getcJornada() {
+    /*public short getcJornada() {
         return cJornada;
     }
 
@@ -184,7 +184,7 @@ public class OfertaLocal implements Serializable {
 
     public void setcSubvencion(short cSubvencion) {
         this.cSubvencion = cSubvencion;
-    }
+    }*/
 
   
 

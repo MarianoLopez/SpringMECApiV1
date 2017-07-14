@@ -33,7 +33,10 @@ public class PostgreDAO extends HibernateUtil{
     public List<SectorTipo> getSectores(){return get(SectorTipo.class);}
     public List<OfertaTipo> getOfertas(){
         List<OfertaTipo> ofertas =  get(OfertaTipo.class);
-        ofertas.forEach((o) -> {Hibernate.initialize(o.getBase());});
+        ofertas.forEach((o) -> {
+            Hibernate.initialize(o.getBase());
+            Hibernate.initialize(o.getModalidad());
+        });
         return ofertas;
     }
     public List<JornadaTipo> getJornadas(){return get(JornadaTipo.class);}
