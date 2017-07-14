@@ -10,10 +10,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,17 +20,16 @@ import javax.validation.constraints.Size;
  * @author 36194445
  */
 @Entity
-@Table(name = "oferta_tipo")
+@Table(name = "oferta_base_tipo")
 @JsonPropertyOrder({"id","descripcion"})
-public class OfertaTipo implements Serializable {
+public class OfertaBaseTipo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "c_oferta",columnDefinition = "int2")
-    private Integer cOferta;
-       
+    @Column(name = "c_oferta_base")
+    private Short cOfertaBase;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
@@ -42,53 +38,31 @@ public class OfertaTipo implements Serializable {
     /*@Basic(optional = false)
     @NotNull
     @Column(name = "orden")
-    private short orden;*/
+    private short orden;
     @Size(max = 2147483647)
     @Column(name = "corto")
-    private String corto;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="c_oferta_base", insertable = false,updatable = false)
-    private OfertaBaseTipo base;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="c_modalidad1", insertable = false,updatable = false)
-    private Modalidad1Tipo modalidad;
+    private String corto;*/
 
-    public OfertaTipo() {
+    public OfertaBaseTipo() {
     }
 
-    public OfertaTipo(Integer cOferta) {
-        this.cOferta = cOferta;
+    public OfertaBaseTipo(Short cOfertaBase) {
+        this.cOfertaBase = cOfertaBase;
     }
 
-    public Modalidad1Tipo getModalidad() {
-        return modalidad;
+    /*public OfertaBaseTipo(Short cOfertaBase, String descripcion, short orden) {
+        this.cOfertaBase = cOfertaBase;
+        this.descripcion = descripcion;
+        this.orden = orden;
+    }*/
+
+    public Short getId() {
+        return cOfertaBase;
     }
 
-    public void setModalidad(Modalidad1Tipo modalidad) {
-        this.modalidad = modalidad;
+    public void setId(Short cOfertaBase) {
+        this.cOfertaBase = cOfertaBase;
     }
-
-    
-
-    public Integer getId() {
-        return cOferta;
-    }
-
-    public void setId(Integer cOferta) {
-        this.cOferta = cOferta;
-    }
-
-    public OfertaBaseTipo getBase() {
-        return base;
-    }
-
-    public void setBase(OfertaBaseTipo base) {
-        this.base = base;
-    }
-    
-    
 
     public String getDescripcion() {
         return descripcion;
@@ -98,6 +72,13 @@ public class OfertaTipo implements Serializable {
         this.descripcion = descripcion;
     }
 
+   /* public short getOrden() {
+        return orden;
+    }
+
+    public void setOrden(short orden) {
+        this.orden = orden;
+    }
 
     public String getCorto() {
         return corto;
@@ -105,23 +86,23 @@ public class OfertaTipo implements Serializable {
 
     public void setCorto(String corto) {
         this.corto = corto;
-    }
+    }*/
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cOferta != null ? cOferta.hashCode() : 0);
+        hash += (cOfertaBase != null ? cOfertaBase.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OfertaTipo)) {
+        if (!(object instanceof OfertaBaseTipo)) {
             return false;
         }
-        OfertaTipo other = (OfertaTipo) object;
-        if ((this.cOferta == null && other.cOferta != null) || (this.cOferta != null && !this.cOferta.equals(other.cOferta))) {
+        OfertaBaseTipo other = (OfertaBaseTipo) object;
+        if ((this.cOfertaBase == null && other.cOfertaBase != null) || (this.cOfertaBase != null && !this.cOfertaBase.equals(other.cOfertaBase))) {
             return false;
         }
         return true;
@@ -129,7 +110,7 @@ public class OfertaTipo implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mec.models.Padron.OfertaTipo[ cOferta=" + cOferta + " ]";
+        return "com.mec.models.Padron.OfertaBaseTipo[ cOfertaBase=" + cOfertaBase + " ]";
     }
     
 }

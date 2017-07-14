@@ -10,7 +10,10 @@ import com.mec.Criteria.Postgre.CategoriaCriteriaPostgre;
 import com.mec.Criteria.Postgre.DepartamentoCriteriaPostgre;
 import com.mec.Criteria.Postgre.DependenciaCriteriaPostgre;
 import com.mec.Criteria.Postgre.EstadoCriteriaPostgre;
+import com.mec.Criteria.Postgre.JornadaCriteriaPostgre;
 import com.mec.Criteria.Postgre.LocalidadCriteriaPostgre;
+import com.mec.Criteria.Postgre.ModalidadCriteriaPostgre;
+import com.mec.Criteria.Postgre.OfertaCriteriaPostgre;
 import com.mec.Criteria.Postgre.SectorCriteriaPostgre;
 import com.mec.DAO.Postgre.EstablecimientoPostgreDAO;
 import com.mec.DAO.GeoDAO;
@@ -48,7 +51,8 @@ public class EstablecimientosPostgreService {
     
     
      public List<EstablecimientoPost> getByFilter(Integer[] ambitos,Integer[] categorias,Integer[] dependencias,
-                                                    Integer[] estados,Integer[] sectores,Integer[] departamentos,Integer[] localidades){
+                                                    Integer[] estados,Integer[] sectores,Integer[] departamentos,Integer[] localidades,
+                                                    Integer[] ofertas,Integer[] jornadas,Integer[] modalidades){
         List<EstablecimientoPost> todo = this.getAll();
         if(ambitos!=null){
             todo = new AmbitoCriteriaPostgre().filterCriteria(todo, ambitos);
@@ -70,6 +74,15 @@ public class EstablecimientosPostgreService {
         }
         if(localidades!=null){
             todo = new LocalidadCriteriaPostgre().filterCriteria(todo,localidades);
+        }
+        if(ofertas!=null){
+            todo = new OfertaCriteriaPostgre().filterCriteria(todo,ofertas);
+        }
+        if(jornadas!=null){
+            todo = new JornadaCriteriaPostgre().filterCriteria(todo,jornadas);
+        }
+        if(modalidades!=null){
+            todo = new ModalidadCriteriaPostgre().filterCriteria(todo,modalidades);
         }
         return todo;
     }

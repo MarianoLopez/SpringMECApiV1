@@ -50,6 +50,10 @@ public class OfertaLocal implements Serializable {
     @JoinColumn(name="c_oferta", insertable = false,updatable = false)
     private OfertaTipo ofertaTipo;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="c_jornada", insertable = false,updatable = false)
+    private JornadaTipo jornada;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_creacion",columnDefinition = "date")
@@ -105,6 +109,14 @@ public class OfertaLocal implements Serializable {
 
     public void setOferta(OfertaTipo ofertaTipo) {
         this.ofertaTipo = ofertaTipo;
+    }
+
+    public JornadaTipo getJornada() {
+        return jornada;
+    }
+
+    public void setJornada(JornadaTipo jornada) {
+        this.jornada = jornada;
     }
     
     

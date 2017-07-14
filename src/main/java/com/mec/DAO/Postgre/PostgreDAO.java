@@ -10,9 +10,12 @@ import com.mec.models.Padron.AmbitoTipo;
 import com.mec.models.Padron.CategoriaTipo;
 import com.mec.models.Padron.DependenciaTipo;
 import com.mec.models.Padron.EstadoTipo;
+import com.mec.models.Padron.JornadaTipo;
+import com.mec.models.Padron.Modalidad1Tipo;
 import com.mec.models.Padron.OfertaTipo;
 import com.mec.models.Padron.SectorTipo;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +31,13 @@ public class PostgreDAO extends HibernateUtil{
     public List<DependenciaTipo> getDependencias(){return get(DependenciaTipo.class);}
     public List<EstadoTipo> getEstados(){return get(EstadoTipo.class);}
     public List<SectorTipo> getSectores(){return get(SectorTipo.class);}
-    public List<OfertaTipo> getOfertas(){return get(OfertaTipo.class);}
+    public List<OfertaTipo> getOfertas(){
+        List<OfertaTipo> ofertas =  get(OfertaTipo.class);
+        ofertas.forEach((o) -> {Hibernate.initialize(o.getBase());});
+        return ofertas;
+    }
+    public List<JornadaTipo> getJornadas(){return get(JornadaTipo.class);}
+    public List<Modalidad1Tipo> getModalidades(){return get(Modalidad1Tipo.class);}
     
     private List get(Class c){return getSessionPostgre().createCriteria(c).list();}
 }

@@ -13,6 +13,8 @@ import com.mec.models.Padron.AmbitoTipo;
 import com.mec.models.Padron.CategoriaTipo;
 import com.mec.models.Padron.DependenciaTipo;
 import com.mec.models.Padron.EstadoTipo;
+import com.mec.models.Padron.JornadaTipo;
+import com.mec.models.Padron.Modalidad1Tipo;
 import com.mec.models.Padron.OfertaTipo;
 import com.mec.models.Padron.SectorTipo;
 import com.mec.models.Pof2.LuTrabRegimen;
@@ -79,4 +81,12 @@ public class InformacionAdicional {
     @ApiOperation(value = "Listado de todas las Ofertas posibles de los Establecimientos Educativos", response = OfertaTipo.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "v2/ofertas")
     public List<OfertaTipo> getOfertasP(){return postgre.getOfertas();}
+    
+    @ApiOperation(value = "Listado de todas las Jornadas posibles de los Establecimientos Educativos", response = JornadaTipo.class,produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/jornadas")
+    public List<JornadaTipo> getJornadasP(){return postgre.getJornadas();}
+    
+    @ApiOperation(value = "Listado de todas las Modalidades posibles de los Establecimientos Educativos", response = Modalidad1Tipo.class,produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/modalidades")
+    public List<Modalidad1Tipo> getModalidadesP(){return postgre.getModalidades();}
 }

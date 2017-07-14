@@ -68,8 +68,11 @@ public class Establecimientos{
                         @RequestParam(value="estados",required = false) Integer[] estados,
                         @RequestParam(value="sectores",required = false) Integer[] sectores,
                         @RequestParam(value="departamentos",required = false) Integer[] departamentos,
-                        @RequestParam(value="localidades",required = false) Integer[] localidades){
-        return dao.getByFilter(ambitos, categorias, dependencias, estados, sectores, departamentos, localidades);
+                        @RequestParam(value="localidades",required = false) Integer[] localidades,
+                        @RequestParam(value="ofertas",required = false) Integer[] ofertas,
+                        @RequestParam(value="jornadas",required = false) Integer[] jornadas,
+                        @RequestParam(value="modalidades",required = false) Integer[] modalidades){
+        return dao.getByFilter(ambitos, categorias, dependencias, estados, sectores, departamentos, localidades,ofertas,jornadas,modalidades);
     }
     
     @ApiOperation(value = "Búsqueda de Establecimiento Educativo de la Provincia de Corrientes a través del CUE/ANEXO", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")

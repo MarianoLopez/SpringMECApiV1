@@ -11,6 +11,7 @@ import com.mec.models.Padron.EstablecimientoPost;
 import com.mec.models.Padron.LocalidadTipo;
 import com.mec.models.Padron.Localizacion;
 import com.mec.models.Padron.OfertaLocal;
+import com.mec.models.Padron.OfertaTipo;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -82,7 +83,13 @@ public class EstablecimientoPostgreDAO extends HibernateUtil{
                     Hibernate.initialize(oferta);
                     if(oferta!=null){
                         oferta.forEach((o) -> {
-                            Hibernate.initialize(o.getOferta());
+                            Hibernate.initialize(o.getJornada());
+                            OfertaTipo ot = o.getOferta();
+                            Hibernate.initialize(ot);
+                            if(ot!=null){
+                                Hibernate.initialize(ot.getModalidad());
+                                Hibernate.initialize(ot.getBase());
+                            }
                         });
                     }
                 });
