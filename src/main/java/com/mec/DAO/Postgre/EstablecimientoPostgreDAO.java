@@ -89,6 +89,7 @@ public class EstablecimientoPostgreDAO extends HibernateUtil{
                             if(ot!=null){
                                 Hibernate.initialize(ot.getModalidad());
                                 Hibernate.initialize(ot.getBase());
+                                //Hibernate.initialize(ot.getTitulos());
                             }
                         });
                     }

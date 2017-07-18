@@ -23,6 +23,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+//import org.springframework.cache.annotation.Cacheable;
 
 /**
  *
@@ -37,7 +38,7 @@ public class EstablecimientosPostgreService {
     
     private List<EstablecimientoPost> todos = new ArrayList<>();
     
-    
+    //@Cacheable("establecimientos")
     public List<EstablecimientoPost> getAll(){
         return this.todos;
     }
@@ -89,7 +90,7 @@ public class EstablecimientosPostgreService {
     
     //cache task
     @Scheduled(fixedRate = 600000)//10min en ms
-    private void getAllEstablecimientos() {
+    public void getAllEstablecimientos() {
         long startTime = System.currentTimeMillis();
         List<EstablecimientoPost> aux = establecimientoDAO.getAll();
         initGeo(aux);

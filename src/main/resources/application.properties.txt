@@ -33,5 +33,9 @@ logging.level.org.hibernate=ERROR
 #jsonPrettyPrint
 spring.jackson.serialization.indent_output=true
 
+#GZIP
+server.compression.enabled=true
+server.compression.mime-types=application/json,application/xml,text/html,text/xml,text/plain
+
 #leaf
 spring.thymeleaf.cache: false

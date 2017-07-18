@@ -9,7 +9,6 @@ package com.mec.models.Pof2;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.Column;
 
 
@@ -18,7 +17,7 @@ import javax.persistence.Column;
  * @author MarianoLopez
  */
 @JsonPropertyOrder({"latitud","longitud","zoom"})
-public class Geoposicion{
+public class Geoposicion {
 
     @ApiModelProperty(notes = "CueAnexo del Establecimiento",dataType = "Integer",required = true)
     @JsonIgnore

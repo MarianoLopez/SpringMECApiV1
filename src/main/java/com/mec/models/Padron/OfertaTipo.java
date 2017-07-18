@@ -54,9 +54,23 @@ public class OfertaTipo implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="c_modalidad1", insertable = false,updatable = false)
     private Modalidad1Tipo modalidad;
+    
+    /*@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "titulo_oferta_tipo",
+            joinColumns = {@JoinColumn(name = "c_oferta")},inverseJoinColumns = {@JoinColumn(name = "c_titulo")})
+    private List<TituloTipo> titulos;*/
 
-    public OfertaTipo() {
+    public OfertaTipo() {}
+
+    /*public List<TituloTipo> getTitulos() {
+        return titulos;
     }
+
+    public void setTitulos(List<TituloTipo> titulos) {
+        this.titulos = titulos;
+    }*/
+    
+    
 
     public OfertaTipo(Integer cOferta) {
         this.cOferta = cOferta;
