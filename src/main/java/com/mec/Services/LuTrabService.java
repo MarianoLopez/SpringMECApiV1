@@ -24,6 +24,7 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
@@ -46,7 +47,7 @@ public class LuTrabService{
     
     private List<LuTrab> todos = new ArrayList<>();
     
-    //@Scheduled(fixedRate = 600000)//10min en ms
+    @Scheduled(fixedRate = 600000)//10min en ms
     private void getAllEstablecimientos() {
         long startTime = System.currentTimeMillis();
         List<LuTrab> aux = getAll(true);
@@ -71,6 +72,13 @@ public class LuTrabService{
             initEdificio(l);
         }
         return l;
+    }
+    public List<LuTrab> getByFilter(List<Integer> cues){
+        List<LuTrab> todo = this.getAll();
+        if(cues!=null){
+            todo = new CueAnexoCriteria().filterCriteria(todos, cues);
+        }
+        return todo;
     }
     public List<LuTrab> getByFilter(Integer[] modalidades,Integer[] regimenes,Integer[] jurisdicciones,Integer[] departamentos,Integer[] localidades,Integer[] ambitos){
         List<LuTrab> todo = this.getAll();
@@ -103,27 +111,19 @@ public class LuTrabService{
                  .declareParameters(new SqlParameter("arg", Types.VARCHAR));
         SqlParameterSource in = new MapSqlParameterSource().addValue("arg", arg);
         Map<String,Object> r = jdbcCall.execute(in);
-        List<LuTrab> establecimientos = new ArrayList<>();
+        List<Integer> cues = new ArrayList<>();
         Iterator it = r.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry e = (Map.Entry)it.next();
             for(Object v:(ArrayList)e.getValue()){
-                String cue = null;
-                Short anexo = null;
                 for(Map.Entry<String,Object> entry:((Map<String,Object>)v).entrySet()){
                     if(entry.getKey().equals("CUE")){
-                        cue = (String)entry.getValue();
-                    }else if(entry.getKey().equals("Anexo")){
-                        anexo = (Short)entry.getValue();
+                        cues.add(Integer.valueOf((String)entry.getValue()));
                     }
                 }
-                if(cue!=null&&anexo!=null){
-                    establecimientos.add(getByCueAnexo(Integer.valueOf(cue), Integer.valueOf(anexo)));
-                }
-                
             }
         }//while
-        return establecimientos;
+        return getByFilter(cues);
     }
  
     private void initGeoAndEdificios(List<LuTrab> lugares){
