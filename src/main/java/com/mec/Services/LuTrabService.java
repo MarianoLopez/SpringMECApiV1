@@ -12,10 +12,18 @@ import com.mec.DAO.LuTrabDAO;
 import com.mec.models.GE.Establecimiento;
 import com.mec.models.Pof2.Geoposicion;
 import com.mec.models.Pof2.LuTrab;
+import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,6 +40,9 @@ public class LuTrabService{
     private EdificioDAO edificioDAO;
     @Autowired
     private EstablecimientoDAO establecimientoDAO;
+    @Autowired
+    @Qualifier(value="dataGE")
+    private DataSource ds;
     
     private List<LuTrab> todos = new ArrayList<>();
     
@@ -82,6 +93,37 @@ public class LuTrabService{
             todo = new AmbitoCriteria().filterCriteria(todo,ambitos);
         }
         return todo;
+    }
+    
+    public List<LuTrab> getEstablecimientoByPlanEstudio(String arg){
+        SimpleJdbcCall jdbcCall =  new SimpleJdbcCall(ds)
+                 .withCatalogName("dbo")
+                 .withProcedureName("traerPlanesMaterias")
+                 .withoutProcedureColumnMetaDataAccess()
+                 .declareParameters(new SqlParameter("arg", Types.VARCHAR));
+        SqlParameterSource in = new MapSqlParameterSource().addValue("arg", arg);
+        Map<String,Object> r = jdbcCall.execute(in);
+        List<LuTrab> establecimientos = new ArrayList<>();
+        Iterator it = r.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry e = (Map.Entry)it.next();
+            for(Object v:(ArrayList)e.getValue()){
+                String cue = null;
+                Short anexo = null;
+                for(Map.Entry<String,Object> entry:((Map<String,Object>)v).entrySet()){
+                    if(entry.getKey().equals("CUE")){
+                        cue = (String)entry.getValue();
+                    }else if(entry.getKey().equals("Anexo")){
+                        anexo = (Short)entry.getValue();
+                    }
+                }
+                if(cue!=null&&anexo!=null){
+                    establecimientos.add(getByCueAnexo(Integer.valueOf(cue), Integer.valueOf(anexo)));
+                }
+                
+            }
+        }//while
+        return establecimientos;
     }
  
     private void initGeoAndEdificios(List<LuTrab> lugares){

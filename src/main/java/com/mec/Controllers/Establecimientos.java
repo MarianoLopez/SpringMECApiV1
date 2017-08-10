@@ -58,6 +58,12 @@ public class Establecimientos{
         return luTrabService.getByCueAnexo(Cue,Anexo);
     }
     
+    @RequestMapping(method = RequestMethod.GET, value = "v1/establecimientos/plan/{arg}")
+    public List<LuTrab> getEstablecimientosByPlan(@PathVariable(value="arg") String arg){
+        return luTrabService.getEstablecimientoByPlanEstudio(arg);
+
+    }
+    
     /*************POSTGRE************/
     @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (ámbitos, categorías, dependencias, estados, sectores, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value="v2/establecimientos")
@@ -93,4 +99,6 @@ public class Establecimientos{
     public Usuario test(@PathVariable(value="userName") String userName,@PathVariable(value="pass") String pass){
         return userDAO.getUser(userName,pass);
     }*/
+    
+            
 }
