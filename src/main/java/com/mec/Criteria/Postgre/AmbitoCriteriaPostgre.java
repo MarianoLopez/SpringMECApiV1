@@ -5,12 +5,11 @@
  */
 package com.mec.Criteria.Postgre;
 
-import com.mec.models.Padron.AmbitoTipo;
 import com.mec.models.Padron.EstablecimientoPost;
 import com.mec.models.Padron.Localizacion;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -20,22 +19,14 @@ public class AmbitoCriteriaPostgre implements EstablecimientosCriteriaPostgre{
 
     @Override
     public List<EstablecimientoPost> filterCriteria(List<EstablecimientoPost> establecimientos, Integer[] IDs) {
-        List<EstablecimientoPost> filter = new ArrayList<>();
         List<Integer> list = Arrays.asList(IDs);
-        establecimientos.forEach((establecimiento) -> {
-            List<Localizacion> localizaciones = establecimiento.getLocalizacion();
-            if(localizaciones!=null){
-                boolean insert = true;//mismo establecimiento, multiples localizaciones
-                for(Localizacion localizacion: localizaciones){
-                    AmbitoTipo ambito = localizacion.getAmbito();
-                    if(ambito!=null&&list.contains(ambito.getId().intValue())&&insert){
-                        filter.add(establecimiento);
-                        insert=false;
-                    }
-                }
-            }
-        });
-        return filter;
+        return establecimientos.stream()
+            .filter(e->{
+                List<Localizacion> loct = e.getLocalizacion().stream()
+                    .filter(l->l.getAmbito()!=null && list.contains(l.getAmbito().getId().intValue()))
+                    .collect(Collectors.toList());//filtrado a lista
+                if(loct.size()>0){e.setLocalizacion(loct);return true;}else{return false;}
+            }).collect(Collectors.toList());
     }
     
 }

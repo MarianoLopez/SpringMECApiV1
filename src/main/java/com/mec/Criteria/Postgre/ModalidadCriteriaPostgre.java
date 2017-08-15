@@ -7,12 +7,10 @@ package com.mec.Criteria.Postgre;
 
 import com.mec.models.Padron.EstablecimientoPost;
 import com.mec.models.Padron.Localizacion;
-import com.mec.models.Padron.Modalidad1Tipo;
 import com.mec.models.Padron.OfertaLocal;
-import com.mec.models.Padron.OfertaTipo;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -22,30 +20,18 @@ public class ModalidadCriteriaPostgre implements EstablecimientosCriteriaPostgre
 
     @Override
     public List<EstablecimientoPost> filterCriteria(List<EstablecimientoPost> establecimientos, Integer[] IDs) {
-        List<EstablecimientoPost> filter = new ArrayList<>();
         List<Integer> list = Arrays.asList(IDs);
-        establecimientos.forEach((establecimiento) -> {
-            List<Localizacion> localizaciones = establecimiento.getLocalizacion();
-            if(localizaciones!=null){
-                boolean insert = true;//mismo establecimiento, multiples localizaciones
-                for(Localizacion localizacion: localizaciones){
-                    List<OfertaLocal> ofertas = localizacion.getOfertas();
-                    if(ofertas!=null){
-                        for(OfertaLocal oferta: ofertas){
-                            OfertaTipo tipo = oferta.getOferta();
-                            if(tipo!=null){
-                                Modalidad1Tipo modalidad = tipo.getModalidad();
-                                if(modalidad!=null&&list.contains(modalidad.getId().intValue())&&insert){
-                                    filter.add(establecimiento);
-                                    insert=false;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        });
-        return filter;
+        return establecimientos.stream()
+            .filter(e->{
+                    List<Localizacion> loct = e.getLocalizacion().stream()
+                        .filter(l->{
+                            List<OfertaLocal> ofertas = l.getOfertas().stream()
+                                .filter(oferta -> oferta.getOferta()!=null&&oferta.getOferta().getModalidad()!=null&&list.contains(oferta.getOferta().getModalidad().getId().intValue()))
+                                .collect(Collectors.toList());//filtrado a lista
+                            if(ofertas.size()>0){l.setOfertas(ofertas);return true;}else{return false;}//si posee domicilios despues del filtrado
+                        }).collect(Collectors.toList());//localizacion
+                    if(loct.size()>0){e.setLocalizacion(loct);return true;}else{return false;}
+            }).collect(Collectors.toList());
     }
     
 }

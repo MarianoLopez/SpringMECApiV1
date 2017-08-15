@@ -6,10 +6,9 @@
 package com.mec.Criteria.Postgre;
 
 import com.mec.models.Padron.EstablecimientoPost;
-import com.mec.models.Padron.EstadoTipo;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -19,15 +18,10 @@ public class EstadoCriteriaPostgre implements EstablecimientosCriteriaPostgre{
 
     @Override
     public List<EstablecimientoPost> filterCriteria(List<EstablecimientoPost> establecimientos, Integer[] IDs) {
-        List<EstablecimientoPost> filter = new ArrayList<>();
         List<Integer> list = Arrays.asList(IDs);
-        establecimientos.forEach((establecimiento) -> {
-            EstadoTipo estado = establecimiento.getEstado();
-            if(estado!=null&&list.contains(estado.getId().intValue())){
-                filter.add(establecimiento);
-            }   
-        });
-        return filter;
+        return establecimientos.stream()
+            .filter(e->e.getEstado()!=null&&list.contains(e.getEstado().getId().intValue()))
+            .collect(Collectors.toList());
     }
     
 }
