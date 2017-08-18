@@ -43,10 +43,14 @@ public class EstablecimientosPostgreService {
         return this.todos;
     }
     public EstablecimientoPost getByCue(int Cue){
-        return establecimientoDAO.getByCue(Cue);
+        EstablecimientoPost est =  establecimientoDAO.getByCue(Cue);
+        setGeo(est);
+        return est;
     }
     public EstablecimientoPost getByCueAnexo(int Cue, int Anexo){
-        return establecimientoDAO.getByCueAnexo(Cue, Anexo);
+        EstablecimientoPost est = establecimientoDAO.getByCueAnexo(Cue, Anexo);
+        setGeo(est);
+        return est;
     }
     
     
@@ -99,9 +103,9 @@ public class EstablecimientosPostgreService {
         System.out.println("getAllEstablecimientos() listo -->"+(endTime - startTime)/1000.0+" segundos");
     }
     
-    private void initGeo(List<EstablecimientoPost> establecimientos){
-        establecimientos.parallelStream().forEach((establecimiento)->{
-            establecimiento.getLocalizacion().forEach((loc) -> {
+    private void initGeo(List<EstablecimientoPost> establecimientos){establecimientos.parallelStream().forEach((establecimiento)->{this.setGeo(establecimiento);});}
+    private void setGeo(EstablecimientoPost establecimiento){
+        establecimiento.getLocalizacion().forEach((loc) -> {
                 loc.getDomicilios().forEach((dom) -> {
                    try{
                         dom.setGeo(geoDAO.getByCueAnexo(Integer.parseInt(establecimiento.getCue()), Integer.parseInt(loc.getAnexo())));
@@ -109,7 +113,6 @@ public class EstablecimientosPostgreService {
                         System.out.println("NumberFormatException: "+e.toString());
                     } 
                 });
-            });
-        });
+            });   
     }
 }
