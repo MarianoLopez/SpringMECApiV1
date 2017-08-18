@@ -13,6 +13,7 @@ import com.mec.Criteria.Postgre.EstadoCriteriaPostgre;
 import com.mec.Criteria.Postgre.JornadaCriteriaPostgre;
 import com.mec.Criteria.Postgre.LocalidadCriteriaPostgre;
 import com.mec.Criteria.Postgre.ModalidadCriteriaPostgre;
+import com.mec.Criteria.Postgre.OfertaBaseCriteriaPostgre;
 import com.mec.Criteria.Postgre.OfertaCriteriaPostgre;
 import com.mec.Criteria.Postgre.SectorCriteriaPostgre;
 import com.mec.DAO.Postgre.EstablecimientoPostgreDAO;
@@ -57,7 +58,7 @@ public class EstablecimientosPostgreService {
     
      public List<EstablecimientoPost> getByFilter(Integer[] ambitos,Integer[] categorias,Integer[] dependencias,
                                                     Integer[] estados,Integer[] sectores,Integer[] departamentos,Integer[] localidades,
-                                                    Integer[] ofertas,Integer[] jornadas,Integer[] modalidades){
+                                                    Integer[] ofertas,Integer[] jornadas,Integer[] modalidades,Integer[] bases){
         List<EstablecimientoPost> todo = this.getAll();
         if(ambitos!=null){
             todo = new AmbitoCriteriaPostgre().filterCriteria(todo, ambitos);
@@ -88,6 +89,9 @@ public class EstablecimientosPostgreService {
         }
         if(modalidades!=null){
             todo = new ModalidadCriteriaPostgre().filterCriteria(todo,modalidades);
+        }
+        if(bases!=null){
+            todo = new OfertaBaseCriteriaPostgre().filterCriteria(todo,bases);
         }
         return todo;
     }

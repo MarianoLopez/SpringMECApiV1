@@ -12,6 +12,7 @@ import com.mec.models.Padron.DependenciaTipo;
 import com.mec.models.Padron.EstadoTipo;
 import com.mec.models.Padron.JornadaTipo;
 import com.mec.models.Padron.Modalidad1Tipo;
+import com.mec.models.Padron.OfertaBaseTipo;
 import com.mec.models.Padron.OfertaTipo;
 import com.mec.models.Padron.SectorTipo;
 import java.util.List;
@@ -41,6 +42,6 @@ public class PostgreDAO extends HibernateUtil{
     }
     public List<JornadaTipo> getJornadas(){return get(JornadaTipo.class);}
     public List<Modalidad1Tipo> getModalidades(){return get(Modalidad1Tipo.class);}
-    
+    public List<OfertaBaseTipo> getBases(){return get(OfertaBaseTipo.class);}
     private List get(Class c){return getSessionPostgre().createCriteria(c).list();}
 }
