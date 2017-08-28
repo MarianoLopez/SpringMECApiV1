@@ -7,6 +7,7 @@ package com.mec.Controllers;
 
 
 
+import com.mec.Criteria.JurisdiccionCriteria;
 import com.mec.DAO.Superior.SuperiorDAO;
 import com.mec.Services.LuTrabService;
 import com.mec.Services.EstablecimientosPostgreService;
@@ -66,8 +67,7 @@ public class Establecimientos{
     
     @RequestMapping(method = RequestMethod.GET, value = "v1/establecimientos/plan/{arg}")
     public List<LuTrab> getEstablecimientosByPlan(@PathVariable(value="arg") String arg){
-        return luTrabService.getEstablecimientoByPlanEstudio(arg);
-
+        return new JurisdiccionCriteria().filterCriteria(luTrabService.getEstablecimientoByPlanEstudio(arg),new Integer[]{0,1,2,3,4,5,6,7,8});
     }
     
     @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos/superior")
