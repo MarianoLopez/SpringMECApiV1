@@ -71,18 +71,22 @@ public class Establecimientos{
     
     @RequestMapping(method = RequestMethod.GET, value = "v1/establecimientos/plan/{arg}")
     public List<LuTrab> getEstablecimientosByPlan(@PathVariable(value="arg") String arg){
-        try {
-            //return new JurisdiccionCriteria().filterCriteria(luTrabService.getEstablecimientoByPlanEstudio(arg),new Integer[]{0,1,2,3,4,5,6,7,8});
-            return new JurisdiccionCriteria().filterCriteria(superiorService.getAll(arg),new Integer[]{0,1,2,3,4,5,6,7,8});
-        } catch (IOException ex) {
-            Logger.getLogger(Establecimientos.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        return new JurisdiccionCriteria().filterCriteria(luTrabService.getEstablecimientoByPlanEstudio(arg),new Integer[]{0,1,2,3,4,5,6,7,8});
     }
     
     @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos/superior")
     public Map<String,List<String>> superior() throws IOException{
         return superior.getAll();
+    }
+    
+    @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos/superior/{arg}")
+    public List<LuTrab> superior(@PathVariable(value="arg") String arg) throws IOException{
+        try {
+            return new JurisdiccionCriteria().filterCriteria(superiorService.getAll(arg),new Integer[]{0,1,2,3,4,5,6,7,8});
+        } catch (IOException ex) {
+            Logger.getLogger(Establecimientos.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     
     /*************POSTGRE************/
