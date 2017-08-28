@@ -16,6 +16,7 @@ import com.mec.models.GE.EstablecimientoEdificio;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -239,6 +240,11 @@ public class LuTrab implements Serializable {
     @JsonDeserialize
     private List<EstablecimientoEdificio> edificios = null;
     
+    @Transient //The transient keyword in Java is used to indicate that a field should not be serialized. (hibernate)
+    @JsonSerialize//jackson
+    @JsonDeserialize
+    private List<String> orientacion = new ArrayList<>();
+    
     public LuTrab() {
     }
 
@@ -246,6 +252,15 @@ public class LuTrab implements Serializable {
         this.id = id;
     }
 
+    public List<String> getOrientacion() {
+        return orientacion;
+    }
+
+    public void setOrientacion(List<String> orientacion) {
+        this.orientacion = orientacion;
+    }
+    
+    
     public List<EstablecimientoEdificio> getEdificios() {
         return edificios;
     }

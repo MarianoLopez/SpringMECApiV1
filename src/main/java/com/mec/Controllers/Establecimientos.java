@@ -11,14 +11,16 @@ import com.mec.Criteria.JurisdiccionCriteria;
 import com.mec.DAO.Superior.SuperiorDAO;
 import com.mec.Services.LuTrabService;
 import com.mec.Services.EstablecimientosPostgreService;
+import com.mec.Services.SuperiorService;
 import com.mec.models.Padron.EstablecimientoPost;
 
 import com.mec.models.Pof2.LuTrab;
-import com.mec.models.superior.Superior;
 import io.swagger.annotations.ApiOperation;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +43,8 @@ public class Establecimientos{
     private EstablecimientosPostgreService dao;
     @Autowired
     private SuperiorDAO superior;
+    @Autowired
+    private SuperiorService superiorService;
     
     @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (modalidades, regimenes, jurisdicciones, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = LuTrab.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos")
@@ -67,7 +71,13 @@ public class Establecimientos{
     
     @RequestMapping(method = RequestMethod.GET, value = "v1/establecimientos/plan/{arg}")
     public List<LuTrab> getEstablecimientosByPlan(@PathVariable(value="arg") String arg){
-        return new JurisdiccionCriteria().filterCriteria(luTrabService.getEstablecimientoByPlanEstudio(arg),new Integer[]{0,1,2,3,4,5,6,7,8});
+        try {
+            //return new JurisdiccionCriteria().filterCriteria(luTrabService.getEstablecimientoByPlanEstudio(arg),new Integer[]{0,1,2,3,4,5,6,7,8});
+            return new JurisdiccionCriteria().filterCriteria(superiorService.getAll(arg),new Integer[]{0,1,2,3,4,5,6,7,8});
+        } catch (IOException ex) {
+            Logger.getLogger(Establecimientos.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     
     @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos/superior")

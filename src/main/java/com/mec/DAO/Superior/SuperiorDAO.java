@@ -5,7 +5,6 @@
  */
 package com.mec.DAO.Superior;
 
-import com.mec.models.superior.Superior;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
