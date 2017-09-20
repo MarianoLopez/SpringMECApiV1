@@ -8,7 +8,10 @@ package com.mec.models.Padron;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -27,6 +30,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Where;
@@ -114,7 +118,10 @@ public class Localizacion implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "localizacion", fetch = FetchType.LAZY)
     private List<OfertaLocal> ofertas;
     
-    
+    @Transient //The transient keyword in Java is used to indicate that a field should not be serialized. (hibernate)
+    @JsonSerialize//jackson
+    @JsonDeserialize
+    private List<String> orientacion = new ArrayList<>();
   
     public Localizacion() {
     }
@@ -122,6 +129,16 @@ public class Localizacion implements Serializable {
     public Localizacion(Integer idLocalizacion) {
         this.idLocalizacion = idLocalizacion;
     }
+
+    public List<String> getOrientacion() {
+        return orientacion;
+    }
+
+    public void setOrientacion(List<String> orientacion) {
+        this.orientacion = orientacion;
+    }
+    
+    
 
     public List<OfertaLocal> getOfertas() {
         return ofertas;

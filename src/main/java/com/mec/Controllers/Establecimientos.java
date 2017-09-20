@@ -120,6 +120,18 @@ public class Establecimientos{
         return dao.getByCue(Cue);
     }
     
+    @ApiOperation(value = "Búsqueda de Establecimiento Superior a través de palabra clave en la orientación (Excel)", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/superior/{arg}")
+    public List<EstablecimientoPost> superiorP(@PathVariable(value="arg") String arg){
+        try {
+            return superiorService.getAllP(arg);
+        } catch (IOException ex) {
+            Logger.getLogger(Establecimientos.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    
     /*************************/
     /*@RequestMapping(method = RequestMethod.GET,value = "/test/{userName}/{pass}")
     public Usuario test(@PathVariable(value="userName") String userName,@PathVariable(value="pass") String pass){

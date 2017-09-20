@@ -46,6 +46,7 @@ public class EstablecimientoPostgreDAO extends HibernateUtil{
         List<Localizacion> anexo = new ArrayList<>();
         for(Localizacion l:e.getLocalizacion()){if(Integer.parseInt(l.getAnexo())==Anexo){anexo.add(l);}}
         e.setLocalizacion(anexo);
+        init(e);
         return e;
     }
     

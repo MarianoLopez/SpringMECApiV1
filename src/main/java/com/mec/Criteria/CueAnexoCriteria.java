@@ -17,9 +17,9 @@ import java.util.List;
 public class CueAnexoCriteria{
     public List<LuTrab> filterCriteria(List<LuTrab> establecimientos, List<Integer> list) {
         List<LuTrab> filtro = new ArrayList<>();
-        System.out.println("lista: "+list);
+        //System.out.println("lista: "+list);
         establecimientos.forEach((establecimiento) -> {
-            if(list.contains(establecimiento.getCue())&&establecimiento.getAnexo()== 0){
+            if(list.contains(establecimiento.getCue())){
                 filtro.add(establecimiento);
             }
         });
