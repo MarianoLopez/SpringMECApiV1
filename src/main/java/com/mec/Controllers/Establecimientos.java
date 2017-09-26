@@ -50,6 +50,7 @@ public class Establecimientos{
     @Autowired
     private VoteroService voteroService;
     
+    
     @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (modalidades, regimenes, jurisdicciones, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = LuTrab.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos")
     public List<LuTrab> getAll(@RequestParam(value = "cache", required = false, defaultValue = "true") Boolean cache,
@@ -138,6 +139,13 @@ public class Establecimientos{
     @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/votero")
     public Map<String,List<Establecimiento>> voteroEstablecimientos() throws IOException{
         return voteroService.getAll();
+    }
+    
+    @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/votero/{lat}/{lon}/{km}")
+    public Map<String,List<Establecimiento>> voteroEstablecimientosFilter(@PathVariable(value="lat") Float lat,
+                                                                          @PathVariable(value="lon") Float lon,
+                                                                          @PathVariable(value="km") Double km) throws IOException{
+        return voteroService.withFilter(lat, lon, km);
     }
     
     

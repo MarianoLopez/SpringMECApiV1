@@ -14,6 +14,7 @@ import com.mec.models.Padron.EstablecimientoPost;
 public class Establecimiento {
     private EstablecimientoPost establecimiento;
     private int desde, hasta, total;
+    private Double distancia;
 
     public Establecimiento(EstablecimientoPost establecimiento, int desde, int hasta, int total) {
         this.establecimiento = establecimiento;
@@ -52,6 +53,14 @@ public class Establecimiento {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    public Double getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(Double distancia) {
+        this.distancia = distancia;
     }
     
     

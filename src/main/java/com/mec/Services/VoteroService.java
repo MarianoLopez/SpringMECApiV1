@@ -7,10 +7,12 @@ package com.mec.Services;
 
 import com.mec.DAO.GeoDAO;
 import com.mec.DAO.Postgre.EstablecimientoPostgreDAO;
+import com.mec.Util.GeoDistance;
 import com.mec.models.Padron.EstablecimientoPost;
 import com.mec.models.votero.Establecimiento;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +36,39 @@ public class VoteroService {
     @Autowired
     private GeoDAO geoDAO;
     
+    private Map<String,List<Establecimiento>> TODO;
+    
+    public Map<String,List<Establecimiento>> withFilter(float my_lat, float my_lon,double distanceKM) throws IOException{
+        Map<String,List<Establecimiento>> todo = getAll();
+        Map<String,List<Establecimiento>> filter = new HashMap<>();
+        GeoDistance gd = new GeoDistance(my_lat,my_lon);
+        todo.forEach((k, v) -> {
+            v.stream().forEach(est->{
+                List<Establecimiento> est_filter = new ArrayList();
+                est.getEstablecimiento().getLocalizacion().forEach(l->{
+                    l.getDomicilios().forEach(d->{
+                        if(d.getGeo()!=null){
+                            double distancia = gd.getDistanceTo(((BigDecimal)d.getGeo().getLatitud()).floatValue(), ((BigDecimal)d.getGeo().getLongitud()).floatValue());
+                            if(distancia<=distanceKM){
+                                est.setDistancia(distancia);
+                                est_filter.add(est);
+                            }
+                        }
+                    });
+                });
+                if(est_filter.size()>0){filter.put(k, est_filter);}
+            });//establecimientos
+        });
+        return filter;
+    }
     public Map<String,List<Establecimiento>> getAll() throws IOException{
+        if(TODO==null){
+            TODO = getFromExcel();
+        }
+        return TODO;
+    }
+    
+    private Map<String,List<Establecimiento>> getFromExcel() throws IOException{
         Map<String,List<Establecimiento>> s = new HashMap<>();
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is = classloader.getResourceAsStream("votero.xlsx");
