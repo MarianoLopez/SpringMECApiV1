@@ -18,9 +18,12 @@ import com.mec.Criteria.Postgre.OfertaCriteriaPostgre;
 import com.mec.Criteria.Postgre.SectorCriteriaPostgre;
 import com.mec.DAO.Postgre.EstablecimientoPostgreDAO;
 import com.mec.DAO.GeoDAO;
+import com.mec.Util.EstablecimientoDTO;
 import com.mec.models.Padron.EstablecimientoPost;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -38,8 +41,12 @@ public class EstablecimientosPostgreService {
     private EstablecimientoPostgreDAO establecimientoDAO;
     
     private List<EstablecimientoPost> todos = new ArrayList<>();
+    private Map<String,List<EstablecimientoDTO>> DTO = new HashMap<>();
+
+    public Map<String, List<EstablecimientoDTO>> getDTO() {
+        return DTO;
+    }
     
-    //@Cacheable("establecimientos")
     public List<EstablecimientoPost> getAll(){
         return this.todos;
     }
@@ -95,7 +102,7 @@ public class EstablecimientosPostgreService {
         }
         return todo;
     }
-    
+     
     //cache task
     @Scheduled(fixedRate = 600000)//10min en ms
     public void getAllEstablecimientos() {
@@ -105,9 +112,27 @@ public class EstablecimientosPostgreService {
         this.todos = aux;
         long endTime = System.currentTimeMillis();
         System.out.println("getAllEstablecimientos() listo -->"+(endTime - startTime)/1000.0+" segundos");
+        this.toDTO(this.todos);
     }
-    
-    private void initGeo(List<EstablecimientoPost> establecimientos){establecimientos.parallelStream().forEach((establecimiento)->{this.setGeo(establecimiento);});}
+    private void toDTO(List<EstablecimientoPost> establecimientos){
+        Map<String,List<EstablecimientoDTO>> _DTO = new HashMap<>();
+        establecimientos.forEach(est->{
+            est.getLocalizacion().forEach(anexo->{
+                EstablecimientoDTO holder =  new EstablecimientoDTO(anexo.getNombre(), anexo.getAnexo());
+                if(!_DTO.containsKey(est.getCue())){
+                    _DTO.put(est.getCue(), new ArrayList(){{add(holder);}});
+                }else{
+                    _DTO.get(est.getCue()).add(holder);
+                }
+            });
+        });
+        this.DTO = _DTO;
+    }
+    private void initGeo(List<EstablecimientoPost> establecimientos){
+        establecimientos.parallelStream().forEach((establecimiento)->{
+            this.setGeo(establecimiento);
+        });
+    }
     private void setGeo(EstablecimientoPost establecimiento){
         establecimiento.getLocalizacion().forEach((loc) -> {
                 loc.getDomicilios().forEach((dom) -> {

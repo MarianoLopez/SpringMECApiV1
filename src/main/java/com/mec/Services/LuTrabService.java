@@ -47,7 +47,7 @@ public class LuTrabService{
     
     private List<LuTrab> todos = new ArrayList<>();
     
-    @Scheduled(fixedRate = 600000)//10min en ms
+    //@Scheduled(fixedRate = 600000)//10min en ms
     private void getAllEstablecimientos() {
         long startTime = System.currentTimeMillis();
         List<LuTrab> aux = getAll(true);

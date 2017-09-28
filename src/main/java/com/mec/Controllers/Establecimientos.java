@@ -13,6 +13,7 @@ import com.mec.Services.LuTrabService;
 import com.mec.Services.EstablecimientosPostgreService;
 import com.mec.Services.SuperiorService;
 import com.mec.Services.VoteroService;
+import com.mec.Util.EstablecimientoDTO;
 import com.mec.models.Padron.EstablecimientoPost;
 
 import com.mec.models.Pof2.LuTrab;
@@ -139,6 +140,11 @@ public class Establecimientos{
     @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/votero")
     public Map<String,List<Establecimiento>> voteroEstablecimientos() throws IOException{
         return voteroService.getAll();
+    }
+    
+    @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/index")
+    public Map<String, List<EstablecimientoDTO>> establecimientosIndex() throws IOException{
+        return dao.getDTO();
     }
     
     @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/votero/{lat}/{lon}/{km}")
