@@ -7,6 +7,7 @@ package com.mec.DAO.Superior;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +42,39 @@ public class SuperiorDAO {
                 }
                 //list.add(new Superior(cue.toString(), carrera.toString()));
             }
+        }
+        return s;
+    }
+
+    private String clean(String s){
+        return Normalizer.normalize(s, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toUpperCase();
+    }
+    public Map<String, List<String>> getByFiltro(String filtro) throws IOException {
+        Map<String,List<String>> s = new HashMap<>();
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classloader.getResourceAsStream("superior.xlsx");
+        Workbook workbook = new XSSFWorkbook(is);
+        Sheet datatypeSheet = workbook.getSheetAt(0);
+        
+        for (Row row : datatypeSheet) {
+            
+            Cell cue = row.getCell(0);
+            Cell carrera = row.getCell(1);
+           
+            
+            if(cue!=null && carrera !=null&&!cue.toString().isEmpty() && clean((carrera.toString())).contains(clean(filtro))){
+                
+                cue.setCellType(Cell.CELL_TYPE_STRING);
+                if(s.containsKey(carrera.toString())){
+                    s.get(carrera.toString()).add(cue.toString());
+                }else{
+                    List<String> aux = new ArrayList<>();
+                    aux.add(cue.toString());
+                    s.put(carrera.toString(),aux);
+                }
+
+            }
+            
         }
         return s;
     }
