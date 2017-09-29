@@ -69,17 +69,26 @@ public class SuperiorService {
     }
     
     public List<EstablecimientoPost> getAllP(String filtro) throws IOException{
-        return getAllSuperior().stream()
+        List<EstablecimientoPost> listado = getAllSuperior().stream()
             .filter(e->{
                 List<Localizacion> loct = e.getLocalizacion().stream()
                     .filter(l->{
                         List<String> orientaciones = l.getOrientacion().stream()
-                                .filter(o->clean(o).contains(clean(filtro))).collect(Collectors.toList());
+                                .filter(o->clean(o).contains(clean(filtro)))
+                                .collect(Collectors.toList());
                         return (orientaciones.size()>0);
                     })
                     .collect(Collectors.toList());//filtrado a lista
                 if(loct.size()>0){e.setLocalizacion(loct);return true;}else{return false;}
             }).collect(Collectors.toList());
+        
+        listado.forEach(e->{
+            e.getLocalizacion().forEach(loc->{
+                loc.getOrientacion().removeIf(laOrientacion->(!clean(laOrientacion).contains(clean(filtro))));
+            });
+        });
+        
+        return listado;
     }
     
     
