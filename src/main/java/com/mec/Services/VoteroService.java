@@ -40,23 +40,19 @@ public class VoteroService {
     
     public Map<String,List<Establecimiento>> withFilter(float my_lat, float my_lon,double distanceKM) throws IOException{
         Map<String,List<Establecimiento>> todo = getAll();
-        //Map<String,List<Establecimiento>> filter = new HashMap<>();
         GeoDistance gd = new GeoDistance(my_lat,my_lon);
         todo.forEach((k, v) -> {
             v.stream().forEach(est->{
-                //List<Establecimiento> est_filter = new ArrayList();
                 est.getEstablecimiento().getLocalizacion().forEach(l->{
                     l.getDomicilios().forEach(d->{
                         if(d.getGeo()!=null){
                             double distancia = gd.getDistanceTo(((BigDecimal)d.getGeo().getLatitud()).floatValue(), ((BigDecimal)d.getGeo().getLongitud()).floatValue());
                             est.setDistancia(distancia);
-                            //est_filter.add(est);
                         }else{
                             System.out.println("geo null: "+est.getEstablecimiento().getCue());
                         }
                     });
                 });
-                //if(est_filter.size()>0){filter.put(k, est_filter);}
             });//establecimientos
         });
         return todo;

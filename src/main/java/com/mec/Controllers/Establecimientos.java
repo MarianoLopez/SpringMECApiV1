@@ -8,6 +8,7 @@ package com.mec.Controllers;
 
 
 import com.mec.Criteria.JurisdiccionCriteria;
+import com.mec.Criteria.Postgre.GeoCriteria;
 import com.mec.DAO.Superior.SuperiorDAO;
 import com.mec.Services.LuTrabService;
 import com.mec.Services.EstablecimientosPostgreService;
@@ -159,11 +160,11 @@ public class Establecimientos{
         return dao.getDTO();
     }
     
-    @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/votero/{lat}/{lon}/{km}")
-    public Map<String,List<Establecimiento>> voteroEstablecimientosFilter(@PathVariable(value="lat") Float lat,
-                                                                          @PathVariable(value="lon") Float lon,
-                                                                          @PathVariable(value="km") Double km) throws IOException{
-        return voteroService.withFilter(lat, lon, km);
+    @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/{lat}/{lon}/{km}")
+    public List<EstablecimientoPost> establecimientosGeoFilter(@PathVariable(value="lat") Float lat,
+                                                               @PathVariable(value="lon") Float lon,
+                                                               @PathVariable(value="km") Double km) throws IOException{
+        return GeoCriteria.criteria(dao.getAll(),lat,lon,km);
     }
     
     
