@@ -37,7 +37,7 @@ public class SuperiorService {
         this.posgreDAO = posgreDAO;
         this.superior = superior;
         this.geoDAO = geoDAO;
-        //TODO = buscate();
+        TODO = buscate();
     }
     
     private String clean(String s){
