@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -38,7 +37,7 @@ public class SuperiorService {
         this.posgreDAO = posgreDAO;
         this.superior = superior;
         this.geoDAO = geoDAO;
-        TODO = buscate();
+        //TODO = buscate();
     }
     
     private String clean(String s){

@@ -64,7 +64,7 @@ public class UserDAO{
         return u;
     }
     
-     private List<GrantedAuthority> getUserRoles(Integer userID){
+     public List<GrantedAuthority> getUserRoles(Integer userID){
          SimpleJdbcCall jdbcCall =  new SimpleJdbcCall(ds)
                  .withCatalogName("SqlSp")
                  .withProcedureName("paRolesGetByIdUsuario")

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mec.Config;
+package com.mec.Security;
 
 import com.mec.DAO.UserDAO;
 import com.mec.models.Passport.Usuario;
@@ -32,7 +32,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
         if(name!=null&&password!=null){
              Usuario u = userDAO.getUser(name, password);
             if (u!=null) {
-                final UserDetails principal = new User(name, password, u.getRoles());
+                final UserDetails principal = new User(u.getId()+";"+name, password, u.getRoles());
                 auth = new UsernamePasswordAuthenticationToken(principal, password, u.getRoles());  
             }
         }

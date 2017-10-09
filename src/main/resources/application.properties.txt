@@ -39,3 +39,9 @@ server.compression.mime-types=application/json,application/xml,text/html,text/xm
 
 #leaf
 spring.thymeleaf.cache: false
+
+#JWT
+jwt.EXPIRATIONTIME=86400000
+jwt.SECRET=
+jwt.TOKEN_PREFIX=Bearer
+jwt.HEADER_STRING=Authorization
