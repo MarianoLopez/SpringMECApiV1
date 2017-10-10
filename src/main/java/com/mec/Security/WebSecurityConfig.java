@@ -10,6 +10,7 @@ package com.mec.Security;
 
 import com.mec.Services.JWTService;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  Here we have decided that everyone can access the / route, and that the /login route is only publicly available for POST requests. For all other routes, authentication is required. You may have noted that the JWTLoginFilter class and the JWTAuthenticationFilter class are missing. We will create them soon, but their goal is to filter for the /login route, and every other route, to decide what should happen when someone access these routes. In this class, we also added a default account that we can use to test our application.
@@ -44,11 +48,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().
+        http.csrf().disable().cors().and().
         sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeRequests()
-            .antMatchers(HttpMethod.POST, "/login").permitAll().and()
-            .authorizeRequests().antMatchers("/API/editor/**").hasAnyRole("mapa.Editor").and()    
+            .antMatchers(HttpMethod.POST, "/login").permitAll()
+            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().and() // **permit OPTIONS call to all**
+            .authorizeRequests().antMatchers("/API/editor/**").hasAnyRole("mapa.Editor").and()
             .addFilterBefore(jwtLoginFilter(),UsernamePasswordAuthenticationFilter.class)//filter the api/login requests
             .addFilterBefore(jwtAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);// And filter other requests to check the presence of JWT in header
     }
@@ -56,6 +61,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(userProvider());
+    }
+    
+     @Bean
+    protected CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
     
     @Bean 
