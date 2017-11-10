@@ -51,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http.csrf().disable().cors().and().
         sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeRequests()
-            .antMatchers(HttpMethod.POST, "/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/login/**").permitAll()
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().and() // **permit OPTIONS call to all**
             .authorizeRequests().antMatchers("/API/editor/**").hasAnyRole("mapa.Editor").and()
             .addFilterBefore(jwtLoginFilter(),UsernamePasswordAuthenticationFilter.class)//filter the api/login requests
