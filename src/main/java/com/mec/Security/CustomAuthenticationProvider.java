@@ -5,7 +5,7 @@
  */
 package com.mec.Security;
 
-import com.mec.DAO.UserDAO;
+import com.mec.DAO.Passport.UserDAO;
 import com.mec.models.Passport.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;

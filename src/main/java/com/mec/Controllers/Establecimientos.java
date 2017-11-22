@@ -6,31 +6,23 @@
 package com.mec.Controllers;
 
 
-
-import com.mec.Criteria.JurisdiccionCriteria;
 import com.mec.Criteria.Postgre.GeoCriteria;
 import com.mec.DAO.Superior.SuperiorDAO;
-import com.mec.Services.LuTrabService;
 import com.mec.Services.EstablecimientosPostgreService;
 import com.mec.Services.SuperiorService;
 import com.mec.Services.VoteroService;
 import com.mec.Util.EstablecimientoDTO;
 import com.mec.models.Padron.EstablecimientoPost;
-
-import com.mec.models.Pof2.LuTrab;
 import com.mec.models.votero.Establecimiento;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
@@ -40,10 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/API")
 public class Establecimientos{
     @Autowired
-    private LuTrabService luTrabService;
-    /*@Autowired
-    private UserDAO userDAO;*/
-    @Autowired
     private EstablecimientosPostgreService dao;
     @Autowired
     private SuperiorDAO superior;
@@ -52,50 +40,7 @@ public class Establecimientos{
     @Autowired
     private VoteroService voteroService;
     
-    
-    @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (modalidades, regimenes, jurisdicciones, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = LuTrab.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos")
-    public List<LuTrab> getAll(@RequestParam(value = "cache", required = false, defaultValue = "true") Boolean cache,
-                        @RequestParam(value="modalidades",required = false) Integer[] modalidades,
-                        @RequestParam(value="regimenes",required = false) Integer[] regimenes,
-                        @RequestParam(value="jurisdicciones",required = false) Integer[] jurisdicciones,
-                        @RequestParam(value="departamentos",required = false) Integer[] departamentos,
-                        @RequestParam(value="localidades",required = false) Integer[] localidades,
-                        @RequestParam(value="ambitos",required = false) Integer[] ambitos){
-        if(cache){
-            return luTrabService.getByFilter(modalidades, regimenes, jurisdicciones, departamentos, localidades,ambitos);
-        }else{
-            return luTrabService.getAll(true);
-        }
-    }
-    
-    @ApiOperation(value = "Búsqueda de Establecimiento Educativo de la Provincia de Corrientes a través del CUE/ANEXO", response = LuTrab.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos/{Cue}/{Anexo}")
-    public LuTrab lugaresTrabajoByID(@PathVariable(value="Cue") int Cue,
-                                     @PathVariable(value="Anexo") int Anexo){
-        return luTrabService.getByCueAnexo(Cue,Anexo);
-    }
-    
-    @RequestMapping(method = RequestMethod.GET, value = "v1/establecimientos/plan/{arg}")
-    public List<LuTrab> getEstablecimientosByPlan(@PathVariable(value="arg") String arg){
-        return new JurisdiccionCriteria().filterCriteria(luTrabService.getEstablecimientoByPlanEstudio(arg),new Integer[]{0,1,2,3,4,5,6,7,8});
-    }
-    
-    @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos/superior")
-    public Map<String,List<String>> superior() throws IOException{
-        return superior.getAll();
-    }
-    
-    @RequestMapping(method = RequestMethod.GET,value = "v1/establecimientos/superior/{arg}")
-    public List<LuTrab> superior(@PathVariable(value="arg") String arg) throws IOException{
-        try {
-            return new JurisdiccionCriteria().filterCriteria(superiorService.getAll(arg),new Integer[]{0,1,2,3,4,5,6,7,8});
-        } catch (IOException ex) {
-            Logger.getLogger(Establecimientos.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
-    
+
     /*************POSTGRE************/
     @ApiOperation(value = "Listado de todos los Establecimientos Educativos de la Provincia de Corrientes. Filtros opcionales vía query (ámbitos, categorías, dependencias, estados, sectores, departamentos y localidades). Ejemplo: departamentos=id,id&regimenes=id,id..", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value="v2/establecimientos")

@@ -5,28 +5,15 @@
  */
 package com.mec.Controllers;
 
-import com.mec.DAO.AmbitoDAO;
-import com.mec.DAO.ModalidadRegimenJurisdiccionDAO;
 import com.mec.DAO.Postgre.PostgreDAO;
-import com.mec.models.GE.Ambito;
-import com.mec.models.Padron.AmbitoTipo;
-import com.mec.models.Padron.CategoriaTipo;
-import com.mec.models.Padron.DependenciaTipo;
-import com.mec.models.Padron.EstadoTipo;
-import com.mec.models.Padron.JornadaTipo;
-import com.mec.models.Padron.Modalidad1Tipo;
-import com.mec.models.Padron.OfertaBaseTipo;
-import com.mec.models.Padron.OfertaTipo;
-import com.mec.models.Padron.SectorTipo;
-import com.mec.models.Pof2.LuTrabRegimen;
-import com.mec.models.Pof2.Modali;
-import com.mec.models.Pof2.NivelJur;
+import com.mec.models.Padron.*;
 import io.swagger.annotations.ApiOperation;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  *
@@ -35,14 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/API")
 public class InformacionAdicional {
-    @Autowired
-    private ModalidadRegimenJurisdiccionDAO dao;
-    @Autowired
-    private AmbitoDAO ambitoDAO;
+    /*@Autowired private ModalidadRegimenJurisdiccionDAO dao;
+    @Autowired private AmbitoDAO ambitoDAO;*/
     @Autowired
     private PostgreDAO postgre;
     
-    @ApiOperation(value = "Listado de todas las Modalidades posibles de los Establecimientos Educativos", response = Modali.class,produces = "application/json;charset=UTF-8")
+    /*@ApiOperation(value = "Listado de todas las Modalidades posibles de los Establecimientos Educativos", response = Modali.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "v1/modalidades")
     public List<Modali> getModalidades(){return dao.getModalidades();}
     
@@ -56,7 +41,7 @@ public class InformacionAdicional {
     
     @ApiOperation(value = "Listado de todos los Ambitos posibles de los Establecimientos Educativos", response = Ambito.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "v1/ambitos")
-    public List<Ambito> getAmbitos(){return ambitoDAO.getAll();}
+    public List<Ambito> getAmbitos(){return ambitoDAO.getAll();}*/
     
     /*****************************************************POSTGRE**************************************************/
     @ApiOperation(value = "Listado de todos los Ambitos posibles de los Establecimientos Educativos", response = AmbitoTipo.class,produces = "application/json;charset=UTF-8")

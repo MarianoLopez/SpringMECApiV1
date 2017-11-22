@@ -11,9 +11,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.mec.DAO.UserDAO;
+import com.mec.DAO.Passport.UserDAO;
 import com.mec.Util.DateUtils;
-import com.mec.models.Passport.Usuario;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -29,7 +28,6 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**

@@ -26,16 +26,4 @@ public class HtmlController {
     public String home(){
         return "redirect:/swagger-ui.html";
     }
-    
-    /*@RequestMapping(method = RequestMethod.GET,value = "/API/login")
-    public String login(){
-        return "redirect:/login";
-    }
-    
-    @RequestMapping(value = "/API/logout", method = RequestMethod.GET)
-    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {new SecurityContextLogoutHandler().logout(request, response, auth);}
-        return "redirect:/API";
-    }*/
 }

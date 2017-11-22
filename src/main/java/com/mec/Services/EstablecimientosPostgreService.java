@@ -17,7 +17,7 @@ import com.mec.Criteria.Postgre.OfertaBaseCriteriaPostgre;
 import com.mec.Criteria.Postgre.OfertaCriteriaPostgre;
 import com.mec.Criteria.Postgre.SectorCriteriaPostgre;
 import com.mec.DAO.Postgre.EstablecimientoPostgreDAO;
-import com.mec.DAO.GeoDAO;
+import com.mec.DAO.POF2.GeoDAO;
 import com.mec.Util.EstablecimientoDTO;
 import com.mec.models.Padron.EstablecimientoPost;
 import java.util.ArrayList;

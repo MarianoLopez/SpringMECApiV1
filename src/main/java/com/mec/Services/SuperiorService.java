@@ -5,20 +5,20 @@
  */
 package com.mec.Services;
 
-import com.mec.DAO.GeoDAO;
-import com.mec.DAO.LuTrabDAO;
+import com.mec.DAO.POF2.GeoDAO;
 import com.mec.DAO.Postgre.EstablecimientoPostgreDAO;
 import com.mec.DAO.Superior.SuperiorDAO;
 import com.mec.models.Padron.EstablecimientoPost;
 import com.mec.models.Padron.Localizacion;
 import com.mec.models.Pof2.LuTrab;
+import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -26,46 +26,29 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SuperiorService {
-    private LuTrabDAO lutrab;
     private EstablecimientoPostgreDAO posgreDAO;
     private SuperiorDAO superior;
     private GeoDAO geoDAO;
     private  List<EstablecimientoPost> TODO;
 
-    public SuperiorService(LuTrabDAO lutrab, EstablecimientoPostgreDAO posgreDAO, SuperiorDAO superior, GeoDAO geoDAO) throws IOException {
-        this.lutrab = lutrab;
+    public SuperiorService(EstablecimientoPostgreDAO posgreDAO, SuperiorDAO superior, GeoDAO geoDAO) throws IOException {
         this.posgreDAO = posgreDAO;
         this.superior = superior;
         this.geoDAO = geoDAO;
-        TODO = buscate();
+        new Thread(() -> {
+            try {
+                TODO = buscate();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();//para quedar bloqueado
+
     }
     
     private String clean(String s){
         return Normalizer.normalize(s, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toUpperCase();
     }
-    public List<LuTrab> getAll(String filtro) throws IOException{
-        Map<String,List<String>> s = superior.getAll();
-        List<LuTrab> list = new ArrayList<>();
-        s.forEach((carrera, cueAnexos) -> {
-            if(filtro==null||filtro.isEmpty()||clean(carrera).contains(clean(filtro))){
-                cueAnexos.forEach(cueAnexo ->{
-                    Integer cue = Integer.parseInt(cueAnexo.substring(0, 7));
-                    Integer anexo = Integer.parseInt(cueAnexo.substring(8));
-                    LuTrab l = lutrab.getByCueAnexo(cue,anexo);
-                    if(l!=null){
-                        if(list.contains(l)){
-                            list.get(list.indexOf(l)).getOrientacion().add(carrera);
-                        }else{
-                            l.getOrientacion().add(carrera);
-                            list.add(l);
-                        }
-                    }
-                });
-            }
-        });
-        initGeo(list);
-        return list;
-    }
+
     
     public List<EstablecimientoPost> getAllP(String filtro) throws IOException{
         List<EstablecimientoPost> listado = getAllSuperior().stream()
