@@ -28,59 +28,54 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement//Enables Spring's annotation-driven transaction management capability, similar to the support found in Spring's <tx:*> XML namespace
 public class Config{
   /*@Value("${variable}") -> recupera el valor de ${variable} desde src/main/resources/application.properties*/
-  @Value("${db.driver}")
-  private String DB_DRIVER;
+  @Value("${db.driver}")private String DB_DRIVER;
   
-  @Value("${db.password}")
-  private String DB_PASSWORD;
+  @Value("${db.password}")private String DB_PASSWORD;
   
-  @Value("${db.url}")
-  private String DB_URL;
+  @Value("${db.url}")private String DB_URL;
   
-  @Value("${db.Pof2}")
-  private String POF2;
+  @Value("${db.Pof2}")private String POF2;
   
-  @Value("${db.GE}")
-  private String GE;
+  @Value("${db.GE}")private String GE;
   
-  @Value("${db.Passport}")
-  private String Passport;
+  @Value("${db.Passport}")private String Passport;
   
-  @Value("${db.username}")
-  private String DB_USERNAME;
+  @Value("${db.username}")private String DB_USERNAME;
 
-  @Value("${hibernate.dialect}")
-  private String HIBERNATE_DIALECT;
+  @Value("${hibernate.dialect}")private String HIBERNATE_DIALECT;
   
-  @Value("${hibernate.show_sql}")
-  private String HIBERNATE_SHOW_SQL;
+  @Value("${hibernate.show_sql}")private String HIBERNATE_SHOW_SQL;
   
-  @Value("${hibernate.hbm2ddl.auto}")
-  private String HIBERNATE_HBM2DDL_AUTO;
+  @Value("${hibernate.hbm2ddl.auto}")private String HIBERNATE_HBM2DDL_AUTO;
 
-  @Value("${entitymanager.packagesToScan.Pof2}")
-  private String ENTITYMANAGER_PACKAGES_TO_SCAN_Pof2;
+  @Value("${entitymanager.packagesToScan.Pof2}")private String ENTITYMANAGER_PACKAGES_TO_SCAN_Pof2;
   
-  @Value("${entitymanager.packagesToScan.GE}")
-  private String ENTITYMANAGER_PACKAGES_TO_SCAN_GE;
+  @Value("${entitymanager.packagesToScan.GE}")private String ENTITYMANAGER_PACKAGES_TO_SCAN_GE;
   
-  @Value("${db.driver2}")
-  private String DB_DRIVER2;
+  @Value("${db.driver2}")private String DB_DRIVER2;
   
-  @Value("${db.password2}")
-  private String DB_PASSWORD2;
+  @Value("${db.password2}")private String DB_PASSWORD2;
   
-  @Value("${db.url2}")
-  private String DB_URL2;
+  @Value("${db.url2}")private String DB_URL2;
   
-  @Value("${db.username2}")
-  private String DB_USERNAME2;
+  @Value("${db.username2}")private String DB_USERNAME2;
 
-  @Value("${hibernate.dialect2}")
-  private String HIBERNATE_DIALECT2;
+  @Value("${hibernate.dialect2}")private String HIBERNATE_DIALECT2;
   
-  @Value("${entitymanager.packagesToScan.Padron}")
-  private String ENTITYMANAGER_PACKAGES_TO_SCAN_PADRON;
+  @Value("${entitymanager.packagesToScan.Padron}")private String ENTITYMANAGER_PACKAGES_TO_SCAN_PADRON;
+  
+  /*mysql*/
+  @Value("${db.driver3}")private String DB_DRIVER3;
+  
+  @Value("${db.password3}")private String DB_PASSWORD3;
+  
+  @Value("${db.url3}")private String DB_URL3;
+  
+  @Value("${db.username3}")private String DB_USERNAME3;
+
+  @Value("${hibernate.dialect3}")private String HIBERNATE_DIALECT3;
+  
+  @Value("${entitymanager.packagesToScan.ConexionesEscuelas}")private String ENTITYMANAGER_PACKAGES_TO_SCAN_CONEXIONES_ESCUELAS;
   
   /*@Value("${hibernate.default_schema}")
   private String SCHEMA;*/
@@ -233,4 +228,37 @@ public HibernateTransactionManager transactionManager4() {
   transactionManager.setSessionFactory(sessionFactory4().getObject());
   return transactionManager;
 }
+/*DB5 mysql*/
+@Bean("dataConexionesEscuelas")
+public DataSource dataSource5() {
+  DriverManagerDataSource dataSource = new DriverManagerDataSource();
+  dataSource.setDriverClassName(DB_DRIVER3);
+  dataSource.setUrl(DB_URL3);
+  dataSource.setUsername(DB_USERNAME3);
+  dataSource.setPassword(DB_PASSWORD3);
+  return dataSource;
+}
+/*config hibernate*/
+@Bean("sessionConexionesEscuelas")
+public LocalSessionFactoryBean sessionFactory5() {
+  LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+  sessionFactoryBean.setDataSource(dataSource5());
+  sessionFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN_CONEXIONES_ESCUELAS);
+  Properties hibernateProperties = new Properties();
+  hibernateProperties.put("hibernate.dialect", HIBERNATE_DIALECT3);
+  hibernateProperties.put("hibernate.show_sql", HIBERNATE_SHOW_SQL);
+  hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);
+  hibernateProperties.put("hibernate.default_schema", "dbo");
+  //hibernateProperties.put("hibernate.default_catalog", GE);
+  sessionFactoryBean.setHibernateProperties(hibernateProperties);
+  return sessionFactoryBean;
+}
+
+@Bean("managerConexionesEscuelas")//gestor
+public HibernateTransactionManager transactionManager5() {
+  HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+  transactionManager.setSessionFactory(sessionFactory5().getObject());
+  return transactionManager;
+}
+
 }

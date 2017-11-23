@@ -16,6 +16,7 @@ import com.mec.Criteria.Postgre.ModalidadCriteriaPostgre;
 import com.mec.Criteria.Postgre.OfertaBaseCriteriaPostgre;
 import com.mec.Criteria.Postgre.OfertaCriteriaPostgre;
 import com.mec.Criteria.Postgre.SectorCriteriaPostgre;
+import com.mec.DAO.ConexionesEscuelas.ConexionesDAO;
 import com.mec.DAO.Postgre.EstablecimientoPostgreDAO;
 import com.mec.DAO.POF2.GeoDAO;
 import com.mec.Util.EstablecimientoDTO;
@@ -35,14 +36,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EstablecimientosPostgreService {
-    @Autowired
-    private GeoDAO geoDAO;
-    @Autowired
-    private EstablecimientoPostgreDAO establecimientoDAO;
-    
+    @Autowired private GeoDAO geoDAO;
+    @Autowired private EstablecimientoPostgreDAO establecimientoDAO;
+    @Autowired private ConexionesDAO conexionesEstablecimientosDAO;
     private List<EstablecimientoPost> todos = new ArrayList<>();
     private Map<String,List<EstablecimientoDTO>> DTO = new HashMap<>();
 
+    
     public Map<String, List<EstablecimientoDTO>> getDTO() {
         return DTO;
     }
@@ -52,12 +52,12 @@ public class EstablecimientosPostgreService {
     }
     public EstablecimientoPost getByCue(int Cue){
         EstablecimientoPost est =  establecimientoDAO.getByCue(Cue);
-        setGeo(est);
+        setGeoAndConexiones(est);
         return est;
     }
     public EstablecimientoPost getByCueAnexo(int Cue, int Anexo){
         EstablecimientoPost est = establecimientoDAO.getByCueAnexo(Cue, Anexo);
-        setGeo(est);
+        setGeoAndConexiones(est);
         return est;
     }
     
@@ -108,7 +108,7 @@ public class EstablecimientosPostgreService {
     public void getAllEstablecimientos() {
         long startTime = System.currentTimeMillis();
         List<EstablecimientoPost> aux = establecimientoDAO.getAll();
-        initGeo(aux);
+        initCollections(aux);
         this.todos = aux;
         long endTime = System.currentTimeMillis();
         System.out.println("getAllEstablecimientos() listo -->"+(endTime - startTime)/1000.0+" segundos");
@@ -128,13 +128,16 @@ public class EstablecimientosPostgreService {
         });
         this.DTO = _DTO;
     }
-    private void initGeo(List<EstablecimientoPost> establecimientos){
+    private void initCollections(List<EstablecimientoPost> establecimientos){
         establecimientos.parallelStream().forEach((establecimiento)->{
-            this.setGeo(establecimiento);
+            this.setGeoAndConexiones(establecimiento);
+            
         });
     }
-    private void setGeo(EstablecimientoPost establecimiento){
+    
+    private void setGeoAndConexiones(EstablecimientoPost establecimiento){
         establecimiento.getLocalizacion().forEach((loc) -> {
+                loc.setConexiones(conexionesEstablecimientosDAO.getByCueAnexo(establecimiento.getCue(), Short.parseShort(loc.getAnexo())));
                 loc.getDomicilios().forEach((dom) -> {
                    try{
                         dom.setGeo(geoDAO.getByCueAnexo(Integer.parseInt(establecimiento.getCue()), Integer.parseInt(loc.getAnexo())));

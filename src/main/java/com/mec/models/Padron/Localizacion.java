@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.mec.models.ConexionesEscuelas.Conexiones;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -122,6 +123,11 @@ public class Localizacion implements Serializable {
     @JsonSerialize//jackson
     @JsonDeserialize
     private List<String> orientacion = new ArrayList<>();
+    
+    @Transient //The transient keyword in Java is used to indicate that a field should not be serialized. (hibernate)
+    @JsonSerialize//jackson
+    @JsonDeserialize
+    private List<Conexiones> conexiones = new ArrayList<>();
   
     public Localizacion() {
     }
@@ -129,6 +135,16 @@ public class Localizacion implements Serializable {
     public Localizacion(Integer idLocalizacion) {
         this.idLocalizacion = idLocalizacion;
     }
+
+    public List<Conexiones> getConexiones() {
+        return conexiones;
+    }
+
+    public void setConexiones(List<Conexiones> conexiones) {
+        this.conexiones = conexiones;
+    }
+    
+    
 
     public List<String> getOrientacion() {
         return orientacion;

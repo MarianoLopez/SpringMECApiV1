@@ -11,9 +11,15 @@ db.Passport=Passport
 db.username:
 db.password:
 
+db.url3:jdbc:mysql://172.16.0.70:3306/conexionesescuelas
+db.driver3:com.mysql.jdbc.Driver
+db.username3:
+db.password3:
+
 # Hibernate
 hibernate.dialect: org.hibernate.dialect.SQLServerDialect
 hibernate.dialect2:org.hibernate.dialect.PostgreSQLDialect
+hibernate.dialect3:org.hibernate.dialect.MySQLDialect
 hibernate.show_sql: false
     #validate: validate the schema, makes no changes to the database.
     #update: update the schema.
@@ -25,6 +31,7 @@ hibernate.default_schema: dbo
 entitymanager.packagesToScan.Pof2: com.mec.models.Pof2
 entitymanager.packagesToScan.GE: com.mec.models.GE
 entitymanager.packagesToScan.Padron: com.mec.models.Padron
+entitymanager.packagesToScan.ConexionesEscuelas: com.mec.models.ConexionesEscuelas
 
 #nivel de log
 logging.level.org.hibernate=ERROR

@@ -7,7 +7,6 @@ package com.mec.Controllers;
 
 
 import com.mec.Criteria.Postgre.GeoCriteria;
-import com.mec.DAO.Superior.SuperiorDAO;
 import com.mec.Services.EstablecimientosPostgreService;
 import com.mec.Services.SuperiorService;
 import com.mec.Services.VoteroService;
@@ -31,14 +30,9 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/API")
 public class Establecimientos{
-    @Autowired
-    private EstablecimientosPostgreService dao;
-    @Autowired
-    private SuperiorDAO superior;
-    @Autowired
-    private SuperiorService superiorService;
-    @Autowired
-    private VoteroService voteroService;
+    @Autowired private EstablecimientosPostgreService dao;
+    @Autowired private SuperiorService superiorService;
+    @Autowired private VoteroService voteroService;
     
 
     /*************POSTGRE************/
@@ -71,17 +65,6 @@ public class Establecimientos{
     public EstablecimientoPost getByCue(@PathVariable(value="Cue") int Cue){
         return dao.getByCue(Cue);
     }
-
-//    @ApiOperation(value = "Búsqueda de Establecimiento Superior a través de palabra clave en la orientación (Excel)", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")
-//    @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/superior/{arg}")
-//    public List<EstablecimientoPost> superiorP(@PathVariable(value="arg") String arg) throws IOException{
-//        try {
-//            return superiorService.getAllP(arg);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Establecimientos.class.getName()).log(Level.SEVERE, null, ex);
-//            return null;
-//        }
-//    }
     
     @ApiOperation(value = "Solo Superior", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "v2/establecimientos/superior")

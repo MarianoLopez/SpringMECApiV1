@@ -9,16 +9,12 @@ import com.mec.DAO.POF2.GeoDAO;
 import com.mec.DAO.Postgre.EstablecimientoPostgreDAO;
 import com.mec.DAO.Superior.SuperiorDAO;
 import com.mec.models.Padron.EstablecimientoPost;
-import com.mec.models.Padron.Localizacion;
-import com.mec.models.Pof2.LuTrab;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -44,61 +40,7 @@ public class SuperiorService {
         }).start();//para quedar bloqueado
 
     }
-    
-    private String clean(String s){
-        return Normalizer.normalize(s, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toUpperCase();
-    }
-
-    
-    public List<EstablecimientoPost> getAllP(String filtro) throws IOException{
-        List<EstablecimientoPost> listado = getAllSuperior().stream()
-            .filter(e->{
-                List<Localizacion> loct = e.getLocalizacion().stream()
-                    .filter(l->{
-                        List<String> orientaciones = l.getOrientacion().stream()
-                                .filter(o->clean(o).contains(clean(filtro)))
-                                .collect(Collectors.toList());
-                        return (orientaciones.size()>0);
-                    })
-                    .collect(Collectors.toList());//filtrado a lista
-                if(loct.size()>0){e.setLocalizacion(loct);return true;}else{return false;}
-            }).collect(Collectors.toList());
-        
-        listado.forEach(e->{
-            e.getLocalizacion().forEach(loc->{
-                loc.getOrientacion().removeIf(laOrientacion->(!clean(laOrientacion).contains(clean(filtro))));
-            });
-        });
-        
-        return listado;
-    }
-    
-    
-//    public List<EstablecimientoPost> getAllP(String filtro) throws IOException{
-//        List<EstablecimientoPost> todos = getAllSuperior();
-//        List<EstablecimientoPost> list = new ArrayList<>();
-//        List<EstablecimientoPost> aux = new ArrayList<>();
-//        
-//        todos.forEach((laEscuela) -> {
-//                laEscuela.getLocalizacion().forEach((laLocalizacion) ->{
-//                    laLocalizacion.getOrientacion().forEach((laOrientacion)->{
-//                        if (clean(laOrientacion).contains(clean(filtro))){
-//                            aux.add(laEscuela);
-//                        }
-//                    });
-//                   
-//                });
-//            });
-//        
-//        for (EstablecimientoPost estab : aux) {
-//            if (!list.contains(estab)){
-//                list.add(estab);
-//            }
-//        }
-//        return list;
-//    }
-    private void initGeo(List<LuTrab> lugares){lugares.parallelStream().forEach((lugar)->{lugar.setGeo(geoDAO.getByCueAnexo(lugar.getCue(),lugar.getAnexo()));});}
-        private void initGeo(EstablecimientoPost establecimiento){
+    private void initGeo(EstablecimientoPost establecimiento){
         establecimiento.getLocalizacion().forEach((loc) -> {
                 loc.getDomicilios().forEach((dom) -> {
                    try{
@@ -109,8 +51,6 @@ public class SuperiorService {
                 });
             });   
     }
-
-    
     private List<EstablecimientoPost> buscate () throws IOException{
         Map<String,List<String>> s = superior.getAll();
         List<EstablecimientoPost> list = new ArrayList<>();
@@ -146,8 +86,5 @@ public class SuperiorService {
         
         return list;
     }
-    public List<EstablecimientoPost> getAllSuperior() throws IOException {
-       return TODO;
-    }
-    
+    public List<EstablecimientoPost> getAllSuperior() throws IOException {return TODO;}
 }
