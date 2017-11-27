@@ -6,15 +6,15 @@
 package com.mec.DAO.Postgre;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.Padron.AmbitoTipo;
-import com.mec.models.Padron.CategoriaTipo;
-import com.mec.models.Padron.DependenciaTipo;
-import com.mec.models.Padron.EstadoTipo;
-import com.mec.models.Padron.JornadaTipo;
-import com.mec.models.Padron.Modalidad1Tipo;
-import com.mec.models.Padron.OfertaBaseTipo;
-import com.mec.models.Padron.OfertaTipo;
-import com.mec.models.Padron.SectorTipo;
+import com.mec.Models.Padron.AmbitoTipo;
+import com.mec.Models.Padron.CategoriaTipo;
+import com.mec.Models.Padron.DependenciaTipo;
+import com.mec.Models.Padron.EstadoTipo;
+import com.mec.Models.Padron.JornadaTipo;
+import com.mec.Models.Padron.Modalidad1Tipo;
+import com.mec.Models.Padron.OfertaBaseTipo;
+import com.mec.Models.Padron.OfertaTipo;
+import com.mec.Models.Padron.SectorTipo;
 import java.util.List;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;

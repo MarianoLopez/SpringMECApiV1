@@ -6,13 +6,13 @@
 package com.mec.Controllers;
 
 
-import com.mec.Criteria.Postgre.GeoCriteria;
-import com.mec.Services.EstablecimientosPostgreService;
+import com.mec.Criteria.GeoCriteria;
+import com.mec.Services.EstablecimientosService;
 import com.mec.Services.SuperiorService;
 import com.mec.Services.VoteroService;
 import com.mec.Util.EstablecimientoDTO;
-import com.mec.models.Padron.EstablecimientoPost;
-import com.mec.models.votero.Establecimiento;
+import com.mec.Models.Padron.EstablecimientoPost;
+import com.mec.Models.votero.Establecimiento;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/API")
 public class Establecimientos{
-    @Autowired private EstablecimientosPostgreService dao;
+    @Autowired private EstablecimientosService dao;
     @Autowired private SuperiorService superiorService;
     @Autowired private VoteroService voteroService;
     
@@ -49,8 +49,10 @@ public class Establecimientos{
                         @RequestParam(value="ofertas",required = false) Integer[] ofertas,
                         @RequestParam(value="jornadas",required = false) Integer[] jornadas,
                         @RequestParam(value="modalidades",required = false) Integer[] modalidades,
-                        @RequestParam(value="bases",required = false) Integer[] bases){
-        return dao.getByFilter(ambitos, categorias, dependencias, estados, sectores, departamentos, localidades,ofertas,jornadas,modalidades,bases);
+                        @RequestParam(value="bases",required = false) Integer[] bases,
+                        @RequestParam(value="internet",required = false) Boolean state,
+                        @RequestParam(value="conexiones",required = false) Integer[] conexiones){
+        return dao.getByFilter(ambitos, categorias, dependencias, estados, sectores, departamentos, localidades,ofertas,jornadas,modalidades,bases,state,conexiones);
     }
     
     @ApiOperation(value = "Búsqueda de Establecimiento Educativo de la Provincia de Corrientes a través del CUE/ANEXO", response = EstablecimientoPost.class,produces = "application/json;charset=UTF-8")

@@ -6,9 +6,8 @@
 package com.mec.DAO.GE;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.GE.Establecimiento;
+import com.mec.Models.GE.Establecimiento;
 
-import java.util.List;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

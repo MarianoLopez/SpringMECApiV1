@@ -6,7 +6,7 @@
 package com.mec.DAO.GE;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.GE.Ambito;
+import com.mec.Models.GE.Ambito;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

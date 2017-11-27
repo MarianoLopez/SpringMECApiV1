@@ -5,8 +5,10 @@
  */
 package com.mec.Controllers;
 
+import com.mec.DAO.ConexionesEscuelas.ConexionesTipoDAO;
 import com.mec.DAO.Postgre.PostgreDAO;
-import com.mec.models.Padron.*;
+import com.mec.Models.ConexionesEscuelas.Conexiontipo;
+import com.mec.Models.Padron.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,27 +24,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/API")
 public class InformacionAdicional {
-    /*@Autowired private ModalidadRegimenJurisdiccionDAO dao;
-    @Autowired private AmbitoDAO ambitoDAO;*/
-    @Autowired
-    private PostgreDAO postgre;
-    
-    /*@ApiOperation(value = "Listado de todas las Modalidades posibles de los Establecimientos Educativos", response = Modali.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "v1/modalidades")
-    public List<Modali> getModalidades(){return dao.getModalidades();}
-    
-    @ApiOperation(value = "Listado de todos los Regímenes posibles de los Establecimientos Educativos", response = LuTrabRegimen.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "v1/regimenes")
-    public List<LuTrabRegimen> getRegimenes(){return dao.getRegimenes();}
-    
-    @ApiOperation(value = "Listado de todas las Jurisdicciones posibles de los Establecimientos Educativos", response = LuTrabRegimen.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "v1/jurisdicciones")
-    public List<NivelJur> getJurisdicciones(){return dao.getJurisdicciones();}
-    
-    @ApiOperation(value = "Listado de todos los Ambitos posibles de los Establecimientos Educativos", response = Ambito.class,produces = "application/json;charset=UTF-8")
-    @RequestMapping(method = RequestMethod.GET,value = "v1/ambitos")
-    public List<Ambito> getAmbitos(){return ambitoDAO.getAll();}*/
-    
+    @Autowired private PostgreDAO postgre;
+    @Autowired private ConexionesTipoDAO conexionesTipoDAO;
+
+    @RequestMapping(method = RequestMethod.GET,value = "v2/conexiones")
+    public List<Conexiontipo> getConexiones(){return conexionesTipoDAO.getAll();}
+
     /*****************************************************POSTGRE**************************************************/
     @ApiOperation(value = "Listado de todos los Ambitos posibles de los Establecimientos Educativos", response = AmbitoTipo.class,produces = "application/json;charset=UTF-8")
     @RequestMapping(method = RequestMethod.GET,value = "v2/ambitos")

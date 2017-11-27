@@ -6,12 +6,12 @@
 package com.mec.DAO.Postgre;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.Padron.Domicilio;
-import com.mec.models.Padron.EstablecimientoPost;
-import com.mec.models.Padron.LocalidadTipo;
-import com.mec.models.Padron.Localizacion;
-import com.mec.models.Padron.OfertaLocal;
-import com.mec.models.Padron.OfertaTipo;
+import com.mec.Models.Padron.Domicilio;
+import com.mec.Models.Padron.EstablecimientoPost;
+import com.mec.Models.Padron.LocalidadTipo;
+import com.mec.Models.Padron.Localizacion;
+import com.mec.Models.Padron.OfertaLocal;
+import com.mec.Models.Padron.OfertaTipo;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;

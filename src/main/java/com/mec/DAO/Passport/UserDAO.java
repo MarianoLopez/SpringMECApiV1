@@ -5,7 +5,7 @@
  */
 package com.mec.DAO.Passport;
 
-import com.mec.models.Passport.Usuario;
+import com.mec.Models.Passport.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;

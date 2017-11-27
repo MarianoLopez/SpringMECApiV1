@@ -6,9 +6,8 @@
 package com.mec.DAO.Postgre;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.Padron.AmbitoTipo;
-import com.mec.models.Padron.DepartamentoTipo;
-import com.mec.models.Padron.LocalidadTipo;
+import com.mec.Models.Padron.DepartamentoTipo;
+import com.mec.Models.Padron.LocalidadTipo;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;

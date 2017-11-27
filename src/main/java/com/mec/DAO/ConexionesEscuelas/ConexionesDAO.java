@@ -6,7 +6,7 @@
 package com.mec.DAO.ConexionesEscuelas;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.ConexionesEscuelas.Conexiones;
+import com.mec.Models.ConexionesEscuelas.Conexiones;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;

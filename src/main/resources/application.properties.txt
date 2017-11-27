@@ -28,10 +28,10 @@ hibernate.show_sql: false
 hibernate.hbm2ddl.auto: validate
 hibernate.default_schema: dbo
 #ruta a los modelos a mapear automaticamente
-entitymanager.packagesToScan.Pof2: com.mec.models.Pof2
-entitymanager.packagesToScan.GE: com.mec.models.GE
-entitymanager.packagesToScan.Padron: com.mec.models.Padron
-entitymanager.packagesToScan.ConexionesEscuelas: com.mec.models.ConexionesEscuelas
+entitymanager.packagesToScan.Pof2: com.mec.Models.Pof2
+entitymanager.packagesToScan.GE: com.mec.Models.GE
+entitymanager.packagesToScan.Padron: com.mec.Models.Padron
+entitymanager.packagesToScan.ConexionesEscuelas: com.mec.Models.ConexionesEscuelas
 
 #nivel de log
 logging.level.org.hibernate=ERROR

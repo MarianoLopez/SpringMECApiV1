@@ -6,7 +6,7 @@
 package com.mec.DAO.POF2;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.Pof2.Geoposicion;
+import com.mec.Models.Pof2.Geoposicion;
 import java.util.List;
 
 import org.hibernate.Query;

@@ -6,7 +6,7 @@
 package com.mec.Controllers;
 
 import com.mec.DAO.Postgre.DepartamentoPostgreDAO;
-import com.mec.models.Padron.DepartamentoTipo;
+import com.mec.Models.Padron.DepartamentoTipo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

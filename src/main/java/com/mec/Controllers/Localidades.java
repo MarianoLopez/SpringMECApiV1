@@ -6,8 +6,8 @@
 package com.mec.Controllers;
 
 import com.mec.DAO.Postgre.LocalidadPostgreDAO;
-import com.mec.models.Padron.DepartamentoTipo;
-import com.mec.models.Padron.LocalidadTipo;
+import com.mec.Models.Padron.DepartamentoTipo;
+import com.mec.Models.Padron.LocalidadTipo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

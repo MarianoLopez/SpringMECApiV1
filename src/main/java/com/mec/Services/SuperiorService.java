@@ -8,7 +8,7 @@ package com.mec.Services;
 import com.mec.DAO.POF2.GeoDAO;
 import com.mec.DAO.Postgre.EstablecimientoPostgreDAO;
 import com.mec.DAO.Superior.SuperiorDAO;
-import com.mec.models.Padron.EstablecimientoPost;
+import com.mec.Models.Padron.EstablecimientoPost;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

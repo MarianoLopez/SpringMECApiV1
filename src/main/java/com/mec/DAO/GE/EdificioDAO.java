@@ -6,8 +6,8 @@
 package com.mec.DAO.GE;
 
 import com.mec.Util.HibernateUtil;
-import com.mec.models.GE.Edificio;
-import com.mec.models.GE.EstablecimientoEdificio;
+import com.mec.Models.GE.Edificio;
+import com.mec.Models.GE.EstablecimientoEdificio;
 import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
