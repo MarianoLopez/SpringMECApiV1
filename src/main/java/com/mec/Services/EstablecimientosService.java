@@ -6,6 +6,7 @@
 package com.mec.Services;
 
 import com.mec.Criteria.ConexionesEscuelas.InternetCriteria;
+import com.mec.Criteria.ConexionesEscuelas.ProveedorCriteria;
 import com.mec.Criteria.ConexionesEscuelas.TipoConexionCriteria;
 import com.mec.Criteria.Padron.AmbitoCriteria;
 import com.mec.Criteria.Padron.CategoriaCriteria;
@@ -63,7 +64,7 @@ public class EstablecimientosService {
      public List<EstablecimientoPost> getByFilter(Integer[] ambitos,Integer[] categorias,Integer[] dependencias,
                                                     Integer[] estados,Integer[] sectores,Integer[] departamentos,Integer[] localidades,
                                                     Integer[] ofertas,Integer[] jornadas,Integer[] modalidades,Integer[] bases,
-                                                    Boolean state,Integer[]conexiones){
+                                                    Boolean state,Integer[]conexiones,Integer[]proveedores){
         List<EstablecimientoPost> todo = this.getAll();
         if(ambitos!=null){
             todo = new AmbitoCriteria().filterCriteria(todo, ambitos);
@@ -103,6 +104,9 @@ public class EstablecimientosService {
         }
         if(conexiones!=null){
             todo = new TipoConexionCriteria().filterCriteria(todo,conexiones);
+        }
+        if(proveedores!=null){
+            todo = new ProveedorCriteria().filterCriteria(todo,proveedores);
         }
         return todo;
     }
